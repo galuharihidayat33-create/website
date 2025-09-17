@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ARinvitatin — Katalog Undangan</title>
+<meta name="description" content="Slideshow produk (termasuk foto brand), katalog undangan hijau–putih. Preview & WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f7fff9; --fg:#0a2914; --muted:#5c7a67; --line:#dbeadf; --brand:#22c55e; --white:#fff; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--fg)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .container{width:min(1100px,92%);margin-inline:auto}
+
+  /* Header minimal */
+  header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);z-index:40;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:center;padding:.6rem 0}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.1px}
+  .dot{width:10px;height:10px;border-radius:999px;background:var(--brand)}
+
+  /* Hero + slideshow */
+  .hero{padding:42px 0 10px;background:radial-gradient(900px 360px at 85% 10%, #d6f5df 0%, transparent 60%)}
+  .hero h1{font-size:clamp(1.5rem,5.4vw,2.6rem);line-height:1.15;margin:.2rem 0 0;text-align:center}
+  .hero p{color:var(--muted);max-width:60ch;margin:.5rem auto 0;text-align:center}
+
+  /* Slideshow anti-crop + blur latar */
+  .slider{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .slides{display:flex;transition:transform .45s ease}
+  .slide{min-width:100%;position:relative;aspect-ratio:16/9;overflow:hidden}
+  .slide img{display:block;width:100%;height:100%}
+  .slide .bg{position:absolute;inset:0;z-index:0;object-fit:cover;filter:blur(20px);transform:scale(1.1);opacity:.25}
+  .slide .fit{position:relative;z-index:1;object-fit:contain;background:transparent}
+  .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;display:flex;gap:.35rem}
+  .dotb{width:9px;height:9px;border-radius:999px;background:#d1ead9;cursor:pointer;border:1px solid #9ddbb3}
+  .dotb.active{background:#22c55e;border-color:#1ca34f}
+
+  /* Toolbar katalog */
+  .toolbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:18px 0}
+  .search{flex:1;min-width:220px;display:flex;align-items:center;gap:.5rem;border:1px solid var(--line);background:#fff;border-radius:12px;padding:.55rem .8rem}
+  .search input{border:0;outline:0;width:100%;font:inherit;background:transparent}
+  .chips{display:flex;gap:.4rem;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.35rem .7rem;cursor:pointer;font-size:.9rem;color:var(--muted)}
+  .chip.active{border-color:var(--brand);color:var(--fg);background:#ecfdf3}
+
+  /* Grid */
+  .grid{display:grid;gap:.9rem}
+  .grid-auto{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (min-width:880px){ .grid-auto{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))} }
+
+  /* Card */
+  .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#ffffff,#f2fbf5)}
+  .card img{width:100%;aspect-ratio:16/9;object-fit:cover}
+  .card .body{padding:.8rem .9rem}
+  .card .title{font-weight:800;margin:0 0 .2rem}
+  .card .meta{font-size:.9rem;color:var(--muted);margin:0 0 .55rem}
+
+  /* Harga */
+  .price{margin:.4rem 0 .9rem}
+  .price-main{font-size:1.35rem;font-weight:800;line-height:1.1}
+  .price-sub{display:flex;align-items:center;gap:.5rem;margin-top:.25rem}
+  .price .old{color:#8aa298;text-decoration:line-through}
+
+  /* Tombol: sama besar + teks center */
+  .actions{
+    display:grid;
+    grid-template-columns: 1fr 1fr;  /* 2 tombol sama lebar */
+    gap:.6rem;
+    align-items:stretch;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.45rem;
+    height:44px;
+    padding:0 14px;
+    width:100%;
+    border-radius:.6rem;
+    border:1px solid var(--line);
+    background:#fff;
+    color:#fff; /* default, di-override varian */
+    font-size:.95rem;
+    line-height:1;
+  }
+  .btn svg{width:16px;height:16px}
+  .btn-outline{border-color:var(--line);background:#fff;color:var(--fg)}
+  .btn-outline:hover{border-color:#bcd7c6;background:#f8fffb}
+  .btn-solid{border-color:#0e331c;color:#fff;background:linear-gradient(180deg,#1f5c36,#123b22)}
+  .btn-solid:hover{filter:brightness(1.03)}
+  @media (max-width:640px){
+    .actions{grid-template-columns:1fr;} /* di HP jadi 1 kolom */
+  }
+
+  /* Contact */
+  .contact{padding:38px 0 10px}
+  .soc{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem .95rem;border:1px solid var(--line);border-radius:999px;background:#fff}
+  .soc:hover{border-color:var(--brand)}
+
+  /* Footer */
+  footer{padding:32px 0;color:var(--muted);border-top:1px solid var(--line);margin-top:26px}
+  .foot{display:flex;justify-content:center}
+  .foot-col{display:flex;flex-direction:column;align-items:center;gap:.7rem}
+  .socs{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+  .ic{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--line);border-radius:999px;background:#fff}
+  .ic:hover{border-color:var(--brand)}
+</style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand"><span class="dot"></span><span id="siteNameTop">ARinvitation</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO + SLIDESHOW -->
+  <section class="hero">
+    <div class="container">
+      <h1>ARinvitation</h1>
+      <p>Undangan berbasis web simple  <b>Preview</b> & <b>WhatsApp</b>.</p>
+      <div class="slider" id="slider">
+        <div class="slides" id="slides"></div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KATALOG -->
+  <main id="catalog" class="container">
+    <div class="toolbar">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="#5c7a67"></circle>
+          <path d="M20 20l-3.2-3.2" stroke="#5c7a67"></path>
+        </svg>
+        <input id="q" placeholder="Cari nama, warna, gaya…" />
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <section id="grid" class="grid grid-auto"></section>
+  </main>
+
+  <!-- CONTACT US -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 style="margin:0 0 .4rem">Contact Us</h2>
+      <p style="color:var(--muted);margin:.1rem 0 .9rem">Hubungi kami via WhatsApp untuk booking.</p>
+      <a class="soc" id="waContact" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20.5 12a8.5 8.5 0 1 1-15.1 5.1L3.5 21l3.9-1.8A8.5 8.5 0 1 1 20.5 12Z" stroke="#0a2914"/><path d="M9.5 8.5c0 3.1 2.9 5.9 5.2 5.9.6 0 1.3-.2 1.8-.5" stroke="#22c55e"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container foot">
+      <div class="foot-col">
+        <div>© <span id="year"></span> <strong id="siteNameBottom">ARinvitatin</strong></div>
+        <div class="socs">
+          <a class="ic" id="igFoot" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#0a2914" stroke-width="1.5"/>
+              <circle cx="12" cy="12" r="4" fill="none" stroke="#0a2914" stroke-width="1.5"/>
+              <circle cx="17" cy="7" r="1.4" fill="#0a2914"/>
+            </svg>
+          </a>
+          <a class="ic" id="ttFoot" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">
+            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M30 6c2.4 3.1 5.5 5 9 5v6c-3.8 0-7.2-1.3-9-3.1V31a11 11 0 1 1-11-11h2v6h-2a5 5 0 1 0 5 5V6h6Z" fill="#0a2914"/>
+            </svg>
+          </a>
+          <a class="ic" id="waFoot" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.5 12a8.5 8.5 0 1 1-15.1 5.1L3.5 21l3.9-1.8A8.5 8.5 0 1 1 20.5 12Z" fill="none" stroke="#0a2914" stroke-width="1.5"/>
+              <path d="M9.5 8.5c0 3.1 2.9 5.9 5.2 5.9.6 0 1.3-.2 1.8-.5" stroke="#22c55e" stroke-width="1.5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  /* ===== KONFIG ===== */
+  const SITE_NAME  = "arinvitation";
+  const ADMIN_WA   = "6285161773994";
+  const IG_URL     = "https://www.instagram.com/arinvitation.my.id";
+  const TIKTOK_URL = "https://www.tiktok.com/@usernamekamu";
+
+  /* Slides */
+  const BRAND_SLIDE = "img/brand.jpg";
+  const SLIDES_OTHERS = ["img/simple 002.jpg","img/gold.png","img/simple001.png"];
+  const SLIDES = [BRAND_SLIDE, ...SLIDES_OTHERS];
+
+  /* Items + harga */
+  const ITEMS = [
+    {name:"GOLD", url:"gold/index.html", 
+    style:["Elegan"], 
+    color:"Gold / White", 
+    categories:["simple"], 
+    thumb:"img/gold.png", 
+    note:"Tampilan elegan & ringan free custom musik", 
+    price:110000, 
+    promo_price:80000
+  },
+    {name:"simpe-001", url:"simple-001/index.html", 
+    style:["simple elegan"], 
+    color:"white", 
+    categories:["simple"], 
+    thumb:"img/simple001.png", 
+    note:"Elegant free custom musik", 
+    price:110000, 
+    promo_price:65000
+  },
+    {name:"Black white", url:"black white/index.html", 
+    style:["Elegan"], 
+    color:"black white", 
+    categories:["Minimal","simple"], 
+    thumb:"img/black white.png", 
+    note:"Elegan free custom musik", 
+    price:110000, 
+    promo_price:80000},
+    {name:"simple 003", url:"simple-003-sage-green/index.html", 
+    style:["Elegan"], 
+    color:"sage green", 
+    categories:["Minimal","simple"], 
+    thumb:"img/sage green.png", 
+    note:"Elegan free custom musik", 
+    price:110000, 
+    promo_price:65000},
+    {name:"simple 002", url:"simple-002/index.html", 
+    style:["Elegan"], 
+    color:"white", 
+    categories:["Minimal","simple"], 
+    thumb:"img/simple 002.jpg", 
+    note:"Elegan sederhana free custom musik", 
+    price:110000, promo_price:65000}
+  ];
+
+  /* Header/Footer links */
+  document.getElementById('siteNameTop').textContent    = SITE_NAME;
+  document.getElementById('siteNameBottom').textContent = SITE_NAME;
+  document.getElementById('year').textContent           = new Date().getFullYear();
+  const waMsg = encodeURIComponent(`Halo ${SITE_NAME}, saya ingin konsultasi/booking`);
+  const waURL = `https://wa.me/${ADMIN_WA}?text=${waMsg}`;
+  document.getElementById('waContact').href = waURL;
+  document.getElementById('waFoot').href = waURL;
+  document.getElementById('ttFoot').href = TIKTOK_URL;
+  document.getElementById('igFoot').href = IG_URL;
+
+  /* Slideshow */
+  const $slidesWrap = document.getElementById('slides');
+  const $dots = document.getElementById('dots');
+  let idx = 0, timer = null;
+  function renderSlides(){
+    $slidesWrap.innerHTML = SLIDES.map(src=>`
+      <div class="slide">
+        <img class="bg"  loading="lazy" src="${src}" alt="">
+        <img class="fit" loading="lazy" src="${src}" alt="Slide">
+      </div>`).join("");
+    $dots.innerHTML = SLIDES.map((_,i)=>`<div class="dotb ${i===idx?'active':''}" data-jump="${i}"></div>`).join("");
+    goto(idx,false);
+    $dots.querySelectorAll('[data-jump]').forEach(d=>d.addEventListener('click',()=>goto(+d.dataset.jump)));
+  }
+  function goto(i, animate=true){
+    idx = (i+SLIDES.length)%SLIDES.length;
+    $slidesWrap.style.transition = animate ? "transform .45s ease" : "none";
+    $slidesWrap.style.transform = `translateX(${-idx*100}%)`;
+    Array.from($dots.children).forEach((d,k)=>d.classList.toggle("active", k===idx));
+    restart();
+  }
+  function next(){ goto(idx+1) } function prev(){ goto(idx-1) }
+  function restart(){ clearInterval(timer); timer = setInterval(next, 4000) }
+  let startX=0, dist=0;
+  $slidesWrap.addEventListener('touchstart',e=>{startX=e.touches[0].clientX; dist=0; clearInterval(timer);},{passive:true});
+  $slidesWrap.addEventListener('touchmove',e=>{dist=e.touches[0].clientX-startX;},{passive:true});
+  $slidesWrap.addEventListener('touchend',()=>{ if(Math.abs(dist)>40){ dist<0?next():prev(); } restart();});
+  renderSlides(); restart();
+
+  /* Rupiah helper */
+  const toIDR = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+  const toRupiah = n => toIDR(n).replace('Rp','Rp.').replace(/\u00A0/g,' ');
+
+  /* Katalog */
+  let activeCat = "Semua";
+  const $grid  = document.getElementById('grid');
+  const $q     = document.getElementById('q');
+  const $chips = document.getElementById('chips');
+
+  const cats = Array.from(new Set(["Semua", ...ITEMS.flatMap(i=>i.categories||[])]));
+  cats.forEach(cat=>{
+    const el=document.createElement('button');
+    el.className='chip'+(cat===activeCat?' active':'');
+    el.textContent=cat;
+    el.onclick=()=>{activeCat=cat;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCatalog();};
+    $chips.appendChild(el);
+  });
+  $q.addEventListener('input',renderCatalog);
+
+  function priceBlock(it){
+    const hasPromo = it.promo_price && it.promo_price < it.price;
+    const main = `<div class="price-main">${toRupiah(hasPromo ? it.promo_price : it.price)}</div>`;
+    if(!hasPromo) return `<div class="price">${main}</div>`;
+    const sub = `<div class="price-sub"><span class="old">${toRupiah(it.price)}</span></div>`;
+    return `<div class="price">${main}${sub}</div>`;
+  }
+
+  function card(it){
+    const waText = `Halo ${SITE_NAME}, saya ingin order: ${it.name} (${it.url}) — Harga: ${
+      it.promo_price && it.promo_price<it.price ? toRupiah(it.promo_price)+' (promo dari '+toRupiah(it.price)+')' : toRupiah(it.price)
+    }`;
+    const waLink = `https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(waText)}`;
+    return `
+    <article class="card">
+      <img loading="lazy" src="${it.thumb}" alt="${it.name}">
+      <div class="body">
+        <h3 class="title">${it.name}</h3>
+        ${priceBlock(it)}
+        <p class="meta" style="margin-top:.1rem">${it.color} • ${(it.style||[]).join(", ")}</p>
+        <p class="meta" style="margin-top:-.3rem">${(it.categories||[]).map(c=>`#${c}`).join(' ')}</p>
+        <p style="margin:.4rem 0 .9rem">${it.note||""}</p>
+        <div class="actions">
+          <a class="btn btn-outline" href="${it.url}" target="_blank" rel="noopener" aria-label="Lihat Tema">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor"/></svg>
+            Lihat Tema
+          </a>
+          <a class="btn btn-solid" href="${waLink}" target="_blank" rel="noopener" aria-label="Order via WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 1 1-15.1 5.1L3.5 21l3.9-1.8A8.5 8.5 0 1 1 20.5 12Z" fill="none" stroke="currentColor"/><path d="M9.5 8.8c0 3 2.7 5.6 5 5.6.6 0 1.2-.2 1.7-.5" stroke="currentColor"/></svg>
+            Order
+          </a>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function renderCatalog(){
+    const text = ($q.value||'').toLowerCase();
+    const filtered = ITEMS.filter(it=>{
+      const hitCat = activeCat==="Semua" || (it.categories||[]).includes(activeCat);
+      const blob = [it.name,it.color,(it.style||[]).join(' '),(it.categories||[]).join(' ')].join(' ').toLowerCase();
+      const hitText = !text || blob.includes(text);
+      return hitCat && hitText;
+    });
+    $grid.innerHTML = filtered.map(card).join("");
+  }
+  renderCatalog();
+</script>
+</body>
+</html>

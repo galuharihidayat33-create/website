@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Island+Moments&family=Playball&family=Protest+Riot&family=Sacramento&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+   
+   <style>
+        :root {
+            --primary-color: #5c623d; /* Hijau Tua */
+            --secondary-color: #e5b98f; /* Emas */
+            --text-dark: #333;
+            --text-light: #f4f4f4;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+            --dark-gray: #4a4a4a;
+            --light-gray: #f2f2f2;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* --- Slideshow Latar Belakang Utama --- */
+        .slideshow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .slideshow-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow-slide.active {
+            opacity: 1;
+        }
+
+        /* --- Animasi Fade-in (CSS-based untuk halaman depan) --- */
+        .fade-in {
+            animation: fadeInAnimation 1s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in.delay-1 { animation-delay: 0.2s; }
+        .fade-in.delay-2 { animation-delay: 0.4s; }
+        .fade-in.delay-3 { animation-delay: 0.6s; }
+        .fade-in.delay-4 { animation-delay: 0.8s; }
+        .fade-in.delay-5 { animation-delay: 1.0s; }
+        .fade-in.delay-6 { animation-delay: 1.2s; }
+        .fade-in.delay-7 { animation-delay: 1.4s; }
+        .fade-in.delay-8 { animation-delay: 1.6s; }
+        .fade-in.delay-9 { animation-delay: 1.8s; }
+
+        /* --- Animasi Fade-in (JS-based untuk halaman lain) --- */
+        .fade-in-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        
+        .fade-in-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Halaman Sampul (Cover Page) --- */
+        .hero-cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            text-align: center;
+            color: var(--text-light);
+            z-index: 999;
+            transition: opacity 0.5s ease-in-out;
+            background-image: url('img/cincin 2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-cover.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .hero-overlay-fog {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-text-group p,
+        .hero-text-group h1 {
+            color: var(--text-dark);
+        }
+
+        .hero-subtitle {
+            font-size: 1em;
+            font-weight: 300;
+        }
+
+        .hero-title {
+             font-family: "Caveat", cursive;
+            font-size: 3em;
+            font-weight: 600;
+            margin: 5px 0 10px;
+        }
+
+        .hero-to, .hero-guest-name {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .hero-guest-name {
+            font-weight: 600;
+        }
+
+        .cta-button {
+            background-color: transparent;
+            color: var(--text-light);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .cta-button:hover {
+            background-color: #4b5030;
+        }
+        
+        /* --- Halaman Undangan Utama (Konten yang bisa di-scroll) --- */
+        .main-invitation {
+            display: none;
+            position: relative;
+            background-color: transparent;
+            min-height: 100vh;
+        }
+        
+        .main-section {
+            padding: 50px 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .full-height-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Bagian Hero Utama di dalam main-invitation */
+        .hero-page {
+            color: var(--text-dark);
+            background-color: rgba(143, 142, 142, 0.7);
+        }
+        
+        .hero-page .main-invitation-subtitle {
+            font-size: 1em;
+            font-weight: 300;
+        }
+
+        .hero-page .main-invitation-names {
+            font-family: "Sacramento", cursive;
+            font-size: 15mm;
+            font-weight: 500;
+            margin-bottom: 20px;
+            line-height: 0;
+            color: #000000;
+        }
+        
+        /* Bagian Ayat */
+        .ayat-section {
+            background-color: rgba(247, 243, 237, 0.8);
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-dark);
+            text-align: center;
+             background-image: url('img/lanscape.jpg'); /* Foto mempelai sebagai BG */
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .initials-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .initials-group .initials,
+        .initials-group .initials-separator,
+        .ayat-section .ayat-text,
+        .ayat-section .sumber {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .initials-group .initials {
+            font-family: var(--font-heading);
+            font-size: 3.5em;
+            font-weight: 400;
+            margin: 0;
+            
+        }
+        
+        .initials-group .initials-separator {
+            font-size: 1.2em;
+            font-family: sans-serif;
+            margin: 0 10px;
+        }
+
+        .ayat-section .ayat-text {
+            font-style: italic;
+            line-height: 1.6;
+            margin-top: 15px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            
+        }
+
+        .ayat-section .sumber {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* --- Bagian Detail Mempelai --- */
+        .couple-section {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: var(--text-dark);
+            text-align: center;
+        }
+        
+        .couple-section .couple-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .couple-section .couple-text-block {
+            padding: 0 10px;
+        }
+        
+        .couple-text-block .greeting,
+        .couple-text-block .prayer {
+            font-size: 1em;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+        
+        .couple-text-block .prayer {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .couple-details {
+            margin-top: 20px;
+        }
+        
+        .couple-details .name {
+              font-family: "Caveat", cursive;
+            font-size: 1.8em;
+            margin: 0;
+        }
+        
+        .couple-details .parent-name {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .couple-details .instagram-button {
+            display: inline-block;
+            background-color: #eee;
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .couple-details .instagram-button:hover {
+            background-color: #ddd;
+        }
+
+        .and-separator {
+            font-family: var(--font-heading);
+            font-size: 2em;
+            margin: 30px 0;
+            color: var(--primary-color);
+        }
+
+        /* --- Bagian Acara & Lokasi (Desain Baru) --- */
+        .event-section {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+             background-image: url('img/tangan\ (1).jpg'); /* Foto mempelai sebagai BG */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .section-heading {
+            font-family: "Protest Riot", sans-serif;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: rgb(14, 14, 14);
+        }
+        
+        .section-subheading {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 1.1em;
+            font-weight: 400;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #727171;
+        }
+
+        .event-card {
+            display: flex;
+            align-items: stretch;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin: 20px auto;
+            max-width: 400px;
+            overflow: hidden;
+        }
+
+        .event-label {
+            background-color: var(--dark-gray);
+            color: var(--text-light);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            white-space: nowrap;
+            font-family: var(--font-heading);
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .event-details {
+            padding: 20px;
+            text-align: left;
+            flex-grow: 1;
+        }
+        
+        .event-details h4 {
+            font-size: 1em;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .event-date-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        
+        .event-date-group .date-number {
+            font-family: var(--font-heading);
+            font-size: 3.5em;
+            font-weight: 600;
+            line-height: 1;
+            margin-right: 10px;
+        }
+        
+        .event-date-group .date-text {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9em;
+        }
+
+        .event-details p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .event-details .location-title {
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .location-button {
+            background-color: transparent;
+            color: var(--dark-gray);
+            border: 1px solid var(--dark-gray);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            font-size: 0.9em;
+        }
+
+        .location-button:hover {
+            background-color: var(--dark-gray);
+            color: #fff;
+        }
+        
+        /* --- Bagian Galeri --- */
+        .gallery-section {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .gallery-title {
+            font-family: "Playball", cursive;
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .gallery-title span {
+            display: block;
+            font-size: 0.5em;
+            margin-top: -10px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .gallery-main-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .gallery-thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .thumbnail-item {
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+            object-fit: cover;
+        }
+        
+        .thumbnail-item:hover, .thumbnail-item.active {
+            border-color: var(--primary-color);
+        }
+        
+        /* --- Bagian Reservasi dan Hadiah --- */
+        .gift-section {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 50px 20px;
+            text-align: center;
+           
+         
+            
+        }
+
+        .gift-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+       .gift-button {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 0;
+            padding: 12px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease-in-out;
+            width: 100%;
+            max-width: 300px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-button:hover {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+        
+        
+        .gift-button img {
+            margin-right: 10px;
+        }
+
+        .gift-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+            display: none; /* Awalnya tersembunyi */
+            animation: fadeInAnimation 0.5s ease-in-out;
+            max-width: 350px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .gift-details.visible {
+            display: block;
+        }
+        
+        .copy-btn {
+            background-color: #f1c40f;
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #e6b100;
+        }
+
+        /* --- Halaman Penutup --- */
+        .closing-section {
+            color: var(--text-light);
+            text-align: center;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            background-image: url('img/cov.png'); /* Foto mempelai sebagai BG */
+            background-size: cover;
+            background-position: center;
+        }
+        /* Penyesuaian jarak vertikal */
+        .closing-section .top-content {
+            margin-top: 0;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Overlay transparan di atas background */
+        .closing-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .closing-section > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .closing-section h2 {
+             font-family: "Island Moments", cursive;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 400;
+        }
+        
+        .closing-section .main-text {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        .closing-section .couple-name {
+             font-family: "Caveat", cursive;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .social-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+        
+        .social-links img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5em;
+            }
+            .initials-group .initials {
+                font-size: 3em;
+            }
+            .event-label {
+                padding: 15px;
+                font-size: 1.2em;
+            }
+            .event-date-group .date-number {
+                font-size: 3em;
+            }
+            .closing-section h2 {
+                font-size: 4em;
+            }
+            .closing-section .couple-name {
+                font-size: 3.2em;
+            }
+        }
+        
+        /* Tombol musik */
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slideshow Latar Belakang -->
+<div class="slideshow-container">
+    <div class="slideshow-slide active" style="background-image: url('img/cov.png');"></div>
+    <div class="slideshow-slide" style="background-image: url('img/cincin 1.jpg');"></div>
+    <div class="slideshow-slide" style="background-image: url('img/tangan (1).jpg');"></div>
+</div>
+
+<!-- Halaman Sampul (Cover Page) -->
+<section class="hero-cover" id="hero-cover">
+    <div class="hero-overlay-fog fade-in delay-1"></div>
+    
+    <div class="hero-content">
+        <div class="hero-text-group">
+            <p class="hero-subtitle fade-in delay-2">The Wedding of</p>
+            <h1 class="hero-title fade-in delay-3">Habib & Adiba</h1>
+            <p class="hero-to fade-in delay-4">Kepada Bapak/Ibu/Saudara/i</p>
+            <p class="hero-guest-name fade-in delay-5"></p>
+        </div>
+        <button class="cta-button fade-in delay-6" id="openInvitationBtn">Buka Undangan</button>
+    </div>
+</section>
+
+<!-- Konten Undangan Utama (Tersembunyi sampai tombol diklik) -->
+<main class="main-invitation" id="main-content">
+    
+    <!-- Bagian 1: Sampul Utama dengan Nama Mempelai -->
+    <section class="main-section hero-page full-height-section">
+        <p class="main-invitation-subtitle fade-in-item">The Wedding of</p>
+        <p class="main-invitation-names fade-in-item">Habib & Adiba</p>
+    </section>
+    
+    <!-- Bagian 2: Ayat -->
+    <section class="main-section ayat-section">
+        <div class="initials-group">
+            <h2 class="initials fade-in-item">H</h2>
+            <span class="initials-separator fade-in-item">&</span>
+            <h2 class="initials fade-in-item">A</h2>
+        </div>
+        <p class="ayat-text fade-in-item">"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p>
+        <p class="sumber fade-in-item">Q.S Ar-Rum : 21</p>
+    </section>
+    
+    <!-- Bagian 3: Detail Mempelai -->
+    <section class="main-section couple-section">
+        <p class="couple-text-block greeting fade-in-item">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+        <p class="couple-text-block prayer fade-in-item">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan kami.</p>
+
+        <!-- Placeholder untuk foto mempelai perempuan -->
+        <img src="img/cov.png" alt="Foto Mempelai Perempuan" class="couple-photo fade-in-item" style="object-position: 0px 20%;">
+        <div class="couple-details">
+            <h3 class="name fade-in-item">Adiba Khanza Az-Zahra</h3>
+            <p class="parent-name fade-in-item">Putri Pertama dari</p>
+            <p class="parent-name fade-in-item">Bapak Haji Sucipto dan Ibu Hajah Fatimah</p>
+            <a href="https://instagram.com/hdyt_arr" class="instagram-button fade-in-item">&#x1F4F8; adiba_khanza</a>
+        </div>
+
+        <p class="and-separator fade-in-item">&</p>
+
+        <!-- Placeholder untuk foto mempelai laki-laki -->
+        <img src="img/cov.png" alt="Foto Mempelai Laki-laki" class="couple-photo fade-in-item" style="object-position: 0px 20%;">
+        <div class="couple-details">
+            <h3 class="name fade-in-item">Habib Syahbudi Akbar</h3>
+            <p class="parent-name fade-in-item">Putra Tunggal dari</p>
+            <p class="parent-name fade-in-item">Bapak H. Budianto & Ibu H. Siti Aminah</p>
+            <a href="https://instagram.com/hdyt_arr" class="instagram-button fade-in-item">&#x1F4F8; habib_syahbudi</a>
+        </div>
+    </section>
+    
+    <!-- Bagian 4: Detail Acara -->
+    <section class="main-section event-section">
+        <h2 class="section-heading fade-in-item">Wedding Event</h2>
+
+        <!-- Akad Nikah Card -->
+        <div class="event-card fade-in-item">
+            <div class="event-label">
+                <p>Akad Nikah</p>
+            </div>
+            <div class="event-details">
+                <div class="event-date-group">
+                    <span class="date-number">21</span>
+                    <div class="date-text">
+                        <span>Desember</span>
+                        <span>2024</span>
+                    </div>
+                </div>
+                <p><strong><img src="https://api.iconify.design/solar:clock-circle-broken.svg?color=%235c623d" width="16" height="16" alt="clock icon"> 09:00 WIB</strong></p>
+                <p class="location-title">LOKASI ACARA</p>
+                <p>Masjid Raya At-Taqwa<br>Jl. Kenangan Indah No. 45, Jakarta Pusat</p>
+                <a href="https://www.google.com/maps/place/Alun-Alun+Karanganyar/@-7.5948185,110.9373534,1127m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e7a2035c7d55189:0xa0859d6cd954ba5c!8m2!3d-7.5948238!4d110.9399283!16s%2Fg%2F11b6xhgdv9?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="location-button">Lihat di Google Maps</a>
+            </div>
+        </div>
+
+        <!-- Resepsi Card -->
+        <div class="event-card fade-in-item">
+            <div class="event-label">
+                <p>Resepsi</p>
+            </div>
+            <div class="event-details">
+                <div class="event-date-group">
+                    <span class="date-number">21</span>
+                    <div class="date-text">
+                        <span>Desember</span>
+                        <span>2024</span>
+                    </div>
+                </div>
+                <p><strong><img src="https://api.iconify.design/solar:clock-circle-broken.svg?color=%235c623d" width="16" height="16" alt="clock icon"> 11:00 - 15:00 WIB</strong></p>
+                <p class="location-title">LOKASI ACARA</p>
+                <p>Gedung Serbaguna Purnomo<br>Jl. Kenangan Indah No. 45, Jakarta Pusat</p>
+                <a href="https://www.google.com/maps/place/Alun-Alun+Karanganyar/@-7.5948185,110.9373534,1127m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e7a2035c7d55189:0xa0859d6cd954ba5c!8m2!3d-7.5948238!4d110.9399283!16s%2Fg%2F11b6xhgdv9?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="location-button">Lihat di Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bagian Galeri Foto -->
+    <section class="main-section gallery-section">
+        <h2 class="gallery-title fade-in-item">
+            Gallery
+            <span>Our Moments</span>
+        </h2>
+        
+        <!-- Gambar utama -->
+        <img id="mainGalleryImage" src="img/cov.png" alt="Foto utama galeri" class="gallery-main-image fade-in-item">
+        
+        <!-- Thumbnail -->
+        <div class="gallery-thumbnails fade-in-item">
+            <img src="img/tangan.png" alt="thumbnail 1" class="thumbnail-item active">
+            <img src="img/tangan (1).jpg" alt="thumbnail 2" class="thumbnail-item">
+            <img src="img/tangan (2).jpg" alt="thumbnail 3" class="thumbnail-item">
+            <img src="img/tangan (3).jpg" alt="thumbnail 4" class="thumbnail-item">
+        </div>
+    </section>
+    
+    <!-- Bagian RSVP -->
+    <section class="main-section gift-section">
+        <h2 class="section-heading fade-in-item">Konfirmasi Kehadiran</h2>
+        <p class="section-subheading fade-in-item">Mohon beritahu kami kehadiran Anda melalui tombol di bawah.</p>
+        <a id="rsvpButton" href="#" class="gift-button fade-in-item">
+            <img src="https://api.iconify.design/logos:whatsapp-icon.svg?color=%23ffffff" alt="WhatsApp Icon" width="24" height="24">
+            WhatsApp
+        </a>
+   <P>
+        <h2 class="section-heading fade-in-item">Wedding Gift</h2>
+        <p class="section-subheading fade-in-item">Tanpa mengurangi rasa hormat, bagi Anda yang ingin memberikan tanda kasih dapat melalui:</p>
+        
+        <div class="gift-buttons fade-in-item">
+            <button class="gift-button" onclick="showGiftDetails('rekening')">
+                <img src="https://api.iconify.design/ph:bank-fill.svg?color=%23ffffff" alt="Bank Icon" width="24" height="24">
+                Transfer Bank
+            </button>
+            <a href="https://maps.app.goo.gl/abcdefg" target="_blank" class="gift-button">
+                <img src="https://api.iconify.design/ion:home.svg?color=%23ffffff" alt="Home Icon" width="24" height="24">
+                Kirim Hadiah
+            </a>
+        </div>
+        
+        <!-- Detail Rekening (tersembunyi) -->
+        <div id="rekeningDetails" class="gift-details">
+            <p style="font-weight: 600;">Hadiah Pernikahan</p>
+            <p><strong>Bank BCA</strong><br>
+            A/N: Adiba Khanza Az-Zahra<br>
+            No. Rek: <span id="rekeningNumber">1234567890</span></p>
+            <button class="copy-btn" onclick="copyToClipboard('rekeningNumber')">Salin Nomor Rekening</button>
+        </div>
+    </section>
+
+    <!-- Bagian Penutup -->
+    <section class="main-section closing-section full-height-section">
+        <div class="top-content">
+            <h2 class="fade-in-item">Terima Kasih</h2>
+            <p class="main-text fade-in-item" style="max-width: 300px;">Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do'a restu kepada kami.</p>
+            <p class="main-text fade-in-item">Wassalamu'alaikum warahmatullahi wabarakatuh</p>
+            <p class="main-text fade-in-item">KAMI YANG BERBAHAGIA</p>
+            <p class="couple-name fade-in-item">Habib & Adiba</p>
+        </div>
+        
+        <div class="bottom-content">
+            <p class="logo-text fade-in-item">arinvitation</p>
+            <div class="social-links fade-in-item">
+                <a href="https://instagram.com/arinvitation.my.id" target="_blank">
+                    <img src="https://api.iconify.design/mdi:instagram.svg?color=%23ffffff" alt="Instagram Icon">
+                </a>
+                <a href="https://wa.me/6285161773994" target="_blank">
+                    <img src="https://api.iconify.design/mdi:whatsapp.svg?color=%23ffffff" alt="WhatsApp Icon">
+                </a>
+                
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Tombol Musik & Audio -->
+<button class="music-toggle" id="musicToggleBtn">
+    <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M7 6v12l10-6z"></path></svg>
+    <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1); display: none;"><path d="M6 6h4v12H6zm8 0h4v12h-4z"></path></svg>
+</button>
+<audio id="backgroundMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Logika untuk slideshow latar belakang
+        const slides = document.querySelectorAll('.slideshow-slide');
+        let currentSlide = 0;
+        const slideInterval = 5000;
+
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+
+        // Logika untuk menampilkan nama tamu dari URL
+        const params = new URLSearchParams(window.location.search);
+        const guestName = params.get('to');
+        const guestNameElement = document.querySelector('.hero-guest-name');
+        
+        if (guestName) {
+            guestNameElement.textContent = decodeURIComponent(guestName);
+        } else {
+            guestNameElement.textContent = '';
+        }
+
+        // Logika untuk tombol "Buka Undangan" dan musik
+        const openBtn = document.getElementById('openInvitationBtn');
+        const heroCover = document.getElementById('hero-cover');
+        const mainContent = document.getElementById('main-content');
+        const bgMusic = document.getElementById('backgroundMusic');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        openBtn.addEventListener('click', () => {
+            heroCover.classList.add('hidden');
+            bgMusic.play().catch(e => console.error("Autoplay failed:", e));
+            
+            setTimeout(() => {
+                heroCover.style.display = 'none';
+                mainContent.style.display = 'block';
+                document.body.style.overflow = 'auto'; // Mengaktifkan scroll
+            }, 500); // Tunggu transisi opacity selesai
+        });
+        
+        musicToggleBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                bgMusic.pause();
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        });
+
+        // Logika untuk mendeteksi scroll dan memicu animasi
+        const animatedSections = document.querySelectorAll('.main-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let delay = 0;
+                    const itemsToAnimate = entry.target.querySelectorAll('.fade-in-item');
+                    itemsToAnimate.forEach(element => {
+                        element.style.transitionDelay = `${delay}s`;
+                        element.classList.add('visible');
+                        delay += 0.2;
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+        
+        animatedSections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Logika Galeri
+        const mainImage = document.getElementById('mainGalleryImage');
+        const thumbnails = document.querySelectorAll('.thumbnail-item');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                // Hapus kelas 'active' dari semua thumbnail
+                thumbnails.forEach(t => t.classList.remove('active'));
+                
+                // Tambahkan kelas 'active' ke thumbnail yang diklik
+                thumbnail.classList.add('active');
+                
+                // Ganti gambar utama
+                mainImage.src = thumbnail.src;
+            });
+        });
+        
+        // Logika RSVP WhatsApp
+        const rsvpButton = document.getElementById('rsvpButton');
+        const waNumber = '6285161773994'; // Ganti dengan nomor WhatsApp mempelai
+        const rsvpMessage = `Yth. Habib & Adiba, saya *${guestNameElement.textContent}*. Saya akan hadir pada acara pernikahan Anda.`;
+        const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(rsvpMessage)}`;
+        rsvpButton.href = waLink;
+    });
+    
+    // Fungsi untuk menampilkan detail rekening
+    function showGiftDetails(type) {
+        const rekeningDetails = document.getElementById('rekeningDetails');
+        
+        if (type === 'rekening') {
+            rekeningDetails.classList.toggle('visible');
+        } else {
+            rekeningDetails.classList.remove('visible');
+        }
+    }
+
+    // Fungsi untuk menyalin teks ke clipboard
+    function copyToClipboard(elementId) {
+        const textToCopy = document.getElementById(elementId).textContent;
+        const tempInput = document.createElement('textarea');
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        
+        const copyBtn = document.querySelector(`.copy-btn[onclick="copyToClipboard('${elementId}')"]`);
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = 'Tersalin!';
+        setTimeout(() => {
+            copyBtn.textContent = originalText;
+        }, 2000);
+    }
+</script>
+</body>
+</html>

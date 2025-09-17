@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Undangan — [NAMA]</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+
+/* ========== PROFILE PREMIUM ========== */
+/* === PROFILE PREMIUM GLASS === */
+.profiles-glass{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:36px;
+  margin-top:30px;
+}
+@media(max-width:880px){
+  .profiles-glass{ grid-template-columns:1fr; }
+}
+
+.profile-card.glass{
+  text-align:center;
+  background: rgba(255,255,255,0.25);
+  border:1px solid rgba(255,255,255,0.3);
+  border-radius:20px;
+  padding:32px 20px;
+  backdrop-filter: blur(10px) saturate(120%);
+  box-shadow:0 18px 48px rgba(0,0,0,0.12);
+  position:relative;
+  overflow:hidden;
+  transition: transform .25s ease;
+}
+.profile-card.glass:hover{ transform:translateY(-4px); }
+
+.profile-card.glass::after{
+  content:"";
+  position:absolute; top:-60px; right:-60px;
+  width:160px; height:160px;
+  background: radial-gradient(circle at center, rgba(212,163,115,.35), transparent 70%);
+  border-radius:50%;
+  filter: blur(20px);
+}
+
+.profile-card.glass .avatar {
+  width: 100%;
+  max-width: 320px;   /* atur sesuai kebutuhan */
+  margin: 0 auto 16px;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* dorong gambar ke atas */
+}
+
+.profile-card.glass .avatar img {
+  width: 100%;
+  height: auto;        /* biar proporsional */
+  object-fit: cover;
+  display: block;
+}
+.profile-card.glass .name{
+  font-family:"Dancing Script", cursive;
+  font-size:28px; font-weight:700;
+  color:#2c2c2c;
+  margin:10px 0 6px;
+}
+.profile-card.glass .bio{
+  font-size:14px; color:var(--muted);
+  margin-bottom:12px;
+}
+
+.profile-card.glass a.ig-link{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 16px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#d4a373,#b88954);
+  color:#fff; font-weight:600; font-size:14px;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.profile-card.glass a.ig-link:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+}
+
+  /* === Detail Acara - persis seperti contoh, tanpa bg card === */
+:root{
+  --event-purple: #bfd8b8;      /* ungu utama */
+  --event-purple-2:#bfd8b8;     /* ungu sekunder */
+}
+
+.event-stack{ max-width:900px; margin:40px auto; display:grid; gap:22px; }
+.event-card-clean{
+  position:relative;
+  padding:28px 22px;
+  border-radius:34px;                 /* radius besar */
+  background: transparent;            /* TANPA BG */
+}
+.event-card-clean::before{
+  content:""; position:absolute; inset:0;
+  border:3px solid var(--event-purple);        /* garis luar */
+  border-radius:34px;
+  pointer-events:none;
+}
+.event-card-clean::after{
+  content:""; position:absolute; inset:12px;   /* garis dalam seperti contoh */
+  border:2px solid var(--event-purple);
+  border-radius:28px;
+  opacity:.9; pointer-events:none;
+}
+
+/* Typography */
+.ev-title{ text-align:center; color:black; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; margin:6px 0 14px; font-size:14px; }
+.ev-date{ text-align:center; color:#3a2a3e; }
+.ev-date .dow{ font-weight:700; font-size:28px; line-height:1.1; }
+.ev-date .day{ font-weight:700; font-size:86px; line-height:1; color:black; margin:6px 0; }
+.ev-date .month{ font-size:24px; font-weight:600; }
+.ev-date .time{ font-size:16px; color:#6c6c6c; margin-top:6px; }
+
+.ev-dot{ width:12px; height:12px; border-radius:50%; margin:12px auto 10px;
+  background: radial-gradient(circle at 30% 30%, var(--event-purple), var(--event-purple-2)); }
+
+.ev-loc{ text-align:center; color:black; font-weight:700;
+  letter-spacing:.06em; margin:4px 0 8px; font-size:18px; }
+.ev-venue{ text-align:center; font-size:24px; font-weight:700; color:#3c2f3f; margin:0 0 4px; }
+.ev-address{ text-align:center; font-size:16px; color:#5a5a5a; }
+
+.ev-actions{ display:flex; justify-content:center; margin:18px 0 4px; }
+.btn-gmaps{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 18px; border-radius:999px;
+  background:var(--event-purple); color:#fff; font-weight:700;
+  text-decoration:none; border:1px solid var(--event-purple);
+  box-shadow:0 10px 24px rgba(2, 173, 93, 0.25);
+}
+.btn-gmaps:active{ transform:translateY(1px); }
+
+/* Responsif */
+@media (max-width:420px){
+  .ev-date .dow{ font-size:24px; }
+  .ev-date .day{ font-size:72px; }
+  .ev-venue{ font-size:22px; }
+}
+
+
+    /* ========== RESET & BASE ========== */
+    :root{
+      --bg:#f7f6f3;
+      --accent:#d4a373;
+      --muted:#6b6b6b;
+      --card:#fff;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+  margin:0;
+  
+  /* fallback warna putih */
+  background: #fff;
+}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* ========== LAYOUT ========== */
+    .page {
+      width:100%;
+      max-width:110px;
+      margin:0 auto;
+      padding: 0 20px;
+    }
+
+    /* ========== COVER / HERO ========== */
+   /* ========== HERO (FINAL, SATU VERSI) ========== */
+/* === HERO PALING SIMPEL (langsung background di elemen) === */
+.hero{
+  position: relative;
+  width: 100vw;
+  height: 100dvh;          /* full tinggi viewport (mobile friendly) */
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+
+  /* Foto cover langsung di elemen hero */
+  background: url("img/cov.png") center / cover no-repeat;
+}
+@supports (height: 100svh){
+  .hero{ height: 100svh; } /* fallback beberapa device */
+}
+
+/* Konten hero tetap */
+.hero__content{
+  position: relative;
+  z-index: 5;
+  color: #fff;
+  padding: 28px;
+  width: 100%;
+}
+
+/* Teks di dalam hero (biarkan seperti semula) */
+.hero__small { 
+  font-weight: 600;
+  letter-spacing: .08em;
+  font-size: clamp(13px, 1.8vw, 16px);
+  opacity: .95;
+  text-transform: uppercase;
+}
+.hero__names { 
+  font-family: "Dancing Script", cursive; 
+  font-size: clamp(42px, 10vw, 86px); 
+  margin: 8px 0 6px; 
+}
+.hero__date { 
+  font-size: clamp(14px, 3.5vw, 18px); 
+  opacity: .95; 
+  margin-bottom: 14px; 
+}
+
+.btn-enter {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.18);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  backdrop-filter: blur(4px) saturate(110%);
+  transition:transform .18s ease, opacity .18s ease;
+}
+
+.hero__hint { 
+  margin-top:8px; 
+  font-size:13px; 
+  opacity:.9; 
+}
+/* Saat masih terkunci (sebelum tombol diklik) tetap pakai translate */
+main{
+  background: transparent;
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
+}
+
+/* Setelah dibuka: hilangkan dorongan main dan kolaps hero */
+body.opened main{
+  transform: none;
+  padding-top: 0;
+}
+
+/* Kolaps & sembunyikan hero agar tidak tersisa di atas */
+body.opened .hero{
+  height: 0;
+  min-height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: height .6s ease, opacity .35s ease;
+}
+/* Main Section */
+
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Countdown */
+.countdown { 
+  display: flex; 
+  gap: 14px; 
+  justify-content: center; 
+  margin-top: 60px; /* Make room for the content */
+}
+
+.countdown .col {
+  background: var(--glass); 
+  color: #111; 
+  padding: 12px 16px; 
+  border-radius: 12px; 
+  min-width: 80px; 
+}
+
+.countdown .num { 
+  font-weight: 700; 
+  font-size: 20px; 
+}
+
+.countdown .label { 
+  font-size: 12px; 
+  color: var(--muted); 
+  margin-top: 4px; 
+}
+
+.body.locked {
+  overflow: hidden;  /* kunci scroll */
+  height: 1000vh;     /* biar tidak lebih tinggi dari layar */
+  margin: 0;
+}
+
+
+
+/* Ucapan Assalamu’alaikum */
+.greeting-mempelai{
+  text-align:center;
+  margin:20px auto 30px;
+  max-width:800px;
+}
+.greeting-mempelai .greeting-title{
+  font-family:"Dancing Script", cursive;
+  font-size:36px; font-weight:700;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+.greeting-mempelai .greeting-text{
+  font-size:16px;
+  color:var(--muted);
+  line-height:1.5;
+  margin:6px 0;
+}
+
+/* Styling for Thank You Section */
+.center {
+  text-align: center;
+}
+
+.muted {
+  color: #6b6b6b;
+}
+
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(12,12,12,0.06);
+}
+
+img {
+  max-width: 80%; /* Gambar akan tampil lebih kecil agar proporsional */
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+h2 {
+  font-size: 36px;
+  color: var(--accent);
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+footer a {
+  color: var(--accent);  /* Menyesuaikan warna link dengan warna aksen */
+  text-decoration: none;  /* Menghilangkan garis bawah */
+}
+
+footer a:hover {
+  text-decoration: underline;  /* Memberikan garis bawah saat hover untuk efek interaktif */
+}
+
+/* Styling for Bank Thumbnail and Layout */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+
+
+button, a {
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+button {
+  background: var(--accent);
+  color: white;
+}
+
+a {
+  background: transparent;
+  color: white;
+}
+
+button:hover, a:hover {
+  opacity: 0.9;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  color: white;
+  padding: 28px;
+  width: 100%;
+}
+
+.countdown {
+  margin-bottom: 20px;  /* Menambahkan jarak antara countdown dan tombol */
+}
+
+.btn-enter {
+  margin-top: 20px;  /* Memberikan jarak antara tombol dan elemen sebelumnya */
+}
+#bgm {
+  display: none;
+}
+
+    /* ========== MAIN SECTIONS ========== */
+    main{ background:transparent; position:relative; z-index:2; transform:translateY(-60px); }
+    section { padding:56px 20px; }
+    .card { background:var(--card); border-radius:14px; padding:22px; box-shadow:0 18px 40px rgba(12,12,12,0.06); margin:10px auto; max-width:900px; }
+
+    /* Countdown */
+    .countdown { display:flex; gap:14px; justify-content:center; margin-top:60px; }
+    .countdown .col { background:var(--glass); color:#111; padding:12px 16px; border-radius:12px; min-width:80px; }
+    .countdown .num { font-weight:700; font-size:20px; }
+    .countdown .label { font-size:12px; color:var(--muted); margin-top:4px; }
+
+    /* profile */
+    .profiles { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; align-items:center; }
+    .profile { flex:1 1 260px; text-align:center; }
+    .profile img { width:160px; height:160px; object-fit:cover; border-radius:50%; border:6px solid var(--accent); box-shadow:0 8px 18px rgba(0,0,0,0.08); }
+
+    /* acara */
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    @media (max-width:880px){ .grid-2{ grid-template-columns:1fr } }
+
+    /* map button */
+    .map-btn { display:inline-block; padding:10px 14px; border-radius:10px; background:var(--accent); color:white; font-weight:600; }
+
+    /* gallery */
+    .gallery { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+    .gallery img { 
+  width:calc(33% - 12px);   /* thumbnail 3 kolom */
+  max-width:250px;          /* batas maksimal biar tidak terlalu besar */
+  border-radius:12px; 
+  box-shadow:0 8px 20px rgba(0,0,0,0.15); 
+  cursor:pointer;           /* efek kursor */
+  transition:transform .2s ease;
+}
+.gallery img:hover { 
+  transform:scale(1.05);    /* efek zoom saat hover */
+}
+
+@media (max-width:880px){ 
+  .gallery img{ width:calc(50% - 12px); } /* hp jadi 2 kolom */
+}
+/* ==== LOCK COVER ==== */
+body.locked{
+  overflow: hidden;     /* tidak bisa scroll */
+  height: 100vh;        /* kunci tinggi satu layar */
+}
+
+/* Saat terkunci: main diblur & tidak bisa diklik */
+
+
+/* Saat dibuka: hilangkan blur */
+
+    /* RSVP / guestbook */
+    form .row{ display:flex; gap:10px; }
+    form input, form textarea, form button {
+      width:100%; padding:10px 12px; border:1px solid #e6e6e6; border-radius:8px; font-size:15px;
+    }
+    form input:focus, form textarea:focus{ outline:2px solid rgba(212,163,115,0.18); border-color:var(--accent) }
+
+    /* footer */
+    footer{ text-align:center; color:var(--muted); padding:28px 12px 60px; font-size:14px; }
+
+    /* small helpers */
+    .muted{ color:var(--muted); font-size:14px }
+    .center{ text-align:center }
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .hero__names{ font-size:42px }
+      .ornamen{ width:36vmax }
+      .countdown .col{ min-width:64px; padding:10px }
+    }
+#mainContent {
+  visibility: hidden; /* Sembunyikan halaman kedua */
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0s 0.5s; /* Transisi opacity dan visibility */
+}
+
+body.opened #mainContent {
+  visibility: visible; /* Tampilkan halaman kedua */
+  opacity: 1;
+  transition: opacity 0.5s ease, visibility 0s 0s; /* Sesuaikan waktu transisi */
+}
+
+.bg-fixed{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url("img/bg flow.svg") center / cover no-repeat;
+  pointer-events: none;
+}
+header, main, footer { position: relative; z-index: 1; background: transparent; }
+  </style>
+</head>
+
+<body>
+<div class="bg-fixed"></div>
+  <!-- ========== HERO / COVER ========== -->
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__content page" data-aos="fade-up">
+      <div class="hero__small" data-aos="fade-down">Undangan Pernikahan</div>
+      <h1 class="hero__names" data-aos="zoom-in" data-aos-delay="200">DIA &amp; DIO</h1>
+      <div class="hero__date" data-aos="fade-up" data-aos-delay="400">Sabtu, 10 Oktober 2025</div>
+      <button class="btn-enter" id="openBtn" data-aos="zoom-in" data-aos-delay="800">Buka Undangan</button>
+      <div class="hero__hint" data-aos="fade-up" data-aos-delay="1000">Geser atau klik "Buka Undangan"</div>
+    </div>
+    <audio id="bgm" controls>
+  <source src="audio/saxsofone.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+  </header>
+
+  <!-- MAIN -->
+  <main id="mainContent">
+    <!-- PROFILE -->
+   <section class="page">
+  <!-- Ganti Mempelai dengan Assalamu'alaikum -->
+  
+
+  <!-- Ucapan pembuka -->
+  <div class="greeting-mempelai" >
+    <div class="greeting-title">Assalamu’alaikum Warahmatullahi Wabarakatuh</div>
+    <p class="greeting-text">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami. 
+       Dengan segala hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu. Terima kasih atas doa restu yang diberikan.</p>
+  </div>
+
+  <!-- Profil Mempelai -->
+  <div class="profiles-glass">
+    <div class="profile-card glass" data-aos="fade-right">
+      <div class="avatar">
+        <img src="img/cov.png" alt="Mempelai pria">
+      </div>
+      <h3 class="name">[Nama Pria]</h3>
+      <p class="bio">Putra dari Bapak X & Ibu Y</p>
+      <a class="ig-link" href="https://instagram.com/hdyt_arr" target="_blank" rel="noopener">
+        📷 Instagram
+      </a>
+      </div>
+      </div>
+        <div class="profiles-glass">
+    <div class="profile-card glass" data-aos="fade-right">
+      <div class="avatar">
+        <img src="img/cov.png" alt="Mempelai pria">
+      </div>
+      <h3 class="name">[Nama wanita]</h3>
+      <p class="bio">Putra dari Bapak X & Ibu Y</p>
+      <a class="ig-link" href="https://instagram.com/hdyt_arr" target="_blank" rel="noopener">
+        📷 Instagram
+      </a>
+    </div>
+
+    
+  </div>
+</section>
+    <!-- ACARA -->
+  <section class="page" data-aos="fade-up">
+  <div class="event-stack">
+    <article class="event-card-clean" data-aos="zoom-in" data-aos-delay="40">
+      <div class="ev-title">RESEPSI</div>
+
+      <div class="ev-date">
+        <div class="dow">Sabtu</div>
+        <div class="day">26</div>
+        <div class="month">Desember 2025</div>
+        <div class="time">Pukul 13.00 WIB</div>
+      </div>
+
+      <div class="ev-dot"></div>
+      <div class="ev-loc">Lokasi</div>
+
+      <div class="ev-venue">Grand Aurora Ballroom</div>
+      <div class="ev-address">Jl. Cendana No. 88, Jakarta Selatan</div>
+
+      <div class="ev-actions">
+        <a class="btn-gmaps"
+           href="https://www.google.com/maps/place/Alun-Alun+Karanganyar/@-7.5948185,110.9373534,1127m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e7a2035c7d55189:0xa0859d6cd954ba5c!8m2!3d-7.5948238!4d110.9399283!16s%2Fg%2F11b6xhgdv9?entry=ttu&g_ep=EgoyMDI1MDgzMC4wIKXMDSoASAFQAw%3D%3D"
+           target="_blank" rel="noopener">📍 Google Maps</a>
+      </div>
+    </article>
+
+    <!-- Contoh kartu AKAD (opsional, duplikasi dan ubah isi) -->
+    
+    <article class="event-card-clean" data-aos="zoom-in" data-aos-delay="80">
+      <div class="ev-title">AKAD</div>
+      <div class="ev-date">
+        <div class="dow">Sabtu</div>
+        <div class="day">26</div>
+        <div class="month">Desember 2025</div>
+        <div class="time">Pukul 10.00 WIB</div>
+      </div>
+      <div class="ev-dot"></div>
+      <div class="ev-loc">Lokasi</div>
+      <div class="ev-venue">Masjid Al-Contoh</div>
+      <div class="ev-address">Jl. Mawar No. 12, Jakarta</div>
+      <div class="ev-actions">
+        <a class="btn-gmaps" href="https://maps.google.com?q=Masjid%20Al-Contoh%20Jl.%20Mawar%2012%20Jakarta" target="_blank" rel="noopener">📍 Google Maps</a>
+      </div>
+    </article>
+    
+        <div class="countdown" id="countdownHero" data-aos="fade-up" data-aos-delay="600">
+        <div class="col"><div class="num" id="cdDays">00</div><div class="label">Hari</div></div>
+        <div class="col"><div class="num" id="cdHours">00</div><div class="label">Jam</div></div>
+        <div class="col"><div class="num" id="cdMins">00</div><div class="label">Menit</div></div>
+        <div class="col"><div class="num" id="cdSecs">00</div><div class="label">Detik</div></div>
+      </div>
+
+  </div>
+</section>
+
+    <!-- LIVE STREAM & AMPOLOP -->
+   <section class="page">
+  <div class="card">
+    <div class="grid-2">
+      <!-- Live Streaming Section -->
+      <div>
+        <h3>Live Streaming</h3>
+        <p class="muted">Jika tidak dapat hadir, saksikan via live streaming</p>
+        <!-- REPLACE: Paste embed link from Youtube/Zoom here -->
+        <div style="aspect-ratio:16/9; background:#000; border-radius:10px; overflow:hidden;">
+          <!-- Example placeholder iframe (replace src) -->
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" width="100%" height="100%" style="border:0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Amplop Digital Section -->
+      <div>
+        <h3>Amplop Digital</h3>
+        <p class="muted">Bagi yang ingin memberikan hadiah (rekening)</p>
+        <div style="display:flex; gap:10px; flex-direction:column; align-items:flex-start;">
+          <!-- Thumbnail and Bank Info -->
+          <div style="display: flex; align-items: center; gap: 10px; background: linear-gradient(180deg,#fff,#fff); padding:12px; border-radius:8px; width:100%;">
+            <img src="img/instagram.jpg" alt="Bank Logo" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;"> <!-- Add Bank Thumbnail -->
+            <div>
+              <strong>Bank ABC</strong><br>
+              <span id="rekeningNum">1234567890 (Nama Keluarga)</span>
+            </div>
+          </div>
+          
+          <!-- Buttons for Copy and WhatsApp -->
+          <div style="display:flex; gap:8px; margin-top: 10px;">
+            <!-- Copy Rekening Button -->
+            <button onclick="copyRek()" style="padding:10px 12px; border-radius:8px; border:none; background:var(--accent); color:white; cursor:pointer;">Copy Rek</button>
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/6285161773994?text=Halo,%20saya%20ingin%20konfirmasi%20untuk%20hadiah%20pernikahan" style="padding:10px 12px; border-radius:8px; background:#25D366; color:white; display:inline-block;">Kirim via WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+   <!-- GALLERY -->
+    <section class="page" data-aos="fade-up">
+     <div class="card">
+        <h2 class="center">Galeri</h2>
+        <div class="gallery" id="gallery">
+          <!-- REPLACE: Put your gallery images in img/ and change filenames here -->
+          <img src="img/cov.png" alt="Foto 1">
+          <img src="img/cov.png" alt="Foto 2">
+          <img src="img/cov.png" alt="Foto 3">
+          <img src="img/backgorund cover.jpeg" alt="Foto 4">
+          <img src="img/cov.png" alt="Foto 5">
+          <img src="img/cov.png" alt="Foto 6">
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP Section -->
+<!-- RSVP Section -->
+<section class="page" data-aos="fade-up">
+  <div class="card">
+    <h2 class="center">Buku Tamu & RSVP</h2>
+
+    <!-- Formulir yang mengarah langsung ke WhatsApp -->
+    <form action="https://wa.me/6285161773994?text=Halo,%20saya%20ingin%20konfirmasi%20untuk%20hadiah%20pernikahan5" method="GET" target="_blank">
+      <div class="row">
+        <input type="text" name="text" id="nama" placeholder="Nama lengkap" required>
+        <input type="text" name="text" id="kehadiran" placeholder="Hadir / Tidak" required>
+      </div>
+      <textarea name="text" id="ucapan" rows="4" placeholder="Ucapan / Doa"></textarea>
+
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <!-- Tombol Kirim via WhatsApp -->
+        <button type="submit" style="background:#25D366; color:white; padding:10px 14px; border-radius:8px; display:inline-block; text-decoration:none; cursor:pointer;">
+          Kirim via WhatsApp
+        </button>
+      </div>
+
+      <!-- Reset Button -->
+      <div style="margin-top:12px;">
+        <button type="reset" style="border:1px solid #ddd; padding:10px 14px; border-radius:8px; background:white; cursor:pointer;">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+    <!-- Ucapan Terima Kasih Section -->
+<section class="page">
+  <div class="card">
+    <h2 class="center">Ucapan Terima Kasih</h2>
+    <p class="center muted">Kami mengucapkan terima kasih yang sebesar-besarnya atas kehadiran dan doa restu dari semua sahabat dan keluarga tercinta. Kehadiran Anda membuat hari kami semakin istimewa. Semoga tali persaudaraan kita semakin erat dan selalu diberkahi. Terima kasih telah menjadi bagian dari momen berharga dalam hidup kami!</p>
+    
+    <!-- Kamu bisa menambahkan gambar atau elemen lainnya jika diinginkan -->
+    <div class="center">
+      <img src="img/instagram.jpg" alt="Ucapan Terima Kasih" style="max-width:100%; border-radius:10px; margin-top:20px;">
+    </div>
+    
+    <p class="center muted" style="margin-top:20px;">Semoga kebahagiaan selalu menyertai kita semua. Terima kasih atas segala dukungan dan kasih sayangnya.</p>
+  </div>
+</section>
+
+  
+
+<footer data-aos="fade-up">
+  <div class="muted">
+    Terima kasih sudah mampir — Undangan by arinvitation<a href="https://instagram.com/arinvitation.my.id" target="_blank" style="color: var(--accent); text-decoration: none;">ARS</a>
+  </div>
+</footer>
+  <!-- Script AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ once:true, duration:1000 });</script>
+
+<script>
+  // Kunci saat halaman selesai siap
+ document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.add('locked');
+  document.body.classList.add('locked');
+});
+
+const openBtn = document.getElementById('openBtn');  // Tombol Buka Undangan
+const bgm = document.getElementById('bgm');  // Musik (optional)
+
+openBtn.addEventListener('click', () => {
+  // Tambahkan kelas "opened" untuk mengubah tampilan dengan CSS
+  document.documentElement.classList.add('opened');
+  document.body.classList.add('opened');
+  
+  // Lepas lock agar halaman bisa discroll
+  document.documentElement.classList.remove('locked');
+  document.body.classList.remove('locked');
+
+  // Menyembunyikan hero (cover)
+  document.querySelector('.hero').style.display = 'none';
+
+  // Menampilkan halaman utama (mainContent)
+  document.querySelector('#mainContent').style.display = 'block';
+
+  // Geser scroll ke bagian pertama dari halaman kedua
+  const firstSection = document.querySelector('#mainContent .page') || document.querySelector('#mainContent section');
+  requestAnimationFrame(() => {
+    const y = firstSection.getBoundingClientRect().top + window.pageYOffset - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+
+    // Refresh AOS jika dipakai
+    try { if (window.AOS) AOS.refreshHard(); } catch(_) {}
+  });
+
+  // Putar musik (optional)
+  try { bgm && bgm.play().catch(()=>{}); } catch(e){}
+
+  // Pastikan animasi AOS refresh setelah konten halaman kedua dimunculkan
+  AOS.refresh();
+});
+
+</script>
+  <!-- ========== SCRIPTS ========== -->
+   
+
+
+  <script>
+
+    
+    /* ====== Basic countdown logic ====== */
+    // SET YOUR EVENT DATE HERE (format YYYY,MM-1,DD,HH,MM,SS)
+    const eventDate = new Date(2026, 1, 1, 10, 0, 0).getTime(); // Oct 10 2025 10:00
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+      if (diff <= 0) {
+        document.getElementById('cdDays').textContent = '0';
+        document.getElementById('cdHours').textContent = '0';
+        document.getElementById('cdMins').textContent = '0';
+        document.getElementById('cdSecs').textContent = '0';
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
+      document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cdMins').textContent = String(m).padStart(2,'0');
+      document.getElementById('cdSecs').textContent = String(s).padStart(2,'0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* ====== Open button scroll to main ====== */
+  
+    /* ====== Copy rekening ====== */
+    function copyRek(){
+      const text = document.getElementById('rekeningNum').textContent.trim();
+      if (!navigator.clipboard) {
+        // fallback
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); alert('Nomor rekening disalin'); }catch(e){ alert('Salin manual: ' + text) }
+        ta.remove();
+        return;
+      }
+      navigator.clipboard.writeText(text).then(()=>{ alert('Nomor rekening disalin ke clipboard'); }).catch(()=>{ alert('Gagal salin. Silakan salin manual.'); });
+    }
+
+    /* ====== Form helpers ====== */
+    function resetForm(){ document.getElementById('rsvpForm').reset(); alert('Form direset'); }
+
+    /* ====== Lightbox for gallery (very simple) ====== */
+    document.getElementById('gallery').addEventListener('click', (e)=>{
+      if (e.target.tagName !== 'IMG') return;
+      const src = e.target.getAttribute('src');
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px';
+      const img = document.createElement('img'); 
+img.src = src; 
+img.style.maxWidth = '100%'; 
+img.style.maxHeight='100%'; 
+img.style.objectFit = 'contain';   // biar gambar proporsional
+img.style.borderRadius='12px';
+      overlay.appendChild(img);
+      overlay.addEventListener('click', ()=> overlay.remove());
+      document.body.appendChild(overlay);
+    });
+
+    /* ====== Optional: auto play bgm when user interacts anywhere (some browsers require gesture) ====== */
+    function tryPlayBgm(){ const a=document.getElementById('bgm'); if(a && a.paused){ a.play().catch(()=>{}); document.removeEventListener('click', tryPlayBgm); } }
+    document.addEventListener('click', tryPlayBgm, {once:true});
+
+  </script>
+</body>
+</html

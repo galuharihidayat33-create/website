@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Undangan Pernikahan</title>
+
+  <!-- Fonts & Swiper -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;color:#000;text-align:center;overflow-x:hidden;scroll-behavior:smooth}
+
+    /* Lock scroll cover */
+    html.locked, body.locked { height:100%; overflow:hidden; }
+
+    /* Background global (selain cover) */
+    body::before{
+      content:"";position:fixed;inset:0;
+      background:url('img/bg gold polos.jpg') center/cover no-repeat;
+      z-index:-2;
+    }
+
+    section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;position:relative;background:transparent}
+    h1,h2,h3{font-family:'Playfair Display',serif;color:#000}
+
+    /* Cover (hero) dengan background berbeda */
+    .hero{min-height:100vh;display:grid;place-items:center;padding:24px;position:relative;isolation:isolate}
+    .hero::before{
+      content:"";position:absolute;inset:0;z-index:-1;
+      background:
+        linear-gradient(180deg, rgba(250, 231, 169, 0.85) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255,255,255,.65) 100%),
+        url('img/cov2.png') center/cover no-repeat;
+    }
+    .hero-inner{max-width:720px;text-align:center}
+ .couple-names {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(36px, 7.5vw, 64px);
+  line-height: 1.08;
+  margin: 6px 0 10px;
+  background: linear-gradient(90deg, #7c714c, #7a7458, #815d14);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6),
+               0 0 20px rgba(255, 215, 0, 0.5),
+               0 0 30px rgba(212, 175, 55, 0.4);
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+   .hero-date {
+  font-weight: 600;
+  letter-spacing: .04em;
+  font-size: clamp(14px, 3.4vw, 18px);
+  margin-bottom: 18px;
+  color: #000000; /* tetap hitam */
+  text-shadow: 
+    0 0 4px rgba(255, 255, 255, 0.6),  /* glow putih */
+    0 0 6px rgba(77, 76, 72, 0.4);   /* glow emas tipis */
+}
+
+.hero-desc {
+  font-size: clamp(14px, 3.6vw, 18px);
+  line-height: 1.65;
+  opacity: .9;
+  color: #000000; /* tetap hitam */
+  text-shadow: 
+    0 0 3px rgba(255, 255, 255, 0.5),
+    0 0 5px rgba(97, 94, 84, 0.35);
+}
+    .cta-primary {
+  margin-top: 22px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+
+  /* warna emas + transparan */
+  background: rgba(255, 215, 0, 0.15);
+  color: #000;
+  border: 2px solid rgba(212, 175, 55, 0.8);
+
+  /* glass effect */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* efek glow */
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.3),
+              inset 0 1px 4px rgba(255, 255, 255, 0.4);
+
+  transition: all .25s ease;
+}
+
+.cta-primary:hover {
+  background: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.5),
+              inset 0 2px 6px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.cta-primary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+    /* Buttons */
+    .btn{padding:10px 20px;border:1px solid #000;border-radius:30px;text-decoration:none;color:#000}
+    .btn-dark{background:#c59d5f;color:#fff;border:none}
+    .btn-map,.btn-cal{display:inline-block;padding:12px 18px;border-radius:12px;text-decoration:none;margin:4px 0}
+    .btn-map,
+.btn-cal {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #000;
+  background: rgba(255, 255, 255, 0.15);   /* transparan */
+  border: 1.5px solid rgba(0,0,0,0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Hover → highlight emas */
+.btn-map:hover,
+.btn-cal:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+  color: #c9a227;
+}
+
+/* Klik → efek glow emas */
+.btn-map:active,
+.btn-cal:active {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: rgba(212, 175, 55, 0.85);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.6);
+  transform: scale(0.97);
+}
+    .btn-map:hover,.btn-cal:hover{filter:brightness(.98)}
+
+    /* Cards & Event */
+    .card{background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);padding:20px;border-radius:20px;max-width:500px;margin:20px auto;border:2px solid #f8c6d8;box-shadow:0 6px 20px rgba(248,198,216,.5)}
+    .card-stack{max-width:620px;padding:26px 20px}
+    .section-title{font-family:'Playfair Display',serif;font-size:28px;line-height:1.2;margin:6px 0 10px}
+    .section-sub{font-size:15px;line-height:1.7;color:#333;margin-bottom:18px}
+
+   .profile-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.15);
+  border: 2px solid #D4AF37; /* gold border */
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+}
+
+.gold-text {
+  background: linear-gradient(45deg, #C9A646, #FFD700, #E6BE8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ig-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #FFD700, #C9A646);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+.ig-btn:hover {
+  transform: scale(1.05);
+}
+    .profile-photo{
+      width:100%;border-radius:16px;margin-bottom:12px;
+      opacity:0;transform:translateY(18px) scale(.98);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    .profile-photo.inview{
+      opacity:1;transform:translateY(0) scale(1);
+      animation:breathe 12s ease-in-out infinite;
+      position:relative;overflow:hidden;
+    }
+    @keyframes breathe {
+      0%{transform:translateY(0) scale(1);}
+      50%{transform:translateY(-2px) scale(1.02);}
+      100%{transform:translateY(0) scale(1);}
+    }
+
+   /* Frame umum (sudah ada dari kode Anda) */
+.event-block {
+  border-radius: 20px;
+  padding: 22px;
+  margin: 22px 0;
+  background: rgba(255, 255, 255, 0.15); /* efek kaca */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(212, 175, 55, 0.6); /* garis emas */
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25),
+              inset 0 1px 4px rgba(255, 255, 255, 0.4);
+  text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.event-block:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.4),
+              inset 0 2px 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Judul acara */
+.event-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: #c59d5f; /* warna emas */
+  margin-bottom: 10px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+/* Detail teks */
+.event-block .venue,
+.event-block .time,
+.event-block .day,
+.event-block .month {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-weight: 500;
+}
+
+    /* IG button */
+    .ig-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:1px solid #ddd;border-radius:30px;text-decoration:none;color:#000;font-size:14px;margin-top:10px;background:#fff;transition:all .2s ease}
+    .ig-btn:hover{background:#f8f8f8;border-color:#bbb}
+    .ig-btn svg{width:18px;height:18px}
+
+    /* Gift – rekening rapi + ikon glass/blur + tombol salin glass/blur */
+    .account-list{display:grid;gap:12px;margin:8px 0 6px}
+    .account-item{
+      display:flex;align-items:center;gap:12px;
+      padding:14px 16px;border:1px dashed #f8c6d8;border-radius:14px;background:rgba(255,255,255,0.15)
+    }
+    .bank-icon{
+      width:46px;height:46px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;
+      background:rgba(255,255,255,0.35);backdrop-filter:blur(6px);
+      box-shadow:0 2px 8px rgba(248,198,216,0.4);flex-shrink:0;
+    }
+    .bank-icon img{width:70%;height:auto;object-fit:contain}
+    .account-text{flex:1;text-align:left}
+    .account-text .bank{font-weight:800;letter-spacing:.3px}
+    .account-text .number{font-weight:600;margin:2px 0 4px}
+    .account-text .holder{color:#666}
+
+    .copy-btn{
+      padding:8px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:500;color:#000;
+      background:rgba(255,255,255,0.35);backdrop-filter:blur(6px);
+      box-shadow:0 2px 8px rgba(248,198,216,0.4);transition:all .25s ease;
+    }
+    .copy-btn:hover{background:rgba(248,198,216,0.45);box-shadow:0 4px 10px rgba(248,198,216,0.55)}
+    .copy-btn:active{transform:scale(.97)}
+
+    .divider{
+      height:1px;width:100%;
+      background:linear-gradient(90deg,transparent,#f8c6d8 20%,#f8c6d8 80%,transparent);
+      margin:18px 0;
+    }
+
+    .venue-line{font-weight:700;margin-top:4px}
+    .venue-line-muted{color:#444;margin-bottom:10px}
+
+    /* Buttons block full width di mobile */
+    .block{display:block;width:100%;max-width:420px;margin:8px auto 0}
+    .btn-line {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #000;
+  background: rgba(255, 255, 255, 0.15);   /* transparan */
+  border: 1.5px solid rgba(0,0,0,0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* Hover → highlight emas */
+.btn-line:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+  color: #c9a227;
+}
+
+/* Klik → glow emas */
+.btn-line:active {
+  background: rgba(212, 175, 55, 0.25);
+  border-color: rgba(212, 175, 55, 0.85);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.6);
+  transform: scale(0.97);
+}
+    .btn-line:hover{filter:brightness(.98)}
+
+    /* hal kedua */
+.opening {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 120; /* bold */
+  text-shadow: 
+    
+    0 0 8px rgba(248,198,216,0.4);
+}
+
+.ayat {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 120; /* lebih tebal */
+  color: #333;
+    text-shadow: 
+    
+    0 0 8px rgba(248,198,216,0.4);/* bayangan halus */
+  margin-top: 18px;
+}
+.ayat em {
+  font-weight: 500; /* biar beda tipis */
+  color: #555;
+}
+
+    /* Countdown */
+    .opening{font-size:15px;line-height:1.6;margin-bottom:30px;color:#333}
+    .countdown {
+  display: flex;
+  justify-content: center;
+  gap: 14px;                 /* jarak antar kotak */
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.countdown div {
+  width: 70px;               /* semua kotak sama lebar */
+  height: 70px;              /* sama tinggi */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 14px;
+
+  /* Glass effect + emas */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(212, 175, 55, 0.7);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25),
+              inset 0 1px 4px rgba(255, 255, 255, 0.35);
+
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.countdown div:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.5),
+              inset 0 2px 6px rgba(255, 255, 255, 0.4);
+}
+
+.countdown span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+}
+
+.countdown label {
+  font-size: 11px;
+  margin-top: 4px;
+  color: #5a4a1f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+    /* Galeri manual swipe + frame pink glow */
+.galeri {
+  padding: 0;
+  margin: 0;
+}
+
+/* Swiper container */
+.swiper {
+  width: 100%;
+  height: 75vh;                  /* dibuat lebih tinggi */
+  cursor: grab;
+  border-radius: 18px;
+}
+.swiper:active {cursor: grabbing;}
+
+/* Slide tiap gambar */
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity .6s ease, transform .6s ease;
+  animation: none;
+  z-index: 1;
+  box-shadow: 0 0 28px rgba(255, 105, 180, 0.45); /* pink glow lebih jelas */
+}
+
+.swiper-slide-active img {
+  opacity: 1;
+  animation: kenburns 18s ease-in-out forwards;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.08); }
+}
+
+/* Frame luar galeri */
+.galeri-frame {
+  max-width: 98%;                 /* hampir full layar */
+  margin: 20px auto;
+  padding: 14px;
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Border + glow emas */
+  border: 2px solid rgba(212, 175, 55, 0.6);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25),
+              inset 0 1px 4px rgba(255, 255, 255, 0.4);
+
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.galeri-frame:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.4),
+              inset 0 2px 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Media query untuk layar kecil */
+@media (max-width: 480px) {
+  .swiper { height: 70vh; }       /* lebih besar di HP */
+  .galeri-frame { padding: 10px; border-radius: 14px; }
+  .swiper-slide img { border-radius: 12px; }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Great+Vibes&display=swap');
+
+.thanks-wrap{ padding:28px 18px }
+.thanks-title {
+  font-family: 'Great Vibes', cursive;  /* font elegan */
+  font-size: 2.6rem;                    /* lebih besar */
+  text-align: center;
+
+  /* warna emas gradasi */
+  background: linear-gradient(45deg, #C9A646, #FFD700, #E6BE8A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 2px 6px rgba(212, 175, 55, 0.35); /* glow lembut */
+  margin-bottom: 18px;
+}
+.thanks-card {
+  background: rgba(255, 255, 255, 0.15); /* transparan kaca */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 24px 20px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+
+  /* border emas + glow */
+  border: 2px solid rgba(212, 175, 55, 0.6); /* gold */
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25),
+              inset 0 1px 4px rgba(255, 255, 255, 0.4);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.thanks-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.4),
+              inset 0 2px 6px rgba(255, 255, 255, 0.5);
+}
+.lead, .closing, .doa{
+  color:#444;
+  line-height:1.8;
+  margin-bottom:12px;
+}
+.signature .name{
+  display:block;
+  font-family:"Great Vibes", cursive;
+  font-size:2.6rem;
+  color:#6b5139;
+}
+.signature .role{
+  font-size:.85rem;
+  letter-spacing:.15em;
+  color:#7a6a5c;
+}
+.thanks-footer{
+  text-align:center;
+  margin-top:16px;
+}
+.ig-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #3b2a00; /* teks cokelat-emas */
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.15)
+    ),
+    linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.65),
+      rgba(255, 215, 0, 0.8) 60%,
+      rgba(230, 190, 138, 0.55)
+    );
+  border: 1.5px solid rgba(212, 175, 55, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4),
+              inset 0 1px 6px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.ig-btn img {
+  width: 20px;
+  height: 20px;
+  filter: sepia(1) hue-rotate(15deg) saturate(1.4) brightness(1.05); /* bikin ikon ikut nuansa emas */
+}
+
+.ig-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.55),
+              inset 0 1px 8px rgba(255, 255, 255, 0.45);
+}
+
+.ig-btn:active {
+  transform: scale(0.97);
+}
+
+/* Responsif */
+@media (min-width:768px){
+  .thanks-title{ font-size:2.4rem }
+  .thanks-card{ padding:28px 32px }
+}
+
+
+    /* Music */
+    .music-btn{position:fixed;right:20px;bottom:20px;background:#c59d5f;color:#fff;padding:14px;border-radius:50%;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer;z-index:300}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(20px) scale(.98);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0) scale(1)}
+    /* Toast */
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 14px;border-radius:10px;background:rgba(0,0,0,.8);color:#fff;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9999}
+    .toast.show{opacity:1}
+  </style>
+</head>
+<body>
+
+  <!-- IG Icon Defs -->
+  <svg style="display:none">
+    <defs>
+      <linearGradient id="igGradient" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#feda75"/><stop offset="25%" stop-color="#fa7e1e"/>
+        <stop offset="50%" stop-color="#d62976"/><stop offset="75%" stop-color="#962fbf"/>
+        <stop offset="100%" stop-color="#4f5bd5"/>
+      </linearGradient>
+      <symbol id="igIcon" viewBox="0 0 24 24">
+        <path fill="url(#igGradient)" d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-.8a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- HERO (Cover terkunci) -->
+  <section class="hero">
+    <div class="hero-inner reveal">
+      <div class="hero-eyebrow">WEDDING CEREMONY OF</div>
+      <h1 class="couple-names">Jesica & Irwan</h1>
+      <div class="hero-date">SUNDAY, 28 DECEMBER 2025</div>
+      <p class="hero-desc">We step into a world made just for the two of us.<br>We humbly ask for your warmest blessings.</p>
+      <a href="#savethedate" id="openInvite" class="cta-primary">Buka Undangan</a>
+    </div>
+  </section>
+
+  <!-- SAVE THE DATE (dengan salam & doa) -->
+  <section id="savethedate">
+  <div class="shadow-box">
+    <p class="opening">
+      Assalamualaikum warahmatullahi wabarakatuh<br>
+      Dengan memohon rahmat dan ridho Allah SWT, perkenankanlah kami mengundang
+      Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami.
+    </p>
+
+    <p class="ayat">Save The Date</p>
+
+    <div class="countdown">
+      <div><span id="days">0</span><label>Hari</label></div>
+      <div><span id="hours">0</span><label>Jam</label></div>
+      <div><span id="minutes">0</span><label>Menit</label></div>
+      <div><span id="seconds">0</span><label>Detik</label></div>
+    </div>
+
+    <p class="ayat">
+  "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu cenderung merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda kebesaran Allah bagi kaum yang berpikir.”<br>
+  <em>Ar-Rum 21</em>
+</p>
+
+  </div>
+</section>
+
+
+  <!-- PROFIL -->
+  <section>
+    <div class="profile-card">
+      <img class="profile-photo" src="img/cov.jpg" alt="Pengantin Wanita">
+      <h2>Jesica</h2>
+      <p>Jesica Angelia S.M</p>
+      <p>Putri pertama <br>Bp. Jonathan Haris, S.H. & Ibu. Grace Ariani, S.P.</p>
+      <a class="ig-btn" target="_blank" href="https://instagram.com/hdyt_arr">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+        <svg><use href="#igIcon"/></svg> italianaagl
+      </a>
+    </div>
+    <div class="profile-card">
+      <img class="profile-photo" src="img/cov.jpg" alt="Pengantin Pria">
+      <h2>Irwan</h2>
+      <p>Irwan Limantara</p>
+      <p>Putra pertama <br>Bp. Daniel Lim, S.E. & Ibu. Cathrine Wijaya, S.H.</p>
+      <a class="ig-btn" target="_blank" href="https://instagram.com/hdyt_arr">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+        <svg><use href="#igIcon"/></svg> jacksonlim
+      </a>
+    </div>
+  </section>
+
+  <!-- DETAIL ACARA -->
+  <section class="acara">
+  <!-- Blok Akad -->
+  <div class="event-block akad">
+    <h3>AKAD</h3>
+    <div class="event-date">
+      <span class="day">Minggu</span>
+      <span class="date">28</span>
+      <span class="month">Desember 2025</span>
+    </div>
+    <p class="time">Pukul 08.00 WIB</p>
+    <h4>Lokasi</h4>
+    <p class="venue">
+      <b>Masjid Agung Yogyakarta</b><br>
+      Jl. Kauman No.12, Yogyakarta
+    </p>
+    <div class="event-actions">
+      <a class="btn-map" target="_blank" href="https://maps.google.com/?q=Masjid+Agung+Yogyakarta">📍 Buka Google Maps</a>
+      <a class="btn-cal" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Akad+Nikah%3A+Italiana+%26+Jackson&dates=20251228T010000Z/20251228T030000Z&location=Masjid+Agung+Yogyakarta&ctz=Asia%2FJakarta">🗓️ Tambah ke Kalender</a>
+    </div>
+  </div>
+
+  <div class="event-block resepsi">
+    <h3>RESEPSI</h3>
+    <div class="event-date">
+      <span class="day">Minggu</span>
+      <span class="date">28</span>
+      <span class="month">Desember 2025</span>
+    </div>
+    <p class="time">Pukul 11.00 – 14.00 WIB</p>
+    <h4>Lokasi</h4>
+    <p class="venue">
+      <b>Gedung Graha Saba Yogyakarta</b><br>
+      Jl. Magelang No.123, Yogyakarta
+    </p>
+    <div class="event-actions">
+      <a class="btn-map" target="_blank" href="https://maps.google.com/?q=Gedung+Graha+Saba+Yogyakarta">📍 Buka Google Maps</a>
+      <a class="btn-cal" target="_blank" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Resepsi+Italiana+%26+Jackson&dates=20251228T040000Z/20251228T070000Z&location=Gedung+Graha+Saba+Yogyakarta&ctz=Asia%2FJakarta">🗓️ Tambah ke Kalender</a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- GIFT + ALAMAT + RSVP -->
+  <section>
+    <div class="profile-card">
+      <h2 class="section-title">Gift</h2>
+      <p class="section-sub">Jika berkenan mengirimkan hadiah, berikut rekening yang dapat digunakan.</p>
+
+      <div class="account-list">
+        <div class="account-item" data-copy="BCA 1234567890 a.n. Italiana Angelia">
+          <div class="bank-icon"><img src="img/bca.png" alt="BCA"></div>
+          <div class="account-text">
+            <span class="bank">BCA</span>
+            <span class="number">1234567890</span>
+            <small class="holder">a.n. Italiana Angelia</small>
+          </div>
+          <button class="copy-btn" type="button">Salin</button>
+        </div>
+
+        <div class="account-item" data-copy="BNI 9876543210 a.n. Jackson Limantara">
+          <div class="bank-icon"><img src="img/bri.png" alt="BRI"></div>
+          <div class="account-text">
+            <span class="bank">BRI</span>
+            <span class="number">9876543210</span>
+            <small class="holder">a.n. Jackson Limantara</small>
+          </div>
+          <button class="copy-btn" type="button">Salin</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2 class="section-title">Alamat Rumah</h2>
+      <p class="venue-line">📍 Gedung Graha Saba Yogyakarta</p>
+      <p class="venue-line-muted">Jl. Magelang No.123, Yogyakarta</p>
+      <a class="btn-line btn-map block" target="_blank" href="https://maps.google.com/?q=Gedung+Graha+Saba+Yogyakarta">📍 Buka Google Maps</a>
+
+      <div class="divider"></div>
+
+      <h2 class="section-title">Konfirmasi Kehadiran</h2>
+      <p class="section-sub">Silakan konfirmasi kehadiran Anda melalui WhatsApp.</p>
+      <a id="kirimWA" class="btn-dark btn block">Konfirmasi via WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- GALERI FULLSCREEN (manual swipe + frame pink glow) -->
+  <section class="galeri">
+<div class="galeri-frame">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="img/cov.jpg" alt="Foto 1"></div>
+      <div class="swiper-slide"><img src="img/cincin 2.jpg" alt="Foto 2"></div>
+      <div class="swiper-slide"><img src="img/cov.jpg" alt="Foto 3"></div>
+    </div>
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper', {
+    pagination: { el: '.swiper-pagination' },
+  });
+</script>
+
+  </section>
+
+  <!-- TERIMA KASIH -->
+<section id="ucapan" class="thanks-wrap">
+  
+
+  <div class="thanks-card">
+     <h2 class="thanks-title">Terima Kasih</h2>
+    <p class="lead">
+      Kami mengucapkan terima kasih yang sebesar-besarnya atas kehadiran dan doa restu
+      dari semua sahabat dan keluarga tercinta. Kehadiran Anda membuat hari kami semakin istimewa.
+      Semoga tali persaudaraan kita semakin erat dan selalu diberkahi. Terima kasih telah menjadi
+      bagian dari momen berharga dalam hidup kami!
+    </p>
+
+    <div class="signature">
+      <span class="name">ARinvitation</span>
+      <span class="role">DIGITAL WEB INVITATION</span>
+    </div>
+
+    <p class="closing">
+      Semoga kebahagiaan selalu menyertai kita semua. Terima kasih atas segala dukungan dan kasih sayangnya.
+    </p>
+    <p class="doa">
+      Wassalamu’alaikum warahmatullahi wabarakatuh
+    </p>
+  </div>
+
+  <div class="thanks-footer">
+  <span class="brand">Website Invitation by ARinvitation</span>
+    <a href="https://instagram.com/arinvitation.my.id" target="_blank" class="ig-btn">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+      ARinvitation
+    </a>
+  </div>
+</section>
+
+  <!-- Musik & Toast -->
+  <div id="musicBtn" class="music-btn">🎵</div>
+  <audio id="bgm" src="audio/lestari.mp3" loop></audio>
+  <div id="toast" class="toast">Tersalin!</div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // ====== Lock scroll pada cover ======
+    const disableScroll = (e)=>{ if (document.documentElement.classList.contains('locked')) { e.preventDefault(); } };
+    document.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.classList.add('locked');
+      document.body.classList.add('locked');
+      document.addEventListener('touchmove', disableScroll, {passive:false});
+      document.addEventListener('wheel', disableScroll, {passive:false});
+    });
+    function unlockScroll(){
+      document.documentElement.classList.remove('locked');
+      document.body.classList.remove('locked');
+      document.removeEventListener('touchmove', disableScroll, {passive:false});
+      document.removeEventListener('wheel', disableScroll, {passive:false});
+    }
+
+    // ====== Countdown ======
+    const target=new Date("Dec 28, 2025 08:00:00").getTime();
+    setInterval(()=>{const now=Date.now();const diff=Math.max(0,target-now);
+      const d=Math.floor(diff/(1000*60*60*24));
+      const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+      const m=Math.floor((diff%(1000*60*60))/(1000*60));
+      const s=Math.floor((diff%(1000*60))/1000);
+      (document.getElementById("days")||{}).textContent=d;
+      (document.getElementById("hours")||{}).textContent=h;
+      (document.getElementById("minutes")||{}).textContent=m;
+      (document.getElementById("seconds")||{}).textContent=s;
+    },1000);
+
+    // ====== Swiper gallery (manual swipe) ======
+    new Swiper(".mySwiper",{ loop:true, effect:"slide", speed:700, allowTouchMove:true });
+
+    // ====== Musik toggle ======
+    const musicBtn=document.getElementById('musicBtn');
+    const bgm=document.getElementById('bgm'); let playing=false;
+    musicBtn.addEventListener('click',()=>{ if(!playing){bgm.play();playing=true;musicBtn.textContent='⏸️'} else {bgm.pause();playing=false;musicBtn.textContent='🎵'}});
+
+    // ====== Buka Undangan: unlock + scroll + play music ======
+    document.getElementById('openInvite')?.addEventListener('click',(e)=>{
+      e.preventDefault();
+      unlockScroll();
+      const s=document.getElementById('savethedate');
+      if(s){ s.scrollIntoView({behavior:'smooth'}); }
+      if(bgm && bgm.paused){ bgm.play().catch(()=>{}); musicBtn.textContent='⏸️'; playing=true; }
+    });
+
+    // ====== Copy rekening + toast ======
+    function showToast(msg="Tersalin!"){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1200);}
+    async function copyText(text){try{ if(navigator.clipboard){await navigator.clipboard.writeText(text);} else {const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();} showToast(); }catch{ showToast("Gagal menyalin"); }}
+
+    // delegasi klik tombol salin pada account-item
+    document.addEventListener('click', e => {
+      const item = e.target.closest('.account-item');
+      if (e.target.matches('.copy-btn') && item) {
+        copyText(item.getAttribute('data-copy'));
+      }
+    });
+
+    // ====== RSVP WhatsApp (ganti nomor) ======
+    document.getElementById('kirimWA').addEventListener('click',()=>{
+      const msg="Halo, saya ingin konfirmasi kehadiran untuk acara Italiana & Jackson.%0ANama: ....%0AJumlah Tamu: ....%0AKehadiran: Hadir / Tidak Hadir";
+      window.open('https://wa.me/6285161773994?text='+msg,'_blank'); // ganti nomor WA
+    });
+
+    // ====== Reveal animasi konten ======
+    document.querySelectorAll('section:not(.galeri)').forEach(sec=>{
+      const els=sec.querySelectorAll('.card,.event-block,h1,h2,h3,p,.btn,.btn-map,.btn-cal,.venue-address');
+      els.forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=`${i*80}ms`;});
+    });
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}});
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // ====== Animasi foto profil (inview) ======
+    const photos=document.querySelectorAll('.profile-photo');
+    const photoObs=new IntersectionObserver(es=>{
+      es.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('inview'); photoObs.unobserve(ent.target); }});
+    },{threshold:.2});
+    photos.forEach(p=>photoObs.observe(p));
+  </script>
+</body>
+</html>
