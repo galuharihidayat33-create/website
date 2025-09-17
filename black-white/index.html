@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Undangan – Intan & Permana (Stabil)</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Great+Vibes&family=Alfa+Slab+One&family=Inter:wght@400;700&family=Pacifico&display=swap" rel="stylesheet" />
+ <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Condiment&family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=Island+Moments&family=Italianno&family=Oooh+Baby&family=Playball&family=Protest+Riot&family=Sacramento&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ 
+ <style>
+    :root{ --overlayFrom:#0a0a0ab0; --overlayMid:#adadad85; --overlayTo:#ffffff00; --safe-b: env(safe-area-inset-bottom, 0px); --vh: 1vh; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#000;color:#111;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+
+    /* ===== Cover (overlay) ===== */
+    .coverOverlay{position:fixed;inset:0;z-index:999;height:100svh;overflow:hidden;display:block}
+    .coverOverlay.hide{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease, visibility .45s ease}
+    .coverOverlay::before{content:"";position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;z-index:-2}
+    .coverOverlay::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(to top,var(--overlayFrom) 0%,var(--overlayMid) 32%,var(--overlayTo) 75%);z-index:-1}
+    .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;padding-bottom:calc(24px + var(--safe-b))}
+    .titleTop{font-family:"Playfair Display",serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+    .namesBlock{font-family:"Alfa Slab One",serif;font-size:32px;line-height:1;color:#fff;text-transform:uppercase;text-shadow:0 2px 6px rgba(0,0,0,.35);margin-top:8px}
+    .meta{display:flex;gap:10px;align-items:center;color:#fff;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.25);margin-top:8px}
+    .btnOpen{position:absolute;right:16px;bottom:calc(16px + var(--safe-b));color:#fff;font-weight:800;text-decoration:none;background:transparent;text-shadow:0 2px 6px rgba(0,0,0,.35)}
+
+    /* ===== Section umum ===== */
+    .screen{position:relative;width:100%;height:calc(var(--vh) * 100);overflow:hidden}
+    .hero{isolation:isolate}
+    .hero::before{content:"";position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;z-index:-2}
+    .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(to top,var(--overlayFrom) 0%,var(--overlayMid) 32%,var(--overlayTo) 75%);z-index:-1}
+
+    /* ===== Screen 2 ===== */
+    #intro .nameLeft{position:absolute;left:28px;bottom:calc(96px + var(--safe-b));color:#fff;font-family:"Pacifico",cursive;font-size:46px;line-height:1.0;text-shadow:0 6px 20px rgba(0,0,0,.35)}
+    #intro .nameRight{position:absolute;right:28px;bottom:28px;color:#fff;font-family:"Pacifico",cursive;font-size:46px;line-height:1.06;text-shadow:0 6px 20px rgba(0,0,0,.35);text-align:right}
+    @media(min-width:420px){ #intro .nameLeft, #intro .nameRight{font-size:56px} .namesBlock{font-size:36px} }
+
+    /* ===== Screen 3: Kedua Mempelai ===== */
+    #couple{min-height:60vh;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;background:#f7f7f8;color:#232323;padding:48px 22px 32px;padding-bottom:calc(32px + var(--safe-b));}
+    .titleWrap{text-align:center;margin-bottom:22px}
+    .titleMain{font-family:"Playfair Display",serif;font-weight:600;font-size:32px;margin:0;color:#3b3b3b}
+    .titleScript{font-family:"Great Vibes",cursive;display:block;margin-top:-6px;font-size:40px;color:#7a7a7a}
+    .greet{margin:14px 0 10px;font-weight:700;color:#4b5563;text-align:center}
+    .para{max-width:720px;margin:0 auto;color:#4b5563;line-height:1.7;text-align:center}
+
+    /* ===== Screen 4: Profil Wanita ===== */
+    #bride{position:relative;width:100%;height:calc(var(--vh) * 100);overflow:hidden;isolation:isolate}
+    #bride::before{content:"";position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;z-index:-2}
+    #bride::after{content:"";position:absolute;left:0;right:0;bottom:0;height:48%;background:linear-gradient(to top,#000000f2 0%, #504f4fc8 35%, #ffffff00 70%);z-index:-1}
+    #bride .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;padding-bottom:calc(24px + var(--safe-b));gap:12px}
+    #bride .displayName{align-self:flex-start;display:inline-block;width:auto}
+    #groom .displayName{align-self:flex-end;display:inline-block;width:auto}
+    .displayName{font-family:"Great Vibes",cursive;color:#fff;font-size:36px;line-height:1;filter:drop-shadow(0 2px 10px rgba(0,0,0,.35));display:inline-block;position:relative}
+    .displayName::after{content:"";display:block;height:2px;width:100%;background:currentColor;opacity:.95;margin-top:6px;border-radius:2px}
+    .bio{color:#fff;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45))}
+    .bio .name{font-family:"Alfa Slab One",serif;font-size:28px;margin:12px 0 4px}
+    .bio .meta{margin:0 0 10px 0;line-height:1.55;font-weight:600}
+    .social{display:flex;gap:10px;align-items:center}
+    .ig{display:inline-flex;align-items:center;gap:8px;padding:2px 2px;border:1px solid rgba(255,255,255,.85);border-radius:2px;color:#fff;text-decoration:none;background:transparent}
+    .ig svg{width:16px;height:16px;fill:#fff}
+
+    /* ===== Screen 5: Profil Pria ===== */
+    #groom{position:relative;width:100%;height:calc(var(--vh) * 100);overflow:hidden;isolation:isolate}
+    #groom::before{content:"";position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;z-index:-2}
+    #groom::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(to top,#00000000 0%, #00000055 25%, #00000088 50%, #00000033 85%, #00000000 100%);z-index:-1}
+    #groom .wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;padding:24px;padding-bottom:calc(24px + var(--safe-b));gap:12px;text-align:right}
+    #groom .displayName{color:#fff;font-size:36px;display:inline-block;margin-left:auto}
+    #groom .bio{color:#fff;display:flex;flex-direction:column;align-items:flex-end;text-align:right;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45))}
+
+   /* ===== Screen 6: Save the Date (FULL SCREEN panel) ===== */
+#events{
+  position:relative; width:100%;
+  min-height:calc(var(--vh) * 100); /* benar2 setinggi layar */
+  isolation:isolate; color:#fff; overflow:hidden;
+  display:flex; align-items:stretch; /* biar panel bisa stretch penuh */
+}
+#events::before{
+  content:""; position:absolute; inset:0;
+  background-image:var(--bg); background-size:cover; background-position:center; z-index:-2;
+}
+#events::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,.65) 60%, rgba(0,0,0,.78) 100%);
+  z-index:-1;
+}
+
+/* PANEL hitam transparan memenuhi layar dengan jarak tepi */
+#events .panel{
+  position:relative;
+  width:100%;
+  height:calc(var(--vh) * 100 - 36px); /* 36px = margin 18px kiri+kanan+atas+ bawah */
+  margin:18px; padding:24px 22px 84px; /* padding-btm besar agar tidak nabrak signature */
+  background:rgba(0,0,0,.55);
+  backdrop-filter:saturate(1.1) blur(2px);
+  border-radius:24px;
+  box-shadow:0 14px 38px rgba(0,0,0,.35);
+  overflow:auto;  /* kalau konten lebih tinggi dari layar, panel bisa digulir */
+}
+
+/* Judul & blok */
+#events .saveTitle{
+  font-family:"Playfair Display",serif; font-weight:700;
+  font-size:42px; line-height:1; margin:0 0 12px;
+}
+#events .blk{ margin-top:18px; }
+#events .blk .title{
+  font-family:"Playfair Display",serif; font-weight:700;
+  font-size:40px; margin:0 0 8px;
+}
+#events .blk .meta{ margin:0 0 6px; line-height:1.7; font-weight:600; opacity:.98; }
+#events .blk .place{ font-weight:800; letter-spacing:.2px; }
+
+/* garis & Maps */
+#events .sep{ width:62%; max-width:180px; height:2px; background:#fff; opacity:.9; border-radius:2px; margin:12px 0 10px; }
+#events .mapsBtn{
+  display:inline-block; font-weight:800; text-decoration:none; color:#fff;
+  font-size:28px; line-height:1; border-bottom:2px solid #fff; padding-bottom:2px;
+  margin-bottom:22px; /* jarak aman dari elemen berikutnya */
+}
+
+/* Tanda tangan selalu aman di bawah dan tidak menutupi teks */
+#events .sig{
+  position:absolute; left:22px; right:22px; bottom:18px;
+  font-family: "Italianno", cursive; font-size:46px;
+  opacity:.95; pointer-events:none; /* tidak menghalangi klik Maps */
+}
+
+/* Animasi reveal (tetap) */
+#events .reveal{opacity:0; transform:translateY(14px); filter:blur(2px)}
+#events .reveal.in{opacity:1; transform:none; filter:none; transition:opacity .7s ease, transform .7s ease, filter .7s ease}
+
+@media(min-width:480px){
+  #events .panel{ padding:28px 26px 92px; }
+  #events .saveTitle{ font-size:48px; }
+}
+
+    /* ===== Screen 7: Gallery ===== */
+    #gallery{background:#f7f7f8;color:#111;padding:16px}
+    #gallery .title{font-family:"Playfair Display",serif;font-weight:600;font-size:24px;margin:6px 6px 14px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+    .grid .top{grid-column:1/-1;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:14px;background:#ddd}
+    .grid .item{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:12px;background:#e5e5e5}
+    .grid img,.grid video{width:100%;height:100%;object-fit:cover;display:block}
+    .grid .play{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:6px 8px;border-radius:8px}
+    .grid button{all:unset;cursor:pointer}
+    @media(min-width:480px){ #gallery{padding:24px 20px} .grid{grid-template-columns:repeat(3,1fr)} .grid .top{grid-column:1/-1} }
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+    .lightbox.show{display:flex}
+    .lightbox .frame{position:relative;max-width:100%;max-height:100%;width:100%}
+    .lightbox img,.lightbox video{width:100%;height:auto;max-height:90svh;display:block;border-radius:12px}
+    .lightbox .close{position:absolute;top:-6px;right:-6px;background:#000;color:#fff;border-radius:999px;padding:8px 10px;font-weight:700;line-height:1;cursor:pointer}
+
+    /* Animasi util */
+    .fadeUp{opacity:0;transform:translateY(14px);filter:blur(2px)}
+    .fadeUp.in{opacity:1;transform:none;filter:none;transition:opacity .7s ease, transform .7s ease, filter .7s ease}
+    @keyframes trackIn{0%{letter-spacing:.6em;opacity:0;filter:blur(4px)}100%{letter-spacing:1px;opacity:1;filter:blur(0)}}
+    .namesBlock.fadeUp.in{animation:trackIn .9s ease both}
+    .slideInL{opacity:0;transform:translateX(-28px)}
+    .slideInR{opacity:0;transform:translateX(28px)}
+    .slideInL.in, .slideInR.in{opacity:1;transform:none;transition:transform .9s cubic-bezier(.22,.61,.36,1), opacity .9s ease}
+    .reveal{opacity:0;transform:translateY(14px);filter:blur(2px)}
+    .reveal.in{opacity:1;transform:none;filter:none;transition:opacity .7s ease, transform .7s ease, filter .7s ease}
+
+    @media (prefers-reduced-motion:reduce){
+      .fadeUp,.slideInL,.slideInR,.reveal{opacity:1;transform:none;filter:none}
+      .fadeUp.in,.slideInL.in,.slideInR.in,.reveal.in{transition:none}
+    }
+
+    /* ===== SCREEN 8: GIFT & RSVP (Black–White) ===== */
+    #gift{position:relative;padding:20px;background:#0b0b0c;color:#fff}
+    #gift::before{content:"";position:absolute;inset:0;z-index:0;background-image:var(--bg, none);background-size:cover;background-position:center;filter:grayscale(100%) contrast(1.05) brightness(.55);opacity:.6}
+    #gift .panel{position:relative;z-index:1;background:#fff;color:#111;border-radius:18px;padding:18px;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+    #gift .title{font-family:"Playfair Display",serif;font-weight:700;font-size:26px;text-align:center;margin:6px 0 10px}
+    #gift .desc{color:#444;text-align:center;line-height:1.6;margin:0 0 12px}
+
+    .accList{display:flex;flex-direction:column;gap:12px;margin:12px 0}
+    .acc{border:1px dashed #e6d8ff;border-radius:14px;padding:12px;display:flex;align-items:center;gap:12px;background:#fff}
+    .acc .bank{font-weight:800;letter-spacing:.4px}
+    .acc .num{font-size:18px;font-weight:800}
+    .acc .name{opacity:.8;margin-top:2px}
+    .acc .copy{margin-left:auto;background:#fff;border:1px solid #eee;border-radius:10px;padding:8px 12px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.06);cursor:pointer}
+
+    .rsvp{margin-top:16px;padding-top:12px;border-top:1px solid #eee;text-align:center}
+    .rsvp .ttl{font-family:"Playfair Display",serif;font-weight:700;font-size:24px;margin:8px 0}
+    .rsvp .sub{color:#555;margin:0 0 12px}
+    .waBtn{display:block;margin:0 auto;background:#111;color:#fff;border:none;border-radius:999px;padding:14px 18px;font-weight:800;width:100%;max-width:520px;}
+
+    @media(min-width:480px){ #gift{padding:24px} #gift .panel{padding:20px} }
+
+    /* ===== RSVP form grid layout (spesifik ke #gift) ===== */
+#gift .rsvpForm{
+  display:grid; gap:12px; margin-top:8px;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "name"
+    "jumlah"
+    "sesi"
+    "ucapan"
+    "submit"
+    "note";
+}
+@media (min-width:420px){
+  #gift .rsvpForm{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "name   jumlah"
+      "sesi   sesi"
+      "ucapan ucapan"
+      "submit submit"
+      "note   note";
+  }
+}
+#gift .rsvpForm .fld{ display:flex; flex-direction:column; gap:6px; }
+#gift .rsvpForm .fld span{ font-weight:700; color:#222; }
+#gift .rsvpForm input, 
+#gift .rsvpForm select, 
+#gift .rsvpForm textarea{
+  width:100%; border:1px solid #e6e6e6; border-radius:10px; padding:12px 12px;
+  font:inherit; color:#111; background:#fff;
+}
+#gift .rsvpForm input:focus, 
+#gift .rsvpForm select:focus, 
+#gift .rsvpForm textarea:focus{
+  outline:none; border-color:#111; box-shadow:0 0 0 3px rgba(0,0,0,.08);
+}
+
+/* area penempatan */
+#gift .rsvpForm .fld-name   { grid-area: name; }
+#gift .rsvpForm .fld-jumlah { grid-area: jumlah; }
+#gift .rsvpForm .fld-sesi   { grid-area: sesi; }
+#gift .rsvpForm .fld-ucapan { grid-area: ucapan; }
+
+#gift .rsvpForm .waSend{
+  grid-area: submit;
+  background:#111; color:#fff; border:none; border-radius:999px;
+  padding:14px 18px; font-weight:800; cursor:pointer;
+}
+#gift .rsvpForm .waSend:active{ transform:scale(.98); }
+#gift .rsvpForm .note{ grid-area: note; color:#666; }
+
+    /* ===== SCREEN 9: THANK YOU + FOOTER (Black–White) ===== */
+    #thanks{background:#0b0b0c;color:#fff;padding:48px 22px 80px;text-align:center}
+    #thanks .big{font-family:"Playfair Display",serif;font-weight:700;font-size:32px;margin:0 0 6px}
+    #thanks .msg{max-width:720px;margin:0 auto 18px;line-height:1.75;color:#e7e7e7}
+    footer.site{background:#0b0b0c;color:#fff;text-align:center;padding:18px 16px}
+    footer.site a{color:#fff;text-decoration:underline;font-weight:700}
+
+  /* === Single Play/Pause button === */
+.audioBtn{
+  position:fixed; right:16px; bottom:calc(16px + var(--safe-b));
+  width:46px; height:46px; border-radius:999px;
+  background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.7);
+  backdrop-filter:blur(2px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:998; color:#fff; cursor:pointer;
+  opacity:0; transform:translateY(8px); pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+}
+.audioBtn svg{ width:18px; height:18px; fill:#fff }
+.audioBtn.show{ opacity:1; transform:none; pointer-events:auto }
+.audioBtn:active{ transform:scale(.96) }
+@media (prefers-reduced-motion:reduce){ .audioBtn:active{ transform:none } }
+
+  </style>
+</head>
+<body>
+  <!-- Floating Play/Pause -->
+<button class="audioBtn" id="ppBtn" aria-label="Putar/Jeda" hidden>
+  <!-- play (awal) -->
+  <svg id="ppPlay" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+  <!-- pause -->
+  <svg id="ppPause" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+
+  <!-- ===== Screen 2 ===== -->
+  <section class="screen hero" id="intro" style="--bg: url('img/hal\ 1.jpg');">
+    <h1 class="nameLeft slideInL">Intan</h1>
+    <h1 class="nameRight slideInR">permana</h1>
+  </section>
+
+  <!-- ===== Screen 3 ===== -->
+  <section id="couple">
+    <div class="titleWrap reveal">
+      <h2 class="titleMain">Kedua</h2>
+      <span class="titleScript">Mempelai</span>
+    </div>
+    <h3 class="greet reveal">Assalamu'alaikum Warahmatullahi Wabarakatuh</h3>
+    <p class="para reveal">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah, semoga ridho-Mu tercurah mengiringi pernikahan kami.</p>
+  </section>
+
+  <!-- ===== Screen 4: Wanita ===== -->
+  <section id="bride" style="--bg:url('img/wnt.jpg')">
+    <div class="wrap">
+      <div class="displayName reveal">Intan parawinta</div>
+      <div class="bio reveal">
+      
+        <p class="meta">Putri pertama<br/>Bp. Budi &amp; Ibu Nia</p>
+        <div class="social">
+          <a class="ig" href="https://instagram.com/hdyt_arr" target="_blank" rel="noopener" aria-label="Instagram Intan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            <span>@Intan</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Screen 5: Pria ===== -->
+  <section id="groom" style="--bg:url('img/pra.jpg')">
+    <div class="wrap">
+      <div class="displayName reveal">Putra permana</div>
+      <div class="bio reveal">
+       
+        <p class="meta">Putra pertama<br/>Bp. Budi &amp; Ibu Nia</p>
+        <div class="social">
+          <a class="ig" href="https://instagram.com/hdyt_arr" target="_blank" rel="noopener" aria-label="Instagram Permana">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            <span>@permana</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== Screen 6: Save the Date ===== -->
+<section id="events" style="--bg:url('img/prew.jpg')">
+  <div class="panel">
+    <h2 class="saveTitle reveal">Save the date</h2>
+
+    <!-- Akad -->
+    <div class="blk">
+      <h3 class="title reveal">Akad</h3>
+      <p class="meta reveal">25 November 2025<br>08.00 - Selesai</p>
+      <p class="meta place reveal">Masjid agung karanganyar</p>
+      <p class="meta reveal">Karanganyar jawa tengah<br>indonesia</p>
+      <div class="sep reveal"></div>
+      <a class="mapsBtn reveal" href="https://maps.google.com/?q=Masjid%20Agung%20Karanganyar" target="_blank" rel="noopener">Maps</a>
+    </div>
+
+    <!-- Resepsi -->
+    <div class="blk">
+      <h3 class="title reveal">Resepsi</h3>
+      <p class="meta reveal">25 November 2025<br>10.00 - Selesai</p>
+      <p class="meta place reveal">Kartika hotel</p>
+      <p class="meta reveal">Karanganyar jawa tengah<br>indonesia</p>
+      <div class="sep reveal"></div>
+      <a class="mapsBtn reveal" href="https://maps.google.com/?q=Kartika%20Hotel%20Karanganyar" target="_blank" rel="noopener">Maps</a>
+    </div>
+
+    <!-- tanda tangan skrip di bawah panel -->
+    <div class="sig reveal">Intan & Permana</div>
+  </div>
+</section>
+
+  <!-- ===== Screen 7: Gallery ===== -->
+  <section id="gallery">
+    <h2 class="title">Gallery</h2>
+    <div class="grid">
+      
+      </button>
+      <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="Gallery 1"/></button>
+      <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop" alt="Gallery 2"/></button>
+      <button class="item" data-type="img" data-src="img/cover.jpg"><img loading="lazy" src="img/cover.jpg" alt="Gallery 3"/></button>
+      <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop" alt="Gallery 4"/></button>
+      <button class="item" data-type="img" data-src="img/pra.jpg"><img loading="lazy" src="img/pra.jpg" alt="Gallery 5"/></button>
+      <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=600&auto=format&fit=crop" alt="Gallery 6"/></button>
+    </div>
+    <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" hidden>
+      <div class="frame">
+        <button class="close" id="lbClose" aria-label="Tutup">✕</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 8: GIFT & RSVP ===== -->
+  <section id="gift" style="--bg:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop')">
+    <div class="panel">
+      <h2 class="title">Gift</h2>
+      <p class="desc">Jika berkenan mengirimkan hadiah, berikut rekening yang dapat digunakan.</p>
+      <div class="accList">
+        <div class="acc">
+          <div>
+            <div class="bank">BCA</div>
+            <div class="num" data-number="1234567890">1234567890</div>
+            <div class="name">a.n. Italiana Angelia</div>
+          </div>
+          <button class="copy" data-copy="1234567890">Salin</button>
+        </div>
+        <div class="acc">
+          <div>
+            <div class="bank">BNI</div>
+            <div class="num" data-number="9876543210">9876543210</div>
+            <div class="name">a.n. Jackson Limantara</div>
+          </div>
+          <button class="copy" data-copy="9876543210">Salin</button>
+        </div>
+      </div>
+
+     <div class="rsvp">
+  <h3 class="ttl">Konfirmasi Kehadiran</h3>
+  <p class="sub">Isi formulir di bawah ini, lalu kirim via WhatsApp.</p>
+
+  <form id="rsvpForm" class="rsvpForm" novalidate>
+    <label class="fld fld-name">
+      <span>Nama</span>
+      <input type="text" id="fName" placeholder="Nama lengkap" required />
+    </label>
+
+    <label class="fld fld-jumlah">
+      <span>Jumlah Tamu</span>
+      <input type="number" id="fJumlah" min="1" step="1" placeholder="Mis. 2" required />
+    </label>
+
+    <label class="fld fld-sesi">
+      <span>Sesi</span>
+      <select id="fSesi" required>
+        <option value="" selected disabled>Pilih sesi</option>
+        <option>Akad</option>
+        <option>Resepsi</option>
+        <option>Keduanya</option>
+      </select>
+    </label>
+
+    <label class="fld fld-ucapan">
+      <span>Ucapan</span>
+      <textarea id="fUcapan" rows="3" placeholder="Tulis doa/ucapan..."></textarea>
+    </label>
+
+    <button type="submit" class="waSend" id="waSend" data-wa="6285161773994">
+      Kirim via WhatsApp
+    </button>
+    <small class="note">Nomor WA tujuan bisa diubah di <code>data-wa</code>.</small>
+  </form>
+</div>
+
+
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 9: THANK YOU + FOOTER ===== -->
+  <section id="thanks">
+    <h2 class="big">Terima kasih</h2>
+    <p class="msg">Atas doa, cinta, dan kehadiran teman-teman semua. Semoga Allah membalas dengan kebaikan berlipat. Sampai jumpa di hari bahagia kami.</p>
+  </section>
+  <footer class="site">
+    Undangan by <a href="https://instagram.com/arinvitation.mt.id" target="_blank" rel="noopener noreferrer">arinvitation</a>
+  </footer>
+
+  <!-- ===== Cover overlay (paling terakhir agar menutup semua) ===== -->
+  <header class="coverOverlay" id="cover" style="--bg: url('img/cover.jpg');">
+    <div class="wrap">
+      <div class="titleTop fadeUp">The wedding of</div>
+      <div class="namesBlock fadeUp">INTAN & PERMANA</div>
+      <div class="meta fadeUp"><span>28</span><span>|</span><span>November</span><span>|</span><span>2025</span></div>
+    </div>
+    <a class="btnOpen fadeUp" id="openBtn" href="#intro">Open invitation</a>
+  </header>
+
+  <!-- ===== Background Music (autoplay saat masuk Screen 2) ===== -->
+  <audio id="bgm" src="audio/saxsofone.mp3" preload="auto" loop></audio>
+  <script>function setupPlayPauseOnly(){
+  const bgm = document.getElementById('bgm');
+  const btn = document.getElementById('ppBtn');
+  const icPlay  = document.getElementById('ppPlay');
+  const icPause = document.getElementById('ppPause');
+  if(!bgm || !btn) return;
+
+  // ikon sesuai status
+  function sync(){
+    const playing = !bgm.paused;
+    icPlay.style.display  = playing ? 'none' : '';
+    icPause.style.display = playing ? '' : 'none';
+  }
+
+  // klik toggle
+  btn.addEventListener('click', ()=>{
+    if(bgm.paused){ bgm.play().catch(()=>{}); } else { bgm.pause(); }
+  });
+  bgm.addEventListener('play',  sync);
+  bgm.addEventListener('pause', sync);
+
+  // tampilkan hanya saat #intro terlihat ≥ 50%
+  const intro = document.getElementById('intro');
+  if(intro){
+    const io = new IntersectionObserver((ents)=>{
+      ents.forEach(en=>{
+        if(en.isIntersecting && en.intersectionRatio >= .5){
+          btn.hidden = false; requestAnimationFrame(()=>btn.classList.add('show'));
+        }else{
+          btn.classList.remove('show'); // smooth hide
+        }
+      });
+    }, {threshold:[0,.5,1]});
+    io.observe(intro);
+  }else{
+    // fallback: selalu tampil
+    btn.hidden = false; btn.classList.add('show');
+  }
+  sync();
+}
+
+// === Integrasi dengan tombol "Open invitation" yang sudah ada ===
+document.getElementById('openBtn').addEventListener('click',(e)=>{
+  e.preventDefault();
+  const cover=document.getElementById('cover');
+  cover.classList.add('hide');
+  setTimeout(()=>{
+    startIntroObs();
+    document.getElementById('intro').scrollIntoView({behavior:'smooth',block:'start'});
+    const bgm=document.getElementById('bgm');
+    if(bgm){ bgm.play().catch(()=>{}); }
+    setupPlayPauseOnly();          // <-- panggil di sini
+  },450);
+});
+
+// kalau halaman dibuka tanpa cover (mis. reload di tengah)
+if(!document.getElementById('cover')){
+  const bgm=document.getElementById('bgm');
+  bgm && bgm.play?.().catch(()=>{});
+  setupPlayPauseOnly();
+}
+</script>
+  <script>
+    // 100vh akurat di mobile
+    function setRealVh(){document.documentElement.style.setProperty('--vh',(window.innerHeight*0.01)+'px')} setRealVh(); window.addEventListener('resize', setRealVh);
+
+    // Anim cover
+    const ioCover=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');ioCover.unobserve(en.target);}})},{threshold:.2});
+    document.querySelectorAll('#cover .fadeUp').forEach((el,i)=>{el.style.transitionDelay=(0.08*i)+'s';ioCover.observe(el)});
+
+    // Screen 2 trigger
+    function animIntro(){const L=document.querySelector('#intro .slideInL');const R=document.querySelector('#intro .slideInR');if(L){L.style.transitionDelay='0s';L.classList.add('in');}if(R){R.style.transitionDelay='.12s';R.classList.add('in');}}
+    let introObs=null;function startIntroObs(){if(introObs) return;const intro=document.getElementById('intro');introObs=new IntersectionObserver((ents)=>{ents.forEach(en=>{if(en.isIntersecting&&en.intersectionRatio>=0.6){animIntro();introObs.disconnect();}});},{threshold:[0,0.6,1]});introObs.observe(intro);}    
+
+    // Reveal observers (couple, bride/groom, events)
+    const mkReveal=(sel)=>{const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}})},{threshold:0.2});document.querySelectorAll(sel).forEach((el,i)=>{el.style.transitionDelay=(0.08*i)+'s';io.observe(el)});};
+    mkReveal('#couple .reveal'); mkReveal('#bride .reveal'); mkReveal('#groom .reveal'); mkReveal('#events .reveal');
+
+    // Open invitation (FIXED braces)
+    document.getElementById('openBtn').addEventListener('click',(e)=>{
+      e.preventDefault();
+      const cover=document.getElementById('cover');
+      cover.classList.add('hide');
+      setTimeout(()=>{
+        startIntroObs();
+        document.getElementById('intro').scrollIntoView({behavior:'smooth',block:'start'});
+        const bgm=document.getElementById('bgm');
+        if(bgm){ bgm.play().catch(()=>{}); }
+      },450);
+    });
+    if(!document.getElementById('cover')) { startIntroObs(); const bgm=document.getElementById('bgm'); bgm&&bgm.play().catch(()=>{}); }
+
+    // ===== Lightbox Preview (Gallery) =====
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const frame = lb.querySelector('.frame');
+      const closeBtn = document.getElementById('lbClose');
+      const bgVideo = document.querySelector('#gallery .top video');
+      function openModal(node){while(frame.children.length>1) frame.removeChild(frame.lastChild);frame.appendChild(node);lb.classList.add('show');lb.removeAttribute('hidden');document.body.style.overflow='hidden'; if(bgVideo){bgVideo.pause();}}
+      function closeModal(){lb.classList.remove('show');lb.setAttribute('hidden','');document.body.style.overflow='';const v=frame.querySelector('video');if(v){v.pause();v.currentTime=0;}if(frame.children.length>1) frame.removeChild(frame.lastChild); if(bgVideo){bgVideo.play().catch(()=>{});} } 
+      closeBtn.addEventListener('click', closeModal); lb.addEventListener('click', (e)=>{ if(e.target===lb) closeModal(); });
+      document.querySelectorAll('#gallery .grid button').forEach(btn=>{btn.addEventListener('click', ()=>{const type=btn.dataset.type;const src=btn.dataset.src;if(type==='video'){const v=document.createElement('video');v.controls=true;v.playsInline=true;v.src=src;v.style.maxHeight='90svh';openModal(v);v.play().catch(()=>{});}else{const img=document.createElement('img');img.src=src;img.alt='Preview';openModal(img);}});});
+      // Autoplay aman untuk video atas (muted + playsinline)
+      if(bgVideo){
+        const vObs=new IntersectionObserver((es)=>{es.forEach(en=>{ if(en.isIntersecting && en.intersectionRatio>0.5){ bgVideo.play().catch(()=>{});} else { bgVideo.pause(); } });},{threshold:[0,0.5,1]});
+        vObs.observe(bgVideo);
+      }
+    })();
+
+    // Observer untuk EVENTS (single instance)
+    const ioEvents=new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');ioEvents.unobserve(en.target);}})},{threshold:0.2});
+    document.querySelectorAll('#events .reveal').forEach((el,i)=>{el.style.transitionDelay=(0.08*i)+'s';ioEvents.observe(el)});
+
+    // ===== Copy to clipboard (Gift) =====
+    document.querySelectorAll('#gift .copy').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const n=btn.dataset.copy||btn.previousElementSibling?.querySelector('.num')?.textContent?.trim();
+        if(!n) return;
+        navigator.clipboard.writeText(n).then(()=>{btn.textContent='Disalin';setTimeout(()=>btn.textContent='Salin',1500)}).catch(()=>{});
+      });
+    });
+
+    // ===== WhatsApp RSVP dengan template =====
+   // ===== RSVP -> WhatsApp (pakai input form + encoding aman) =====
+(function(){
+  const form   = document.getElementById('rsvpForm');
+  if(!form) return;
+
+  const nameEl = document.getElementById('fName');
+  const sesiEl = document.getElementById('fSesi');
+  const jmlEl  = document.getElementById('fJumlah');
+  const ucpEl  = document.getElementById('fUcapan');
+  const sendBtn= document.getElementById('waSend');
+
+  function buildMessage(){
+    const nama   = (nameEl.value || '').trim();
+    const sesi   = (sesiEl.value || '').trim();
+    const jumlah = (jmlEl.value  || '').trim();
+    const ucapan = (ucpEl.value  || '').trim();
+
+    const lines = [
+      "Assalamu'alaikum,",
+      `Saya *${nama || '[Nama Tamu]'}* ingin konfirmasi kehadiran.`,
+      "",
+      "Acara: Intan & Permana",
+      "Tanggal: 28 November 2025",
+      `Sesi: ${sesi || '[Akad/Resepsi/Keduanya]'}`,
+      `Jumlah Tamu: ${jumlah || '[__]'} orang`,
+      "",
+      `Ucapan: ${ucapan || '[__]'}`
+    ];
+    return lines.join('\n');
+  }
+
+  function validate(){
+    let ok = true;
+    // minimal: nama, sesi, jumlah
+    [nameEl, sesiEl, jmlEl].forEach(el=>{
+      if(!el.value){ ok = false; el.focus(); }
+    });
+    return ok;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validate()) return;
+
+    const phone = sendBtn?.dataset.wa || '';
+    const text  = buildMessage();
+    const url   = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    // buka di tab baru; kalau diblokir, fallback buka di tab yang sama
+    const w = window.open(url, '_blank');
+    if(!w) window.location.href = url;
+  });
+})();
+
+
+    // ====== Simple runtime tests (console) ======
+    ;(function(){
+      const errs=[];
+      // test: only one #openBtn
+      if(document.querySelectorAll('#openBtn').length!==1) errs.push('openBtn duplicate');
+      // test: no duplicate ioEvents
+      try{ if(typeof ioEvents!=='object') errs.push('ioEvents missing'); }catch(e){ errs.push('ioEvents not defined'); }
+      // test: lightbox elements exist
+      if(!document.getElementById('lightbox')) errs.push('lightbox missing');
+      if(errs.length){ console.warn('Self-test warnings:', errs); } else { console.log('Self-test passed'); }
+    })();
+  </script>
+</body>
+</html>
