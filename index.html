@@ -302,38 +302,45 @@
                 grid-template-columns: 1fr;
             }
         }
-        .features-section {
+        .feature-showcase-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.showcase-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 20px 40px;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.feature-item {
-    background-color: #ffffff4f;
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(250, 161, 161, 0.384);
-    text-align: center;
-    max-width: 350px;
-    transition: transform 0.3s ease-in-out;
+.showcase-item {
+    flex-basis: 300px; /* Lebar dasar setiap item */
+    flex-grow: 1;
+    max-width: 400px; /* Memastikan tidak terlalu lebar di layar besar */
 }
 
-.feature-item:hover {
-    transform: translateY(-10px);
+.showcase-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Jika Anda ingin sudutnya melengkung sedikit */
+    margin-bottom: 20px;
 }
 
-.feature-title {
-    font-size: 1.2rem;
-    color: #444;
+.showcase-title {
+    font-size: 1.8rem;
+    color: #333;
     margin-bottom: 10px;
 }
 
-.feature-description {
-    font-size: 01rem;
+.showcase-description {
+    font-size: 1rem;
     color: #666;
-    line-height: 1;
+    line-height: 1.6;
 }
     </style>
 </head>
@@ -346,7 +353,7 @@
         <section id="home" class="page-section active">
             <div class="hero-content">
                 <h1>ARinvitation</h1>
-                <p>Sampaikan momen bahagiamu dengan elegan bersama ARINVITATION.</p>
+                <p>Sampaikan momen bahagiamu dengan elegan bersama ARinvitation.</p>
                 <div class="hero-buttons">
                     <a href="https://wa.me/6285161773994" target="_blank" class="hero-btn order-btn">ORDER</a>
                     <button class="hero-btn design-btn" onclick="showPage('landing')">LIHAT DESAIN</button>
@@ -361,7 +368,7 @@
                     <div class="mySlides fade"><img src="img/sage green.png" alt="Desain Undangan 3"></div>
                 </div>
                 <div class="text-desc">
-                    <h2>Undangan Modern Paling Elegan</h2>
+                    <h2>Undangan Simple Modern Elegan</h2>
                     <p>Temukan koleksi undangan web dengan desain modern dan minimalis. Kami menyediakan undangan digital dengan harga terjangkau, fitur lengkap, dan layanan terbaik.</p>
                 </div>
                 <button class="next-page-btn" onclick="showPage('katalog')">Lihat Semua Desain</button>
@@ -435,25 +442,28 @@
                 </div>
             </div>
         </section>
-        <section class="features-section">
-    <div class="feature-item">
-        <h3 class="feature-title">Galeri Foto</h3>
-        <p class="feature-description">Bagikan momen terbaik Anda dengan galeri foto yang indah dan mudah diatur.</p>
-    </div>
+        
+<section class="feature-showcase-section">
+    <div class="showcase-container">
 
-    <div class="feature-item">
-        <h3 class="feature-title">Hitung Mundur Acara</h3>
-        <p class="feature-description">Tamu Anda bisa melihat sisa waktu menuju hari bahagia Anda.</p>
-    </div>
+        <div class="showcase-item">
+            <img src="img/thumnail.jpg" alt="Galeri Foto" class="showcase-image">
+            <h3 class="showcase-title">Galeri Foto</h3>
+            <p class="showcase-description">Bagikan momen terbaik dengan galeri foto yang indah dan mudah diatur.</p>
+        </div>
 
-    <div class="feature-item">
-        <h3 class="feature-title">Pilihan Musik</h3>
-        <p class="feature-description">Tambahkan musik favorit Anda untuk mempercantik undangan.</p>
-    </div>
+        <div class="showcase-item">
+            <img src="img/thumnail.jpg" alt="Hitung Mundur" class="showcase-image">
+            <h3 class="showcase-title">Hitung Mundur Acara</h3>
+            <p class="showcase-description">Tamu bisa melihat sisa waktu menuju hari bahagia Anda secara real-time.</p>
+        </div>
 
-    <div class="feature-item">
-        <h3 class="feature-title">Konfirmasi Kehadiran (RSVP)</h3>
-        <p class="feature-description">Kelola daftar tamu dengan mudah dan praktis.</p>
+        <div class="showcase-item">
+            <img src="img/thumnail.jpg" alt="Pilihan Musik" class="showcase-image">
+            <h3 class="showcase-title">Pilihan Musik</h3>
+            <p class="showcase-description">Tambahkan musik favorit untuk membuat undangan lebih berkesan.</p>
+        </div>
+        
     </div>
 </section>
     </main>
@@ -474,7 +484,7 @@
     </a>
 
     <!-- Instagram -->
-    <a href="https://instagram.com/arinvitation" class="icon" aria-label="Instagram" target="_blank" rel="noopener">
+    <a href="https://instagram.com/arinvitation.my.id" class="icon" aria-label="Instagram" target="_blank" rel="noopener">
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <!-- rounded square -->
         <rect x="9" y="9" width="30" height="30" rx="8" class="stroke" fill="none" stroke-width="2"/>
