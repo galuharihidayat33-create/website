@@ -473,6 +473,32 @@ body.locked{
   height: 100vh;        /* kunci tinggi satu layar */
 }
 
+/* Badge nama tamu di cover */
+.guest-badge{
+  display:inline-block;
+  margin: 8px 0 6px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  color: #fff;
+
+  text-align: center;
+}
+.guest-badge .label{
+  display:block;
+  font-size: 13px;
+  opacity:.95;
+  letter-spacing:.02em;
+}
+.guest-badge .name{
+  display:block;
+  margin-top: 2px;
+  font-weight:700;
+  font-size: 16px;
+}
+@media (min-width:480px){
+  .guest-badge .name{ font-size: 18px; }
+}
+
 /* Saat terkunci: main diblur & tidak bisa diklik */
 
 
@@ -530,6 +556,12 @@ header, main, footer { position: relative; z-index: 1; background: transparent; 
       <div class="hero__small" data-aos="fade-down">Undangan Pernikahan</div>
       <h1 class="hero__names" data-aos="zoom-in" data-aos-delay="200">DIA &amp; DIO</h1>
       <div class="hero__date" data-aos="fade-up" data-aos-delay="400">Sabtu, 10 Oktober 2025</div>
+      <!-- Sapaan + Nama Tamu -->
+<div id="guest-box" class="guest-badge" data-aos="fade-up" data-aos-delay="500">
+  <span class="label">Kepada Yth.</span>
+  <span id="guest-name-val" class="name">Bapak/Ibu/Saudara/i</span>
+</div>
+
       <button class="btn-enter" id="openBtn" data-aos="zoom-in" data-aos-delay="800">Buka Undangan</button>
       <div class="hero__hint" data-aos="fade-up" data-aos-delay="1000">Geser atau klik "Buka Undangan"</div>
     </div>
@@ -731,9 +763,7 @@ header, main, footer { position: relative; z-index: 1; background: transparent; 
     <p class="center muted">Kami mengucapkan terima kasih yang sebesar-besarnya atas kehadiran dan doa restu dari semua sahabat dan keluarga tercinta. Kehadiran Anda membuat hari kami semakin istimewa. Semoga tali persaudaraan kita semakin erat dan selalu diberkahi. Terima kasih telah menjadi bagian dari momen berharga dalam hidup kami!</p>
     
     <!-- Kamu bisa menambahkan gambar atau elemen lainnya jika diinginkan -->
-    <div class="center">
-      <img src="img/instagram.jpg" alt="Ucapan Terima Kasih" style="max-width:100%; border-radius:10px; margin-top:20px;">
-    </div>
+  
     
     <p class="center muted" style="margin-top:20px;">Semoga kebahagiaan selalu menyertai kita semua. Terima kasih atas segala dukungan dan kasih sayangnya.</p>
   </div>
@@ -743,12 +773,38 @@ header, main, footer { position: relative; z-index: 1; background: transparent; 
 
 <footer data-aos="fade-up">
   <div class="muted">
-    Terima kasih sudah mampir — Undangan by arinvitation<a href="https://instagram.com/arinvitation.my.id" target="_blank" style="color: var(--accent); text-decoration: none;">ARS</a>
+  Undangan by arinvitation<a href="https://instagram.com/arinvitation.my.id" target="_blank" style="color: var(--accent); text-decoration: none;">ARinvitation</a>
   </div>
 </footer>
   <!-- Script AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init({ once:true, duration:1000 });</script>
+<script>
+// Ambil nama tamu dari URL (?to=...) dan tampilkan di cover + prefill RSVP
+(function setGuestName(){
+  const params = new URLSearchParams(location.search);
+  const raw = params.get('to') || '';
+  const to  = raw.replace(/\+/g,' ').trim(); // ganti '+' jadi spasi jika ada
+
+  const box = document.getElementById('guest-box');
+  const val = document.getElementById('guest-name-val');
+
+  if (box && val){
+    if (to){
+      val.textContent = to;      // nama tamu
+      box.style.display = 'inline-block';
+    } else {
+      // kalau tidak ada nama, mau sembunyikan? buka baris di bawah:
+      // box.style.display = 'none';
+      val.textContent = 'Bapak/Ibu/Saudara/i';
+    }
+  }
+
+  // Prefill form RSVP kalau ada input #nama
+  const nameInput = document.getElementById('nama');
+  if (nameInput && to) nameInput.value = to;
+})();
+</script>
 
 <script>
   // Kunci saat halaman selesai siap

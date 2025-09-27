@@ -190,6 +190,31 @@
     box-shadow:0 10px 22px rgba(0,0,0,.25);font-weight:700;cursor:pointer;user-select:none
   }
   .music-btn.paused{background:transparent}
+/* Badge nama tamu di cover */
+.guest-badge{
+  display:inline-block;
+  margin: 8px 0 6px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  color: #fff;
+
+  text-align: center;
+}
+.guest-badge .label{
+  display:block;
+  font-size: 13px;
+  opacity:.95;
+  letter-spacing:.02em;
+}
+.guest-badge .name{
+  display:block;
+  margin-top: 2px;
+  font-weight:700;
+  font-size: 16px;
+}
+@media (min-width:480px){
+  .guest-badge .name{ font-size: 18px; }
+}
 
   /* ===========================================================
      OVERRIDE: GLOBAL VEIL TRANSPARAN TIPIS UNTUK SEMUA HALAMAN
@@ -260,7 +285,12 @@
     <div class="month reveal d3" id="cMonth"></div>
     <div class="year reveal d4" id="cYear"></div>
     <h1 class="names reveal d5" id="names"></h1>
-    <div class="guest reveal d5">Kepada Yth.<br/>Bapak/Ibu/Saudara/i</div>
+    <!-- Sapaan + Nama Tamu -->
+<div id="guest-box" class="guest-badge" data-aos="fade-up" data-aos-delay="500">
+  <span class="label">Kepada Yth.</span>
+  <span id="guest-name-val" class="name">Bapak/Ibu/Saudara/i</span>
+</div>
+
     <div class="disc reveal d5"></div>
     <button class="btn reveal d5" id="openBtn">Buka Undangan</button>
   </div>
@@ -425,6 +455,32 @@
     <span>undangan desain by <a href="https://instagram.com/arinvitation.my.id" target="_blank" rel="noopener">arinvitation</a></span>
   </div>
 </section>
+<script>
+// Ambil nama tamu dari URL (?to=...) dan tampilkan di cover + prefill RSVP
+(function setGuestName(){
+  const params = new URLSearchParams(location.search);
+  const raw = params.get('to') || '';
+  const to  = raw.replace(/\+/g,' ').trim(); // ganti '+' jadi spasi jika ada
+
+  const box = document.getElementById('guest-box');
+  const val = document.getElementById('guest-name-val');
+
+  if (box && val){
+    if (to){
+      val.textContent = to;      // nama tamu
+      box.style.display = 'inline-block';
+    } else {
+      // kalau tidak ada nama, mau sembunyikan? buka baris di bawah:
+      // box.style.display = 'none';
+      val.textContent = 'Bapak/Ibu/Saudara/i';
+    }
+  }
+
+  // Prefill form RSVP kalau ada input #nama
+  const nameInput = document.getElementById('nama');
+  if (nameInput && to) nameInput.value = to;
+})();
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", ()=>{

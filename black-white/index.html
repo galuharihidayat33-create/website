@@ -241,6 +241,40 @@
 #gift .rsvpForm .waSend:active{ transform:scale(.98); }
 #gift .rsvpForm .note{ grid-area: note; color:#666; }
 
+:root{
+  --dock-x: 16px;
+  --dock-b: calc(16px + var(--safe-b));
+}
+@media (min-width:420px){
+  :root{ --dock-x: 22px; --dock-b: calc(18px + var(--safe-b)); }
+}
+
+/* kontainer kanan-bawah */
+#cover .dockCol{
+  position:absolute; right:var(--dock-x); bottom:var(--dock-b);
+  display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+}
+/* tombol ikut kolom (bukan absolute) */
+#cover .btnOpen{ position:static !important; }
+
+/* dua baris: label di atas, nama di bawah */
+#cover .guestBlock{
+  text-align:right; color:#fff;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+}
+#cover .guest-label{
+  font-weight:700; font-size:13px; line-height:1.15; opacity:.95;
+}
+#cover .guest-name{
+  margin-top:2px;
+  font-weight:900; font-size:15px; line-height:1.15;
+}
+@media (min-width:420px){
+  #cover .guest-label{ font-size:14px; }
+  #cover .guest-name { font-size:16px; }
+}
+
+
     /* ===== SCREEN 9: THANK YOU + FOOTER (Black–White) ===== */
     #thanks{background:#0b0b0c;color:#fff;padding:48px 22px 80px;text-align:center}
     #thanks .big{font-family:"Playfair Display",serif;font-weight:700;font-size:32px;margin:0 0 6px}
@@ -359,7 +393,11 @@
   <section id="gallery">
     <h2 class="title">Gallery</h2>
     <div class="grid">
-      
+         <button class="top" data-type="video" data-src="img/vid.mp4">
+        <video muted playsinline autoplay loop preload="metadata" poster="https://images.unsplash.com/photo-1520975922324-c1c5a4c2a97d?q=80&w=1200&auto=format&fit=crop#t=0.1">
+          <source src="img/vid.mp4" type="video/mp4" />
+        </video>
+        <span class="play">Play video</span>
       </button>
       <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop" alt="Gallery 1"/></button>
       <button class="item" data-type="img" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&auto=format&fit=crop" alt="Gallery 2"/></button>
@@ -456,7 +494,15 @@
       <div class="namesBlock fadeUp">INTAN & PERMANA</div>
       <div class="meta fadeUp"><span>28</span><span>|</span><span>November</span><span>|</span><span>2025</span></div>
     </div>
-    <a class="btnOpen fadeUp" id="openBtn" href="#intro">Open invitation</a>
+<div class="dockCol">
+  <!-- Nama tamu: baris 1 = label, baris 2 = nama -->
+  <div id="guestBlock" class="guestBlock" style="display:none">
+    <div class="guest-label">Kepada Yth.</div>
+    <div id="guestName" class="guest-name">Bapak/Ibu/Saudara/i</div>
+  </div>
+
+  <a class="btnOpen" id="openBtn" href="#intro">Open invitation</a>
+</div>
   </header>
 
   <!-- ===== Background Music (autoplay saat masuk Screen 2) ===== -->
@@ -650,5 +696,15 @@ if(!document.getElementById('cover')){
       if(errs.length){ console.warn('Self-test warnings:', errs); } else { console.log('Self-test passed'); }
     })();
   </script>
+  <script>
+(function(){
+  const p   = new URLSearchParams(location.search);
+  const to  = (p.get('to') || p.get('nama') || '').replace(/\+/g,' ').trim();
+  const box = document.getElementById('guestBlock');
+  const nm  = document.getElementById('guestName');
+  if (to) { nm.textContent = to; box.style.display = 'block'; }
+})();
+</script>
+
 </body>
 </html>

@@ -574,6 +574,32 @@
   transform: scale(0.97);
 }
 
+/* Badge nama tamu di cover */
+.guest-badge{
+  display:inline-block;
+  margin: 10px 0 8px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  color:#000;
+  
+  text-align:center;
+}
+.guest-badge .label{
+  display:block;
+  font-size: 13px;
+  letter-spacing: .02em;
+  opacity: .9;
+}
+.guest-badge .name{
+  display:block;
+  margin-top: 2px;
+  font-weight: 700;
+  font-size: 16px;
+}
+@media (min-width:480px){
+  .guest-badge .name{ font-size: 18px; }
+}
+
 /* Responsif */
 @media (min-width:768px){
   .thanks-title{ font-size:2.4rem }
@@ -614,6 +640,12 @@
       <div class="hero-eyebrow">WEDDING CEREMONY OF</div>
       <h1 class="couple-names">Jesica & Irwan</h1>
       <div class="hero-date">SUNDAY, 28 DECEMBER 2025</div>
+      <!-- Sapaan + Nama Tamu -->
+<div id="guest-box" class="guest-badge" style="display:none">
+  <span class="label">Kepada Yth.</span>
+  <span id="guest-name" class="name">Bapak/Ibu/Saudara/i</span>
+</div>
+
       <p class="hero-desc">We step into a world made just for the two of us.<br>We humbly ask for your warmest blessings.</p>
       <a href="#savethedate" id="openInvite" class="cta-primary">Buka Undangan</a>
     </div>
@@ -818,6 +850,46 @@
   <div id="musicBtn" class="music-btn">🎵</div>
   <audio id="bgm" src="audio/lestari.mp3" loop></audio>
   <div id="toast" class="toast">Tersalin!</div>
+<script>
+// Nama tamu dari URL (?to=Nama%20Tamu)
+(function setGuestName(){
+  const params = new URLSearchParams(location.search);
+  // URLSearchParams sudah decode %20, tapi '+' tidak → ganti jadi spasi
+  const raw = params.get('to') || '';
+  const to  = raw.replace(/\+/g,' ').trim();
+
+  const box  = document.getElementById('guest-box');
+  const name = document.getElementById('guest-name');
+
+  if (box && name){
+    if (to){
+      name.textContent = to;
+      box.style.display = 'inline-block';
+    } else {
+      // jika tidak ada nama → sembunyikan badge
+      box.style.display = 'none';
+    }
+  }
+
+  // Patch tombol WhatsApp RSVP: prefill nama tamu (kalau ada)
+  const waBtn = document.getElementById('kirimWA');
+  if (waBtn){
+    waBtn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const pasangan = 'Jesica & Irwan'; // sesuaikan bila perlu
+      const lines = [
+        'Halo, saya ingin konfirmasi kehadiran untuk acara ' + pasangan + '.',
+        'Nama: ' + (to || '....'),
+        'Jumlah Tamu: ....',
+        'Kehadiran: Hadir / Tidak Hadir'
+      ];
+      const msg = encodeURIComponent(lines.join('\n'));
+      // Ganti nomor WA sesuai kebutuhan
+      window.open('https://wa.me/6285161773994?text='+msg, '_blank');
+    }, { once:true }); // pasang sekali saja
+  }
+})();
+</script>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
