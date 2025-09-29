@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Irwan & Aida – Undangan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif']
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: 0, transform: 'translateY(12px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            },
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 }
+            }
+          },
+          animation: {
+            'fade-up': 'fadeInUp var(--anim-dur,1.2s) ease-out forwards',
+            'fade': 'fadeIn var(--anim-dur,1.2s) ease-out forwards'
+          },
+          colors: {
+            glass: 'rgba(255,255,255,0.08)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Ubah durasi animasi global di sini */
+    :root { --anim-dur: 1.2s }
+    /* Lock scroll saat cover (opsional—aktif kalau mau) */
+    body.lock-scroll { height: 100vh; overflow: hidden; }
+  :root{
+      /* Atur fokus cropping foto (object-position) */
+      --groom-pos: 50% 45%;   /* kiri–kanan %, atas–bawah % */
+      --bride-pos: 50% 50%;
+      --couple-pos: 50% 50%;
+      /* Padding dalam frame jika perlu jarak tepi foto */
+      --groom-pad: 0rem; /* contoh: .25rem / .5rem */
+      --bride-pad: 0rem;
+      --couple-pad: 0rem;
+    }
+  section#section-4 ~ section#section-4{display:none !important;}
+  #countdown-resepsi .grid > *:nth-child(n+5){display:none !important;}
+/* === Per-text reveal === */
+@keyframes rv-fade-up {
+  0% {opacity:0; transform:translateY(10px)}
+  100%{opacity:1; transform:translateY(0)}
+}
+[data-reveal] .rv-item{
+  opacity:0; transform:translateY(10px); display:inline-block; will-change:transform,opacity;
+}
+[data-reveal].is-inview .rv-item{
+  animation: rv-fade-up .55s ease-out forwards;
+  animation-delay: calc(var(--i) * var(--stagger, 70ms));
+}
+  
+  .font-italianno{ font-family: "Italianno", cursive;}
+  .font-pinyon{ font-family: "Pinyon Script", cursive !important;}
+  .font-dafoe{ font-family:"Mr Dafoe",cursive !important; }
+  </style>
+  <!-- Google Fonts (opsional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <!-- Google Fonts tambahan untuk nama elegan & body -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Condiment&family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=Hurricane&family=Island+Moments&family=Italianno&family=Kings&family=Mr+Dafoe&family=Oooh+Baby&family=Pinyon+Script&family=Playball&family=Protest+Riot&family=Sacramento&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-white text-gray-800">
+
+  <audio id="bg-music" src="audio/kusuma wijaya.mp3" preload="auto" loop></audio>
+
+
+  <!-- SECTION 1: COVER / HERO -->
+  <section id="cover" class="relative min-h-[100dvh] w-full overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img id="bg-photo" src="img/gallery  (8).JPEG" alt="background" class="h-full w-full object-cover"/>
+      <!-- White "shadow" tipis di bawah -->
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-b from-transparent via-white/60 to-white"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex h-[100dvh] flex-col items-center justify-end pb-14 px-5 text-center">
+      <p data-aos="fade-up" data-aos-delay="150" class="text-base tracking-wide text-white/90 drop-shadow-sm">The Wedding of</p>
+
+      <h1 data-aos="fade-up" data-aos-delay="300" class="font-italianno text-6xl leading-tight md:text-5xl text-white drop-shadow-[0_6px_24px_rgba(0,0,0,.45)]">Irwan & Aida</h1>
+
+     <!-- Nama tamu tepat di atas tombol -->
+<p id="guest-name"
+   data-aos="fade-up" data-aos-delay="500"
+   class="mt-2 mb-0 text-white/95 text-center backdrop-blur-[1px] px-3 py-1 rounded leading-tight">
+  <span class="text-base md:text-lg opacity-95">Kepada Yth.</span>
+  <span id="guest-name-val" class="block text-lg md:text-xl font-semibold">Bapak/Ibu/Saudara/i</span>
+</p>
+
+      <!-- Tombol Buka Undangan -->
+      <button id="openBtn" data-aos="fade-up" data-aos-delay="700"
+  class="mx-auto inline-flex w-auto items-center justify-center rounded-10px
+         border border-white bg-transparent text-[#366392]
+         text-base font-semibold px-2 py-1 hover:bg-[#366392]/5
+         active:translate-y-[1px] transition">
+  Buka Undangan
+</button>
+
+
+      <!-- (opsional) tombol musik di kanan bawah -->
+      <button id="musicBtn" aria-label="Musik" data-aos="fade" data-aos-delay="900" class="fixed right-4 bottom-5 z-20 grid h-14 w-14 place-items-center rounded-full bg-white/90 text-gray-800 shadow-xl ring-1 ring-black/5 backdrop-blur-md">
+        ▶
+      </button>
+    </div>
+  </section>
+
+  <!-- THEME WRAPPER: mulai Section 2 pakai 1 background untuk semua halaman berikutnya -->
+  <div id="theme-wrapper" class="relative">
+    <!-- Background bunga (wallpaper) + overlay biru-putih lembut -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10">
+      <img src="img/Desain tanpa judul.png" alt="bg flowers" class="h-full w-full object-cover" />
+    </div>
+      <div class="absolute inset-0 bg-[rgba(64,107,173,0.06)]"></div>
+    </div>
+
+    <!-- SECTION 2: Ayat & Monogram -->
+   <section id="section-2" class="min-h-[100dvh] w-full px-4 py-10 md:py-16 flex flex-col justify-end items-center">
+  <div class="max-w-md w-full mx-auto">
+    <div class="relative">
+      <!-- Foto Frame (belakang) -->
+         <!-- Divider -->
+      <div class="relative flex justify-center items-center my-24">
+        <img src="img/gunung.png" alt="Ornamen bunga"
+             class="absolute w-60 h-50 object-contain pointer-events-none select-none"/>
+      </div>
+
+      <!-- Card kutipan (depan) menumpuk & nempel di bawah foto -->
+      <div data-aos="fade-up" data-aos-delay="120" class="relative -mt-6 md:-mt-7 mx-3 md:mx-4 rounded-[26px] bg-white/90 backdrop-blur-md shadow-[0_18px_70px_rgba(22,40,80,.18)] ring-1 ring-black/5 px-5 py-7 md:px-7 md:py-8 z-10">
+        <!-- Monogram -->
+        <div class="flex items-center justify-center gap-3 select-none mb-4">
+          <span data-aos="zoom-in" data-aos-delay="0" class="font-display text-5xl leading-none text-[rgb(54,99,146)]">P</span>
+          <span data-aos="fade-up" data-aos-delay="80" class="font-serif text-3xl leading-none text-gray-700">&amp;</span>
+          <span data-aos="zoom-in" data-aos-delay="160" class="font-display text-5xl leading-none text-[rgb(54,99,146)]">A</span>
+        </div>
+        <!-- Ayat -->
+        <blockquote class="text-center text-[15px] md:text-[17px] leading-relaxed text-gray-700">
+          <span data-aos="fade-up" data-aos-delay="220">"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri,</span>
+          <span data-aos="fade-up" data-aos-delay="320" class="block">agar kamu cenderung dan merasa tenteram kepadanya,</span>
+          <span data-aos="fade-up" data-aos-delay="420" class="block">dan Dia menjadikan di antaramu rasa kasih dan sayang."</span>
+          <span data-aos="zoom-in" data-aos-delay="520" class="mt-3 block font-semibold text-gray-800">Q.S. Ar-Rum : 21</span>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- SECTION 3: Profil Mempelai (Single White Frame) -->
+    
+
+    <!-- SECTION 4: Wedding Event -->
+    <!-- RE-ADD SECTION 3 (canonical) -->
+    <section id="section-3" class="min-h-[100dvh] w-full px-4 py-16">
+  <div class="max-w-md mx-auto" data-aos="fade-up">
+    <article class="relative rounded-[28px] bg-white/92 backdrop-blur-sm ring-1 ring-black/5 shadow-[0_22px_70px_rgba(22,40,80,.18)] p-4 md:p-5 overflow-hidden">
+      <!-- Title -->
+      <div class="text-center mt-10 mb-5" data-aos="fade-up">
+        <h2 class="font-display text-2xl text-[#366392]">Groom & Bride</h2>
+      </div>
+
+      <!-- Opening text -->
+      <div class="text-center mb-5" data-aos="fade-up">
+        <p class="text-sm md:text-base font-medium text-gray-800">Assalamu’alaikum warahmatullahi wabarakatuh</p>
+        <p class="mt-1 text-[13px] md:text-[15px] leading-relaxed text-gray-700">
+          Dengan memohon rahmat dan ridha Allah SWT, kami mengharap doa restu Bapak/Ibu/Saudara/i agar prosesi akad dan resepsi kami diberikan kelancaran, keberkahan, serta menjadi keluarga yang sakinah, mawaddah, warahmah.
+        </p>
+      </div>
+
+      <!-- ================= Groom ================= -->
+      <div class="grid grid-cols-5 gap-3 items-start" data-aos="fade-up">
+        <div class="col-span-5">
+          <!-- FRAME: capsule memanjang dengan double-line -->
+         <div class="relative mx-auto w-[200px] h-[320px] md:w-[320px] md:h-[600px]">
+            <div class="absolute inset-0 rounded-[999px] border-[1px] border-white/90 bg-white/40 shadow-[0_8px_26px_rgba(0,0,0,.14)] p-[3px]">
+              <div class="w-full h-full rounded-[999px] border-[2px] border-white/95 overflow-hidden">
+                <img id="groom-photo"
+                     src="img/gallery  (9).JPEG"
+                     alt="Groom"
+                     class="w-full h-full object-cover"
+                     style="object-position: var(--groom-pos, 50% 50%);" />
+              </div>
+            </div>
+            <!-- ornaments -->
+            <img src="img/flowbing2.png" alt="" aria-hidden="true"
+                 class="pointer-events-none select-none absolute -left-12 bottom-20 w-24 rotate-[-6deg] opacity-95" />
+            <img src="img/flowbing2.png" alt="" aria-hidden="true"
+                 class="pointer-events-none select-none absolute -right-11 top-1 w-20 rotate-[10deg] opacity-95" />
+          </div>
+        </div>
+
+        <div class="col-span-5 mt-3">
+          <h3 data-aos="fade-up" data-aos-delay="60" class="text-center uppercase tracking-[0.5em] font-semibold text-2xl text-[#366392]">Irwan</h3>
+        </div>
+        <div class="col-span-5 text-center mb-8" data-aos="fade-up" data-aos-delay="120">
+          <p class="font-semibold text-gray-800">Irwan Pratama</p>
+          <p class="text-gray-700 mt-1 text-sm">Putra dari Bapak … &amp; Ibu …</p>
+          <a href="https://instagram.com/hdyt_arr" target="_blank" rel="noopener"
+             class="mt-3 inline-flex items-center gap-2 border border-white rounded-md px-3 py-2 text-sm text-[#366392] hover:bg-[#366392]/5 active:scale-95 transition">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM17.75 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            <span>@irwan_username</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative flex justify-center items-center my-24">
+        <img src="img/gunung.png" alt="Ornamen bunga"
+             class="absolute w-20 h-50 object-contain pointer-events-none select-none"/>
+      </div>
+
+      <!-- ================= Bride ================= -->
+      <div class="grid grid-cols-5 gap-3 items-start mt-8" data-aos="fade-up">
+        <div class="col-span-5">
+          <div class="relative mx-auto w-[200px] h-[320px] md:w-[320px] md:h-[600px]">
+            <div class="absolute inset-0 rounded-[999px] border-[1px] border-white/90 bg-white/40 shadow-[0_8px_26px_rgba(0,0,0,.14)] p-[3px]">
+              <div class="w-full h-full rounded-[999px] border-[2px] border-white/95 overflow-hidden">
+                <img id="bride-photo"
+                     src="img/gallery  (4).JPEG"
+                     alt="Bride"
+                     class="w-full h-full object-cover"
+                     style="object-position: var(--bride-pos, 50% 50%);" />
+              </div>
+            </div>
+            <img src="img/flowbing2.png" alt="" aria-hidden="true"
+                 class="pointer-events-none select-none absolute -left-12 bottom-20 w-24 rotate-[-6deg] opacity-95" />
+            <img src="img/flowbing2.png" alt="" aria-hidden="true"
+                 class="pointer-events-none select-none absolute -right-10 top-3 w-20 rotate-[10deg] opacity-95" />
+          </div>
+        </div>
+
+        <div class="col-span-5 mt-3">
+          <h3 data-aos="fade-up" data-aos-delay="60" class="text-center uppercase tracking-[0.5em] font-semibold text-2xl text-[#366392]">Aida</h3>
+        </div>
+        <div class="col-span-5 text-center mb-8" data-aos="fade-up" data-aos-delay="120">
+          <p class="font-semibold text-gray-800">Aida Putri</p>
+          <p class="text-gray-700 mt-1 text-sm">Putri dari Bapak … &amp; Ibu …</p>
+          <a href="https://instagram.com/arinvitation.my.id" target="_blank" rel="noopener"
+             class="mt-3 mb-10 inline-flex items-center gap-2 border border-white /40 rounded-md px-3 py-2 text-sm text-[#366392] hover:bg-[#366392]/5 active:scale-95 transition">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM17.75 6a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
+            <span>@aida_username</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section id="section-4" class="min-h-[100dvh] w-full px-4 py-16">
+  <div class="max-w-md mx-auto" data-aos="fade-up">
+    <article class="relative rounded-[28px] bg-white/92 backdrop-blur-sm ring-1 ring-black/5 shadow-[0_22px_70px_rgba(22,40,80,.18)] p-5 md:p-6 overflow-hidden">
+
+      <!-- SAVE THE DATE dengan garis kiri-kanan -->
+      <div class="flex items-center gap-3 my-2" data-aos="fade-up" data-aos-delay="30">
+        <div class="h-[2px] bg-black/70 flex-1"></div>
+        <p class="uppercase tracking-[0.2em] font-semibold text-lg text-black">Save The Date</p>
+        <div class="h-[2px] bg-black/70 flex-1"></div>
+      </div>
+
+      <!-- Dua kolom detail; label ada di atas tanggal -->
+      <div class="grid grid-cols-1 md:grid-cols-[1fr_1px_1fr] gap-6 pt-3" data-aos="fade-up" data-aos-delay="60">
+        <!-- Kiri: AKAD -->
+        <div class="text-center md:text-left text-gray-900">
+          <h4 class="uppercase font-extrabold tracking-wider text-3xl md:text-4xl text-[#366392] border-b-2 border-black/70 inline-block mb-2">
+            Akad
+          </h4>
+          <p class="uppercase font-extrabold text-2xl md:text-3xl">20 Desember 2025</p>
+          <p class="font-semibold text-xl mt-2">09.00 – selesai</p>
+          <p class="mt-2 leading-relaxed">
+            jl. Jogja solo km 23 baran<br>Klaten jawa tengah
+          </p>
+          <a href="https://maps.app.goo.gl/MUDVTUCARpGyghJ59" target="_blank" rel="noopener"
+             class="mt-3 inline-block underline font-semibold">maps</a>
+        </div>
+
+        
+<!-- Divider -->
+      <div class="relative flex justify-center items-center my-24">
+        <img src="img/gunung.png" alt="Ornamen bunga"
+             class="absolute w-20 h-50 object-contain pointer-events-none select-none"/>
+      </div>
+
+        <!-- Kanan: CEREMONY -->
+        <div class="text-center md:text-left text-gray-900">
+          <h4 class="uppercase font-extrabold tracking-wider text-3xl md:text-4xl text-[#366392] border-b-2 border-black/70 inline-block mb-2">
+            RESEPSI
+          </h4>
+          <p class="uppercase font-extrabold text-2xl md:text-3xl">20 Desember 2025</p>
+          <p class="font-semibold text-xl mt-2">09.00 – selesai</p>
+          <p class="mt-2 leading-relaxed">
+            jl. Jogja solo km 23<br>Klaten jawa tengah
+          </p>
+          <a href="https://maps.app.goo.gl/MUDVTUCARpGyghJ59" target="_blank" rel="noopener"
+             class="mt-3 inline-block underline font-semibold">maps</a>
+        </div>
+      </div>
+
+    
+         
+          <!-- Countdown Resepsi -->
+          <div id="countdown-resepsi" class="mt-6" data-aos="fade-up" data-target="2025-12-20T10:00:00">
+            <p class="text-center text-[#366392] mt-20 font-semibold">Hitung Mundur Resepsi</p>
+            <div class="mt-3 mb-10 grid grid-cols-4 gap-2 text-center">
+              <div class="rounded-xl bg-[#366392]/5 p-3">
+                <div class="text-2xl font-bold" data-part="d">00</div>
+                <div class="text-xs text-gray-600">Hari</div>
+              </div>
+              <div class="rounded-xl bg-[#366392]/5 p-3">
+                <div class="text-2xl font-bold" data-part="h">00</div>
+                <div class="text-xs text-gray-600">Jam</div>
+              </div>
+              <div class="rounded-xl bg-[#366392]/5 p-3">
+                <div class="text-2xl font-bold" data-part="m">00</div>
+                <div class="text-xs text-gray-600">Menit</div>
+              </div>
+              <div class="rounded-xl bg-[#366392]/5 p-3">
+                <div class="text-2xl font-bold" data-part="s">00</div>
+                <div class="text-xs text-gray-600">Detik</div>
+              </div>
+            </div>
+            <p class="text-center text-sm mt-3 text-gray-700 hidden" data-msg></p>
+          </div>
+               
+      
+          </div>
+        </article>
+      </div>
+    </section>
+<!-- SECTION 5: Love Story -->
+<section id="section-5" class="min-h-[100dvh] w-full px-4 py-16">
+  <div class="max-w-md mx-auto" data-aos="fade-up">
+    <article class="relative rounded-[28px] bg-white/92 backdrop-blur-md ring-1 ring-black/5 shadow-[0_22px_70px_rgba(22,40,80,.18)] p-5 md:p-6 overflow-hidden">
+      <!-- Foto header -->
+      <div class="overflow-hidden rounded-2xl">
+        <!-- ganti src dengan fotomu -->
+        <img src="img/cincin 4.jpg" alt="cincin" class="w-full h-48 mt-10 object-cover" />
+      </div>
+
+      <!-- Judul -->
+      <header class="text-center mt-5">
+        <h2 class="font-display text-3xl md:text-4xl text-[#1f2937]">Our Love Journey</h2>
+        <div class="mt-2 text-[#366392]">❤</div>
+      </header>
+
+      <!-- Timeline -->
+      <ol class="relative mt-6 pl-6">
+        <!-- garis vertikal -->
+        <span class="pointer-events-none absolute left-3 top-1 bottom-1 w-[2px] bg-[#366392]/20"></span>
+
+        <!-- 1. Awal Bertemu -->
+        <li class="relative mb-6" data-aos="fade-up" data-aos-delay="60">
+          <span class="absolute -left-[7px] top-2 h-3 w-3 rounded-full bg-[#366392] ring-2 ring-white"></span>
+          <h3 class="font-display text-xl ml-2 text-[#366392]">Awal Bertemu</h3>
+          <p class="mt-1 text-gray-700">
+            Kami pertama kali bertemu di sebuah acara kampus. Awalnya hanya sebatas teman,
+            namun ada sesuatu yang membuat kami terus terhubung.
+          </p>
+        </li>
+
+        <!-- 2. Menjalin Hubungan -->
+        <li class="relative mb-6" data-aos="fade-up" data-aos-delay="120">
+          <span class="absolute -left-[7px] top-2 h-3 w-3 rounded-full bg-[#366392] ring-2 ring-white"></span>
+          <h3 class="font-display text-xl ml-2 text-[#366392]">Menjalin Hubungan</h3>
+          <p class="mt-1 text-gray-700">
+            Setelah saling mengenal lebih dalam, kami memutuskan untuk bersama—menghabiskan
+            banyak momen, berbagi cerita, suka dan duka.
+          </p>
+        </li>
+
+        <!-- 3. Berkomitmen -->
+        <li class="relative mb-6" data-aos="fade-up" data-aos-delay="180">
+          <span class="absolute -left-[7px] top-2 h-3 w-3 rounded-full bg-[#366392] ring-2 ring-white"></span>
+          <h3 class="font-display text-xl ml-2 text-[#366392]">Berkomitmen</h3>
+          <p class="mt-1 text-gray-700">
+            Hubungan kami makin dewasa. Kami mulai membicarakan masa depan, menyatukan
+            mimpi, dan saling mendukung di setiap langkah.
+          </p>
+        </li>
+
+        <!-- 4. Menikah -->
+        <li class="relative" data-aos="fade-up" data-aos-delay="240">
+          <span class="absolute -left-[7px] top-2 h-3 w-3 rounded-full bg-[#366392] ring-2 ring-white"></span>
+          <h3 class="font-display text-xl ml-2 text-[#366392]"> Menikah</h3>
+          <p class="mt-1 mb-10 text-gray-700">
+            Dengan memohon ridha-Nya, kami mengikat janji suci pernikahan. Semoga menjadi
+            keluarga yang sakinah, mawaddah, warahmah.
+          </p>
+        </li>
+      </ol>
+    </article>
+  </div>
+</section>
+
+<!-- SECTION 5: Galeri Foto -->
+<!-- SECTION 5: Galeri (Masonry style, 10 foto) -->
+<section id="section-5" class="w-full px-4 py-16">
+  <div class="max-w-md mx-auto">
+    <!-- Judul -->
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="font-display text-3xl md:text-4xl text-[#366392] drop-shadow">Our Best Moment</h2>
+      <div class="text-white/90">❤</div>
+    </div>
+
+    <!-- Glass wrapper tipis (boleh hapus jika ingin full-bleed) -->
+    <!-- Glass wrapper tipis (boleh hapus jika ingin full-bleed) -->
+<div class="" data-aos="fade-up" data-aos-delay="80">
+  <!-- Masonry: 2 kolom di HP, 3 di layar lebar -->
+  <div class="columns-2 sm:columns-3 gap-2 [column-fill:_balance]">
+    <!-- Item foto (rasio mengikuti gambar) -->
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (1).JPEG" data-aos="zoom-in" data-aos-delay="0">
+      <img src="img/gallery  (1).JPEG" alt="Galeri 1" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (2).JPEG" data-aos="zoom-in" data-aos-delay="60">
+      <img src="img/gallery  (2).JPEG" alt="Galeri 2" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (3).JPEG" data-aos="zoom-in" data-aos-delay="120">
+      <img src="img/gallery  (3).JPEG" alt="Galeri 3" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (4).JPEG" data-aos="zoom-in" data-aos-delay="180">
+      <img src="img/gallery  (4).JPEG" alt="Galeri 4" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (5).JPEG" data-aos="zoom-in" data-aos-delay="240">
+      <img src="img/gallery  (5).JPEG" alt="Galeri 5" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/couple.jpeg" data-aos="zoom-in" data-aos-delay="300">
+      <img src="img/couple.JPEG" alt="Galeri 6" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (6).JPEG" data-aos="zoom-in" data-aos-delay="360">
+      <img src="img/gallery  (6).JPEG" alt="Galeri 7" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (7).JPEG" data-aos="zoom-in" data-aos-delay="420">
+      <img src="img/gallery  (7).JPEG" alt="Galeri 8" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (8).JPEG" data-aos="zoom-in" data-aos-delay="480">
+      <img src="img/gallery  (8).JPEG" alt="Galeri 9" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+    <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
+            data-gal="img/gallery  (9).JPEG" data-aos="zoom-in" data-aos-delay="540">
+      <img src="img/gallery  (9).JPEG" alt="Galeri 10" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+    </button>
+  </div>
+</div>
+
+  </div>
+
+  <!-- Lightbox (pakai JS yang sudah kamu tambahkan sebelumnya) -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90">
+    <button id="lb-close" class="absolute top-4 right-4 h-10 w-10 grid place-items-center rounded-full bg-white/90 text-gray-800 shadow">✕</button>
+    <img id="lb-img" src="" alt="photo" class="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl" />
+  </div>
+</section>
+
+<!-- SECTION 6: RSVP (kirim ke WhatsApp) -->
+<section id="section-6" class="min-h-[60dvh] w-full px-4 py-16">
+  <div class="max-w-md mx-auto" data-aos="fade-up">
+    <article class="relative rounded-[28px] bg-white/92 backdrop-blur-md ring-1 ring-black/5 shadow-[0_22px_70px_rgba(22,40,80,.18)] p-5 md:p-6 overflow-hidden">
+      <header class="text-center mb-4">
+        <h2 class="font-display text-2xl text-[#366392]" data-reveal="chars" style="--stagger:60ms">RSVP</h2>
+        <p class="text-sm text-gray-600">Konfirmasi kehadiran & titipkan ucapan untuk mempelai.</p>
+      </header>
+
+      <!-- GANTI nomor WA di data-wa (format internasional tanpa +) -->
+      <form id="rsvp-form" data-wa="6285161773994" class="space-y-3">
+        <input name="name" required placeholder="Nama lengkap" class="w-full rounded-xl border border-gray-200/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#366392]/30" />
+
+        <div class="grid grid-cols-1 gap-2">
+          <label class="flex items-center gap-2">
+            <input type="radio" name="status" value="Hadir" class="h-4 w-4" checked>
+            <span>Ya, saya akan hadir</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="status" value="Belum Pasti" class="h-4 w-4">
+            <span>Belum pasti</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="status" value="Tidak Hadir" class="h-4 w-4">
+            <span>Mohon maaf, berhalangan hadir</span>
+          </label>
+        </div>
+
+        <textarea name="pesan" rows="3" class="w-full rounded-xl border border-gray-200/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#366392]/30" placeholder="Ucapan (opsional)"></textarea>
+
+        <div class="flex items-center gap-2">
+          <button type="button" id="rsvp-template" class="flex-1 rounded-xl border border-[#366392]/40 px-4 py-3 text-[#366392] hover:bg-[#366392]/5">Gunakan Template</button>
+          <button type="submit" class="flex-[2] rounded-xl bg-[#366392] text-white font-semibold px-4 py-3 active:translate-y-[1px]">Kirim via WhatsApp</button>
+        </div>
+      </form>
+    </article>
+  </div>
+</section>
+
+<!-- SECTION 7: Wedding Gift -->
+<section id="section-7" class="min-h-[50dvh] w-full px-4 py-16">
+  <div class="max-w-md mx-auto" data-aos="fade-up">
+    <article class="relative rounded-[28px] bg-white/92 backdrop-blur-md ring-1 ring-black/5 shadow-[0_22px_70px_rgba(22,40,80,.18)] p-5 md:p-6 overflow-hidden">
+      <header class="text-center mb-4">
+        <h2 class="font-display text-2xl text-[#366392]" data-reveal="chars" style="--stagger:60ms">Wedding Gift</h2>
+        <p class="text-sm text-gray-600">Terima kasih atas doa & perhatiannya.</p>
+      </header>
+
+      <div class="space-y-3">
+        <!-- Rekening 1 -->
+        <div class="rounded-2xl ring-1 ring-black/5 bg-white p-4 flex items-center justify-between">
+          <div>
+            <p class="font-semibold">BCA • Irwan Pratama</p>
+            <p class="text-gray-700 text-sm" id="rek1">1234567890</p>
+          </div>
+          <button class="copy-btn rounded-lg px-3 py-2 text-sm bg-[#366392] text-white" data-copy="#rek1">Salin</button>
+        </div>
+        <!-- Rekening 2 -->
+        <div class="rounded-2xl ring-1 ring-black/5 bg-white p-4 flex items-center justify-between">
+          <div>
+            <p class="font-semibold">BRI • Aida Putri</p>
+            <p class="text-gray-700 text-sm" id="rek2">9876543210</p>
+          </div>
+          <button class="copy-btn rounded-lg px-3 py-2 text-sm bg-[#366392] text-white" data-copy="#rek2">Salin</button>
+        </div>
+      </div>
+
+      <!-- Alamat & Maps -->
+      <div class="mt-4 p-4 rounded-2xl ring-1 ring-black/5 bg-white/85">
+        <p class="font-semibold">Alamat Rumah</p>
+        <p class="text-sm text-gray-700" id="alamat">
+          Jl. Solo–Jogja KM 23, Klaten, Jawa Tengah, Indonesia
+        </p>
+        <div class="mt-2 flex gap-2">
+          <!-- GANTI tautan di bawah dengan link Google Maps rumah -->
+          <a href="https://maps.app.goo.gl/MUDVTUCARpGyghJ59" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#366392] text-white px-3 py-2">
+            <!-- icon pin -->
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+            Buka Google Maps
+          </a>
+          <button class="copy-btn flex-1 rounded-lg px-3 py-2 text-sm border border-[#366392]/40 text-[#366392] hover:bg-[#366392]/5" data-copy="#alamat">Salin Alamat</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- SECTION: Terima Kasih + Footer -->
+<section id="section-thanks" class="w-full px-4 py-16">
+  <div class="max-w-md mx-auto text-center">
+    <h2 class="font-display text-3xl md:text-4xl text-[#1f2937] mb-3" data-reveal="chars" data-aos="fade-up">
+      Terima Kasih
+    </h2>
+
+    <p class="text-[15px] md:text-[17px] leading-relaxed text-gray-700" data-reveal="words" style="--stagger:70ms" data-aos="fade-up" data-aos-delay="60">
+      Terima kasih atas doa, kasih sayang, dan waktu yang telah diberikan. 
+      Semoga Allah SWT membalas dengan kebaikan yang berlipat ganda. 
+      Doakan kami menjadi keluarga yang <em>sakinah, mawaddah, warahmah</em>.
+    </p>
+
+    <p class="mt-6 font-italianno text-7xl text-[#366392]" data-reveal="chars" data-aos="zoom-in" data-aos-delay="120">
+      Irwan & Aida
+    </p>
+  </div>
+      <!-- Divider -->
+      <div class="relative flex justify-center items-center my-24">
+        <img src="img/gunung.png" alt="Ornamen bunga"
+             class="absolute w-20 h-50 object-contain pointer-events-none select-none"/>
+      </div>
+
+</section>
+
+<footer id="site-footer" class="w-full px-4 pb-16">
+  <div class="max-w-md mx-auto text-center">
+    <a href="https://arinvitation.my.id" target="_blank" rel="noopener" 
+       class="inline-block font-semibold tracking-wide text-[#366392] hover:underline" data-aos="fade-up">
+      arinvitation.my.id
+    </a>
+
+    <div class="mt-3 flex items-center justify-center gap-4" data-aos="fade-up" data-aos-delay="60">
+      <!-- Instagram -->
+      <a href="https://instagram.com/arinvitation.my.id" target="_blank" rel="noopener" 
+         class="p-2 rounded-full ring-1 ring-[#366392]/30 text-[#366392] hover:bg-[#366392]/5" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5Zm5.75-1.5a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"/>
+        </svg>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/6285161773994" target="_blank" rel="noopener" 
+         class="p-2 rounded-full ring-1 ring-[#366392]/30 text-[#366392] hover:bg-[#366392]/5" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+          <path d="M12.04 2A9.96 9.96 0 0 0 2 11.96c0 1.76.46 3.38 1.27 4.8L2 22l5.36-1.25a9.9 9.9 0 0 0 4.68 1.2A9.96 9.96 0 0 0 22 11.96 9.96 9.96 0 0 0 12.04 2Zm0 18.03c-1.6 0-3.09-.43-4.39-1.2l-.31-.19-3.18.74.7-3.12-.2-.32a7.96 7.96 0 1 1 7.38 4.09Zm4.47-5.84c-.24-.12-1.38-.68-1.6-.76-.22-.08-.38-.12-.55.12-.16.24-.63.76-.77.92-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.93-1.17-.71-.63-1.18-1.41-1.31-1.65-.14-.24-.01-.38.1-.5.1-.1.24-.26.36-.4.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.32-.76-1.8-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.68 2.56 4.07 3.48.57.25 1.02.4 1.37.51.57.18 1.09.16 1.5.1.46-.07 1.38-.56 1.58-1.1.2-.54.2-1 .14-1.1-.06-.1-.22-.16-.46-.28Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// === Per-text animation: split ke kata/huruf + observer ===
+(function(){
+  // pilih target default: semua h2 & p di section 6 (RSVP) dan 7 (Gift)
+  document.querySelectorAll('#section-6 h2, #section-6 p, #section-7 h2, #section-7 p')
+    .forEach(el => el.setAttribute('data-reveal', el.getAttribute('data-reveal') || 'words'));
+
+  // helper split
+  function splitText(el, mode='words'){
+    const text = (el.textContent || '').trim();
+    if(!text) return;
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    const parts = mode === 'chars'
+      ? Array.from(text)
+      : text.split(/(\s+)/); // pertahankan spasi
+    let i = 0;
+    parts.forEach(p=>{
+      if(p.match(/^\s+$/)){ el.appendChild(document.createTextNode(p)); return; }
+      const span = document.createElement('span');
+      span.className = 'rv-item';
+      span.style.setProperty('--i', i++);
+      span.textContent = p;
+      el.appendChild(span);
+    });
+  }
+
+  // siapkan elemen
+  const targets = Array.from(document.querySelectorAll('[data-reveal]'));
+  targets.forEach(el=>{
+    const mode = el.getAttribute('data-reveal'); // 'words' (default) atau 'chars'
+    // custom kecepatan: set via style="--stagger:80ms"
+    splitText(el, mode || 'words');
+  });
+
+  // observer supaya animasi muncul lagi saat scroll naik (replay)
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('is-inview'); }
+      else{ e.target.classList.remove('is-inview'); }
+    });
+  }, {threshold: 0.2});
+  targets.forEach(el=> io.observe(el));
+})();
+</script>
+
+<script>
+// RSVP → WhatsApp
+(function(){
+  const form = document.getElementById('rsvp-form');
+  if(!form) return;
+  const phone = form.getAttribute('data-wa') || '6285161773994'; // ganti sesuai kebutuhan
+  document.getElementById('rsvp-template').addEventListener('click', ()=>{
+    const ta = form.querySelector('textarea[name="pesan"]');
+    if (!ta) return;
+    ta.value = "Bismillāh, selamat menempuh hidup baru. Semoga menjadi keluarga sakinah, mawaddah, warahmah. Aamiin.";
+  });
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const f = new FormData(form);
+    const nama   = (f.get('name')   || '').trim();
+    const status = (f.get('status') || '').trim();
+    const pesan  = (f.get('pesan')  || '').trim();
+    const lines = [
+      '*RSVP – Irwan & Aida*',
+      `Nama: ${nama}`,
+      `Kehadiran: ${status}`,
+      (pesan? `Ucapan: ${pesan}` : '')
+    ].filter(Boolean);
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\\n'))}`;
+    window.open(url,'_blank');
+  });
+})();
+
+// Tombol Salin (rekening & alamat)
+(function(){
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const sel = btn.getAttribute('data-copy');
+      const el = document.querySelector(sel);
+      if(!el) return;
+      const text = (el.textContent||'').trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = 'Disalin ✔';
+        setTimeout(()=> btn.textContent = old, 1400);
+      }catch(e){ alert('Gagal menyalin'); }
+    });
+  });
+})();
+</script>
+
+
+<script>
+/* Lightbox untuk Galeri */
+(function () {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  const img = document.getElementById('lb-img');
+  const close = document.getElementById('lb-close');
+
+  // klik kartu foto -> buka lightbox
+  document.querySelectorAll('[data-gal]').forEach(el => {
+    el.addEventListener('click', () => {
+      // ambil URL dari data-gal (fallback ke src <img> di dalamnya)
+      img.src = el.getAttribute('data-gal') || el.querySelector('img')?.src || '';
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+    });
+  });
+
+  // tutup lightbox
+  function hide() { lb.classList.add('hidden'); lb.classList.remove('flex'); img.src = ''; }
+  close.addEventListener('click', hide);
+  lb.addEventListener('click', e => { if (e.target === lb) hide(); });
+})();
+</script>
+
+  <script>
+ // 1) Ambil nama tamu dari URL (?to=Nama%20Tamu) → tampil 2 baris
+(function setGuestName(){
+  const params = new URLSearchParams(location.search);
+  const raw = params.get('to') || '';
+  const to  = raw.replace(/\+/g, ' ').trim(); // antisipasi '+' jadi spasi
+
+  const wrap = document.getElementById('guest-name');      // container
+  const val  = document.getElementById('guest-name-val');  // span nama (baris bawah)
+
+  if (!wrap) return;
+
+  if (val) {
+    // Versi 2-baris pakai span
+    val.textContent = to || 'Bapak/Ibu/Saudara/i';
+    wrap.classList.remove('hidden');
+  } else {
+    // Fallback: kalau belum pakai <span id="guest-name-val"> di HTML
+    wrap.innerHTML = `<span class="opacity-95">Kepada Yth.</span><br>
+                      <span class="font-semibold">${to || 'Bapak/Ibu/Saudara/i'}</span>`;
+  }
+
+  // Prefill form RSVP (kalau ada)
+  const rsvpName = document.querySelector('#rsvp-form [name="name"]');
+  if (rsvpName && to) rsvpName.value = to;
+})();
+
+    // 2) Lock scroll sampai tombol diklik (aktifkan jika diinginkan)
+    document.body.classList.add('lock-scroll');
+
+    // 3) Aksi tombol Buka Undangan: unlock scroll & scroll ke Section 2
+    document.getElementById('openBtn').addEventListener('click', () => {
+      document.body.classList.remove('lock-scroll');
+      document.getElementById('section-2').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // 4) Dummy musik toggle (ganti dengan audio asli)
+   // Musik: autoplay setelah "Buka Undangan" + toggle via tombol musik
+(function(){
+  const openBtn  = document.getElementById('openBtn');
+  const musicBtn = document.getElementById('musicBtn');
+  const audio    = document.getElementById('bg-music');
+
+  if (!openBtn || !musicBtn || !audio) return;
+
+  // volume awal lebih halus
+  audio.volume = 0.75;
+
+  // helper fade-in agar tidak kaget
+  async function playWithFade(targetVol = 0.75, ms = 800){
+    try { 
+      // mulai dari 0 lalu naik pelan
+      audio.volume = 0; 
+      await audio.play();
+      const steps = 16, stepDur = ms/steps;
+      let i = 0;
+      const iv = setInterval(()=>{
+        i++;
+        audio.volume = Math.min(targetVol, (i/steps) * targetVol);
+        if(i>=steps) clearInterval(iv);
+      }, stepDur);
+      musicBtn.textContent = '⏸';
+    } catch(e){
+      // kalau gagal (mis. file belum ada), tombol tetap bisa manual
+      console.warn('Gagal autoplay:', e);
+    }
+  }
+
+  // Saat klik "Buka Undangan" → unlock scroll, scroll ke Section 2, lalu mainkan musik
+  openBtn.addEventListener('click', async () => {
+    document.body.classList.remove('lock-scroll');
+    document.getElementById('section-2')?.scrollIntoView({ behavior: 'smooth' });
+    // gesture user → aman untuk autoplay
+    if (audio.paused) await playWithFade();
+  });
+
+  // Tombol musik: toggle play/pause
+  musicBtn.addEventListener('click', async () => {
+    if (audio.paused) {
+      await playWithFade();
+    } else {
+      audio.pause();
+      musicBtn.textContent = '▶';
+    }
+  });
+
+  // Jika user pause dari UI lain (Android notification dll.), sinkronkan ikon
+  audio.addEventListener('pause',  () => { musicBtn.textContent = '▶'; });
+  audio.addEventListener('play',   () => { musicBtn.textContent = '⏸'; });
+})();
+
+    // 5) Ganti foto background lewat data attribute (opsional)
+    // document.getElementById('bg-photo').src = 'img/cover.jpg'
+  </script>
+  <!-- AOS JS & Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-quart',
+      once: false,
+      mirror: true,
+      offset: 16
+    });
+  </script>
+  <script>
+    // Cleanup: remove duplicate sections and stray text
+    (function(){
+      const rmDup = (sel) => {
+        const els = Array.from(document.querySelectorAll(sel));
+        if (els.length > 1) els.slice(1).forEach(e => e.remove());
+      };
+      rmDup('#section-4');
+      rmDup('#section-3');
+      rmDup('#countdown-resepsi');
+      // Remove stray text nodes like "$1" if any remained
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let node; const trash=[]; 
+      while((node = walker.nextNode())){ if((node.textContent||'').trim()==='$1'){ trash.push(node); } }
+      trash.forEach(n=> n.parentNode && n.parentNode.removeChild(n));
+    })();
+  </script>
+  <script>
+    // Countdown Resepsi
+    (function(){
+      const box = document.getElementById('countdown-resepsi');
+      if(!box) return;
+      const targetStr = box.getAttribute('data-target');
+      const target = new Date(targetStr);
+      const dEl = box.querySelector('[data-part="d"]');
+      const hEl = box.querySelector('[data-part="h"]');
+      const mEl = box.querySelector('[data-part="m"]');
+      const sEl = box.querySelector('[data-part="s"]');
+      const msg = box.querySelector('[data-msg]');
+      const pad = (n) => String(n).padStart(2,'0');
+      function tick(){
+        const now = new Date();
+        let diff = target - now;
+        if (isNaN(target.getTime())) { msg && (msg.textContent='Tanggal tidak valid'); msg && msg.classList.remove('hidden'); return; }
+        if (diff <= 0){
+          const over = now - target;
+          if (msg){
+            msg.textContent = over < 4*60*60*1000 ? 'Acara sedang berlangsung.' : 'Acara telah selesai.';
+            msg.classList.remove('hidden');
+          }
+          dEl.textContent = hEl.textContent = mEl.textContent = sEl.textContent = '00';
+        } else {
+          const s = Math.floor(diff/1000);
+          const days = Math.floor(s/86400);
+          const hours = Math.floor((s%86400)/3600);
+          const minutes = Math.floor((s%3600)/60);
+          const seconds = s % 60;
+          dEl.textContent = pad(days);
+          hEl.textContent = pad(hours);
+          mEl.textContent = pad(minutes);
+          sEl.textContent = pad(seconds);
+          msg && msg.classList.add('hidden');
+        }
+        setTimeout(tick, 1000);
+      }
+      tick();
+    })();
+  </script>
+  <script>
+    // Ensure only one row (4 cells) in countdown; remove extras if any
+    (function(){
+      const box = document.getElementById('countdown-resepsi');
+      if(!box) return;
+      const grid = box.querySelector('.grid');
+      if(!grid) return;
+      const cells = Array.from(grid.children);
+      if (cells.length > 4) cells.slice(4).forEach(el=> el.remove());
+    })();
+  </script>
+</body>
+</html>
