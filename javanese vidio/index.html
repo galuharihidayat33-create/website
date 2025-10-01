@@ -4,57 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Irwan & Aida – Undangan</title>
-
-  <!-- === DOMAIN GATE + anti-embed + anti-copas ringan (TAMBAHAN) === -->
-  <style>
-    /* Konten disembunyikan dulu, ditampilkan hanya jika lolos cek domain */
-    #app { display:none; }
-
-    /* Opsional: susahkan copas teks; input/textarea tetap bisa seleksi */
-    html,body{ -webkit-user-select:none; user-select:none; }
-    .allow-select, input, textarea { -webkit-user-select:text; user-select:text; }
-
-    /* Pesan blokir (flex center) */
-    #block { display:none; min-height:100dvh; align-items:center; justify-content:center;
-             padding:24px; text-align:center; font:600 16px/1.5 system-ui; }
-  </style>
-  <script>
-    // Domain yang diizinkan (EDIT jika perlu)
-    window.__ALLOW = (location.protocol === 'https:' &&
-      ['arinvitation.my.id','www.arinvitation.my.id'].includes(location.hostname));
-
-    // Frame-buster: cegah di-iframe dari domain lain (cadangan; yang utama tetap via header Cloudflare)
-    if (self !== top) {
-      try { if (top.location.host !== location.host) top.location = location.href; }
-      catch { top.location = location.href; }
-    }
-
-    // Tampilkan #app hanya jika lolos; sebaliknya tampilkan #block
-    document.addEventListener('DOMContentLoaded', function(){
-      var app = document.getElementById('app');
-      var block = document.getElementById('block');
-      if (!app || !block) return;
-      if (window.__ALLOW) {
-        app.style.display = 'block';
-        block.style.display = 'none';
-      } else {
-        // Singkirkan konten agar script lain tidak menyentuh DOM utama
-        try { app.remove(); } catch(e){ if(app && app.parentNode) app.parentNode.removeChild(app); }
-        block.style.display = 'flex';
-      }
-    });
-
-    // Penghambat hotkeys umum (mudah dibypass; silakan hapus jika tak perlu)
-    addEventListener('contextmenu', e=> e.preventDefault());
-    addEventListener('keydown', e=>{
-      const k=e.key.toLowerCase();
-      if (k==='f12') e.preventDefault();
-      if (e.ctrlKey && (k==='u'||k==='s'||k==='p')) e.preventDefault();
-      if (e.ctrlKey && e.shiftKey && (k==='i'||k==='j'||k==='c')) e.preventDefault();
-    });
-  </script>
-  <!-- === /DOMAIN GATE === -->
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -126,13 +75,12 @@
   <!-- Google Fonts tambahan untuk nama elegan & body -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Condiment&family=Epunda+Slab:ital,wght@0,300..900;1,300..900&family=Hurricane&family=Island+Moments&family=Italianno&family=Kings&family=Mr+Dafoe&family=Oooh+Baby&family=Pinyon+Script&family=Playball&family=Protest+Riot&family=Sacramento&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
 
+</head>
 <body class="bg-white text-gray-800">
-  <!-- ====== GATE WRAPPER MULAI ====== -->
-  <div id="app">
 
   <audio id="bg-music" src="audio/kusuma wijaya.mp3" preload="auto" loop></audio>
+
 
   <!-- SECTION 1: COVER / HERO -->
   <section id="cover" class="relative min-h-[100dvh] w-full overflow-hidden">
@@ -165,6 +113,7 @@
          active:translate-y-[1px] transition">
   Buka Undangan
 </button>
+
 
       <!-- (opsional) tombol musik di kanan bawah -->
       <button id="musicBtn" aria-label="Musik" data-aos="fade" data-aos-delay="900" class="fixed right-4 bottom-5 z-20 grid h-14 w-14 place-items-center rounded-full bg-white/90 text-gray-800 shadow-xl ring-1 ring-black/5 backdrop-blur-md">
@@ -205,7 +154,10 @@
   <!-- <div class="absolute inset-0 bg-black/10"></div> -->
 </section>
 
+
     <!-- SECTION 3: Profil Mempelai (Single White Frame) -->
+    
+
     <!-- SECTION 4: Wedding Event -->
     <!-- RE-ADD SECTION 3 (canonical) -->
     <section id="section-3" class="min-h-[100dvh] w-full px-4 py-16">
@@ -232,7 +184,7 @@
             <div class="absolute inset-0 rounded-[999px] border-[1px] border-white/90 bg-white/40 shadow-[0_8px_26px_rgba(0,0,0,.14)] p-[3px]">
               <div class="w-full h-full rounded-[999px] border-[2px] border-white/95 overflow-hidden">
                 <img id="groom-photo"
-                     src="img/gallery  (9).JPEG"
+                     src="img/gallery  (5).JPEG"
                      alt="Groom"
                      class="w-full h-full object-cover"
                      style="object-position: var(--groom-pos, 50% 50%);" />
@@ -273,7 +225,7 @@
             <div class="absolute inset-0 rounded-[999px] border-[1px] border-white/90 bg-white/40 shadow-[0_8px_26px_rgba(0,0,0,.14)] p-[3px]">
               <div class="w-full h-full rounded-[999px] border-[2px] border-white/95 overflow-hidden">
                 <img id="bride-photo"
-                     src="img/gallery  (4).JPEG"
+                     src="img/gallery  (5).JPEG"
                      alt="Bride"
                      class="w-full h-full object-cover"
                      style="object-position: var(--bride-pos, 50% 50%);" />
@@ -302,6 +254,7 @@
     </article>
   </div>
 </section>
+
 
 <section id="section-4" class="min-h-[100dvh] w-full px-4 py-16">
   <div class="max-w-md mx-auto" data-aos="fade-up">
@@ -352,6 +305,8 @@
         </div>
       </div>
 
+    
+         
           <!-- Countdown Resepsi -->
           <div id="countdown-resepsi" class="mt-6" data-aos="fade-up" data-target="2025-12-20T10:00:00">
             <p class="text-center text-[#366392] mt-20 font-semibold">Hitung Mundur Resepsi</p>
@@ -375,10 +330,12 @@
             </div>
             <p class="text-center text-sm mt-3 text-gray-700 hidden" data-msg></p>
           </div>
+               
+      
+          </div>
         </article>
       </div>
     </section>
-
 <!-- SECTION 5: Love Story -->
 <section id="section-5" class="min-h-[100dvh] w-full px-4 py-16">
   <div class="max-w-md mx-auto" data-aos="fade-up">
@@ -444,6 +401,7 @@
   </div>
 </section>
 
+<!-- SECTION 5: Galeri Foto -->
 <!-- SECTION 5: Galeri (Masonry style, 10 foto) -->
 <section id="section-5" class="w-full px-4 py-16">
   <div class="max-w-md mx-auto">
@@ -453,8 +411,12 @@
       <div class="text-white/90">❤</div>
     </div>
 
+    <!-- Glass wrapper tipis (boleh hapus jika ingin full-bleed) -->
+    <!-- Glass wrapper tipis (boleh hapus jika ingin full-bleed) -->
 <div class="" data-aos="fade-up" data-aos-delay="80">
+  <!-- Masonry: 2 kolom di HP, 3 di layar lebar -->
   <div class="columns-2 sm:columns-3 gap-2 [column-fill:_balance]">
+    <!-- Item foto (rasio mengikuti gambar) -->
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
             data-gal="img/gallery  (1).JPEG" data-aos="zoom-in" data-aos-delay="0">
       <img src="img/gallery  (1).JPEG" alt="Galeri 1" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
@@ -464,16 +426,16 @@
       <img src="img/gallery  (2).JPEG" alt="Galeri 2" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
-            data-gal="img/gallery  (3).JPEG" data-aos="zoom-in" data-aos-delay="120">
-      <img src="img/gallery  (3).JPEG" alt="Galeri 3" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+            data-gal="img/gallery  (9).JPEG" data-aos="zoom-in" data-aos-delay="120">
+      <img src="img/gallery  (9).JPEG" alt="Galeri 3" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
-            data-gal="img/gallery  (4).JPEG" data-aos="zoom-in" data-aos-delay="180">
-      <img src="img/gallery  (4).JPEG" alt="Galeri 4" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+            data-gal="img/gallery  (1).JPEG" data-aos="zoom-in" data-aos-delay="180">
+      <img src="img/gallery  (1).JPEG" alt="Galeri 4" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
-            data-gal="img/gallery  (5).JPEG" data-aos="zoom-in" data-aos-delay="240">
-      <img src="img/gallery  (5).JPEG" alt="Galeri 5" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+            data-gal="img/gallery  (9).JPEG" data-aos="zoom-in" data-aos-delay="240">
+      <img src="img/gallery  (9).JPEG" alt="Galeri 5" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
             data-gal="img/couple.jpeg" data-aos="zoom-in" data-aos-delay="300">
@@ -488,8 +450,8 @@
       <img src="img/gallery  (7).JPEG" alt="Galeri 8" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
-            data-gal="img/gallery  (8).JPEG" data-aos="zoom-in" data-aos-delay="480">
-      <img src="img/gallery  (8).JPEG" alt="Galeri 9" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
+            data-gal="img/gallery  (2).JPEG" data-aos="zoom-in" data-aos-delay="480">
+      <img src="img/gallery  (2).JPEG" alt="Galeri 9" class="w-full h-auto block group-hover:scale-[1.02] transition" loading="lazy">
     </button>
     <button class="group mb-2 break-inside-avoid overflow-hidden rounded-xl"
             data-gal="img/gallery  (9).JPEG" data-aos="zoom-in" data-aos-delay="540">
@@ -500,6 +462,7 @@
 
   </div>
 
+  <!-- Lightbox (pakai JS yang sudah kamu tambahkan sebelumnya) -->
   <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90">
     <button id="lb-close" class="absolute top-4 right-4 h-10 w-10 grid place-items-center rounded-full bg-white/90 text-gray-800 shadow">✕</button>
     <img id="lb-img" src="" alt="photo" class="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl" />
@@ -515,6 +478,7 @@
         <p class="text-sm text-gray-600">Konfirmasi kehadiran & titipkan ucapan untuk mempelai.</p>
       </header>
 
+      <!-- GANTI nomor WA di data-wa (format internasional tanpa +) -->
       <form id="rsvp-form" data-wa="6285161773994" class="space-y-3">
         <input name="name" required placeholder="Nama lengkap" class="w-full rounded-xl border border-gray-200/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#366392]/30" />
 
@@ -554,6 +518,7 @@
       </header>
 
       <div class="space-y-3">
+        <!-- Rekening 1 -->
         <div class="rounded-2xl ring-1 ring-black/5 bg-white p-4 flex items-center justify-between">
           <div>
             <p class="font-semibold">BCA • Irwan Pratama</p>
@@ -561,6 +526,7 @@
           </div>
           <button class="copy-btn rounded-lg px-3 py-2 text-sm bg-[#366392] text-white" data-copy="#rek1">Salin</button>
         </div>
+        <!-- Rekening 2 -->
         <div class="rounded-2xl ring-1 ring-black/5 bg-white p-4 flex items-center justify-between">
           <div>
             <p class="font-semibold">BRI • Aida Putri</p>
@@ -570,13 +536,16 @@
         </div>
       </div>
 
+      <!-- Alamat & Maps -->
       <div class="mt-4 p-4 rounded-2xl ring-1 ring-black/5 bg-white/85">
         <p class="font-semibold">Alamat Rumah</p>
         <p class="text-sm text-gray-700" id="alamat">
           Jl. Solo–Jogja KM 23, Klaten, Jawa Tengah, Indonesia
         </p>
         <div class="mt-2 flex gap-2">
+          <!-- GANTI tautan di bawah dengan link Google Maps rumah -->
           <a href="https://maps.app.goo.gl/MUDVTUCARpGyghJ59" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#366392] text-white px-3 py-2">
+            <!-- icon pin -->
             <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
             Buka Google Maps
           </a>
@@ -609,6 +578,7 @@
         <img src="img/gunung.png" alt="Ornamen bunga"
              class="absolute w-20 h-50 object-contain pointer-events-none select-none"/>
       </div>
+
 </section>
 
 <footer id="site-footer" class="w-full px-4 pb-16">
@@ -637,19 +607,15 @@
   </div>
 </footer>
 
-  </div><!-- /#app -->
-  <!-- Pesan ketika dibuka dari domain/asal yang tidak diizinkan -->
-  <div id="block">
-    Hanya bisa diakses dari domain resmi <b style="margin-left:6px">arinvitation.my.id</b>
-  </div>
-  <!-- ====== GATE WRAPPER SELESAI ====== -->
 
 <script>
 // === Per-text animation: split ke kata/huruf + observer ===
 (function(){
+  // pilih target default: semua h2 & p di section 6 (RSVP) dan 7 (Gift)
   document.querySelectorAll('#section-6 h2, #section-6 p, #section-7 h2, #section-7 p')
     .forEach(el => el.setAttribute('data-reveal', el.getAttribute('data-reveal') || 'words'));
 
+  // helper split
   function splitText(el, mode='words'){
     const text = (el.textContent || '').trim();
     if(!text) return;
@@ -657,7 +623,7 @@
     el.textContent = '';
     const parts = mode === 'chars'
       ? Array.from(text)
-      : text.split(/(\s+)/);
+      : text.split(/(\s+)/); // pertahankan spasi
     let i = 0;
     parts.forEach(p=>{
       if(p.match(/^\s+$/)){ el.appendChild(document.createTextNode(p)); return; }
@@ -669,12 +635,15 @@
     });
   }
 
+  // siapkan elemen
   const targets = Array.from(document.querySelectorAll('[data-reveal]'));
   targets.forEach(el=>{
-    const mode = el.getAttribute('data-reveal');
+    const mode = el.getAttribute('data-reveal'); // 'words' (default) atau 'chars'
+    // custom kecepatan: set via style="--stagger:80ms"
     splitText(el, mode || 'words');
   });
 
+  // observer supaya animasi muncul lagi saat scroll naik (replay)
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('is-inview'); }
@@ -690,7 +659,7 @@
 (function(){
   const form = document.getElementById('rsvp-form');
   if(!form) return;
-  const phone = form.getAttribute('data-wa') || '6285161773994';
+  const phone = form.getAttribute('data-wa') || '6285161773994'; // ganti sesuai kebutuhan
   document.getElementById('rsvp-template').addEventListener('click', ()=>{
     const ta = form.querySelector('textarea[name="pesan"]');
     if (!ta) return;
@@ -708,7 +677,7 @@
       `Kehadiran: ${status}`,
       (pesan? `Ucapan: ${pesan}` : '')
     ].filter(Boolean);
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\n'))}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(lines.join('\\n'))}`;
     window.open(url,'_blank');
   });
 })();
@@ -732,6 +701,7 @@
 })();
 </script>
 
+
 <script>
 /* Lightbox untuk Galeri */
 (function () {
@@ -740,14 +710,17 @@
   const img = document.getElementById('lb-img');
   const close = document.getElementById('lb-close');
 
+  // klik kartu foto -> buka lightbox
   document.querySelectorAll('[data-gal]').forEach(el => {
     el.addEventListener('click', () => {
+      // ambil URL dari data-gal (fallback ke src <img> di dalamnya)
       img.src = el.getAttribute('data-gal') || el.querySelector('img')?.src || '';
       lb.classList.remove('hidden');
       lb.classList.add('flex');
     });
   });
 
+  // tutup lightbox
   function hide() { lb.classList.add('hidden'); lb.classList.remove('flex'); img.src = ''; }
   close.addEventListener('click', hide);
   lb.addEventListener('click', e => { if (e.target === lb) hide(); });
@@ -755,39 +728,43 @@
 </script>
 
   <script>
- // 1) Ambil nama tamu dari URL (?to=Nama%20Tamu)
+ // 1) Ambil nama tamu dari URL (?to=Nama%20Tamu) → tampil 2 baris
 (function setGuestName(){
   const params = new URLSearchParams(location.search);
   const raw = params.get('to') || '';
-  const to  = raw.replace(/\+/g, ' ').trim();
+  const to  = raw.replace(/\+/g, ' ').trim(); // antisipasi '+' jadi spasi
 
-  const wrap = document.getElementById('guest-name');
-  const val  = document.getElementById('guest-name-val');
+  const wrap = document.getElementById('guest-name');      // container
+  const val  = document.getElementById('guest-name-val');  // span nama (baris bawah)
 
   if (!wrap) return;
 
   if (val) {
+    // Versi 2-baris pakai span
     val.textContent = to || 'Bapak/Ibu/Saudara/i';
     wrap.classList.remove('hidden');
   } else {
+    // Fallback: kalau belum pakai <span id="guest-name-val"> di HTML
     wrap.innerHTML = `<span class="opacity-95">Kepada Yth.</span><br>
                       <span class="font-semibold">${to || 'Bapak/Ibu/Saudara/i'}</span>`;
   }
 
+  // Prefill form RSVP (kalau ada)
   const rsvpName = document.querySelector('#rsvp-form [name="name"]');
   if (rsvpName && to) rsvpName.value = to;
 })();
 
-  // 2) Lock scroll sampai tombol diklik
-  document.body.classList.add('lock-scroll');
+    // 2) Lock scroll sampai tombol diklik (aktifkan jika diinginkan)
+    document.body.classList.add('lock-scroll');
 
-  // 3) Aksi tombol Buka Undangan
-  document.getElementById('openBtn').addEventListener('click', () => {
-    document.body.classList.remove('lock-scroll');
-    document.getElementById('section-2').scrollIntoView({ behavior: 'smooth' });
-  });
+    // 3) Aksi tombol Buka Undangan: unlock scroll & scroll ke Section 2
+    document.getElementById('openBtn').addEventListener('click', () => {
+      document.body.classList.remove('lock-scroll');
+      document.getElementById('section-2').scrollIntoView({ behavior: 'smooth' });
+    });
 
-  // 4) Musik: autoplay setelah "Buka Undangan" + toggle
+    // 4) Dummy musik toggle (ganti dengan audio asli)
+   // Musik: autoplay setelah "Buka Undangan" + toggle via tombol musik
 (function(){
   const openBtn  = document.getElementById('openBtn');
   const musicBtn = document.getElementById('musicBtn');
@@ -795,10 +772,13 @@
 
   if (!openBtn || !musicBtn || !audio) return;
 
+  // volume awal lebih halus
   audio.volume = 0.75;
 
+  // helper fade-in agar tidak kaget
   async function playWithFade(targetVol = 0.75, ms = 800){
     try { 
+      // mulai dari 0 lalu naik pelan
       audio.volume = 0; 
       await audio.play();
       const steps = 16, stepDur = ms/steps;
@@ -810,16 +790,20 @@
       }, stepDur);
       musicBtn.textContent = '⏸';
     } catch(e){
+      // kalau gagal (mis. file belum ada), tombol tetap bisa manual
       console.warn('Gagal autoplay:', e);
     }
   }
 
+  // Saat klik "Buka Undangan" → unlock scroll, scroll ke Section 2, lalu mainkan musik
   openBtn.addEventListener('click', async () => {
     document.body.classList.remove('lock-scroll');
     document.getElementById('section-2')?.scrollIntoView({ behavior: 'smooth' });
+    // gesture user → aman untuk autoplay
     if (audio.paused) await playWithFade();
   });
 
+  // Tombol musik: toggle play/pause
   musicBtn.addEventListener('click', async () => {
     if (audio.paused) {
       await playWithFade();
@@ -829,11 +813,14 @@
     }
   });
 
+  // Jika user pause dari UI lain (Android notification dll.), sinkronkan ikon
   audio.addEventListener('pause',  () => { musicBtn.textContent = '▶'; });
   audio.addEventListener('play',   () => { musicBtn.textContent = '⏸'; });
 })();
-  </script>
 
+    // 5) Ganti foto background lewat data attribute (opsional)
+    // document.getElementById('bg-photo').src = 'img/cover.jpg'
+  </script>
   <!-- AOS JS & Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -845,7 +832,6 @@
       offset: 16
     });
   </script>
-
   <script>
     // Cleanup: remove duplicate sections and stray text
     (function(){
@@ -856,14 +842,13 @@
       rmDup('#section-4');
       rmDup('#section-3');
       rmDup('#countdown-resepsi');
-
+      // Remove stray text nodes like "$1" if any remained
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       let node; const trash=[]; 
       while((node = walker.nextNode())){ if((node.textContent||'').trim()==='$1'){ trash.push(node); } }
       trash.forEach(n=> n.parentNode && n.parentNode.removeChild(n));
     })();
   </script>
-
   <script>
     // Countdown Resepsi
     (function(){
@@ -905,9 +890,8 @@
       tick();
     })();
   </script>
-
   <script>
-    // Pastikan hanya 4 sel countdown
+    // Ensure only one row (4 cells) in countdown; remove extras if any
     (function(){
       const box = document.getElementById('countdown-resepsi');
       if(!box) return;
