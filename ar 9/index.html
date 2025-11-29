@@ -79,7 +79,35 @@
           </a>
       </div>
   </section>
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  // Ambil parameter ?to=
+  const params = new URLSearchParams(window.location.search);
+  let name = params.get("to");
+
+  // Jika kosong → pakai default
+  if (!name || name.trim() === "") {
+    name = "Tamu Undangan";
+  } else {
+    try { name = decodeURIComponent(name); } catch (e) {}
+    name = name.replace(/\+/g, " ").trim();
+    name = name
+      .split(" ")
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+      .join(" ");
+  }
+
+  // Pasangkan
+  const target = document.getElementById("guest-name-cover-inline");
+  if (target) {
+    target.textContent = name;
+  } else {
+    console.warn("Elemen #guest-name-cover-inline tidak ditemukan.");
+  }
+
+});
+</script>
 
  <!-- 🎬 SECTION BIOSKOP XXI STYLE -->
 <section id="mempelai"
@@ -862,35 +890,8 @@ AOS.init({
     <script src="https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js" type="module"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-  // Ambil nama dari ?to=
-  function getGuestName() {
-    const params = new URLSearchParams(window.location.search);
-    let name = params.get('to') || '';
-    try { name = decodeURIComponent(name); } catch (e) {}
-    name = name.replace(/\+/g, ' ').trim();
-    // Title Case ringan
-    name = name.split(' ').filter(Boolean)
-      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-      .join(' ');
-    return name || 'Tamu Undangan';
-  }
+   
 
-  const inline = document.getElementById('guest-name-cover-inline');
-  const wrapper = document.getElementById('guest-name-cover');
-
-  if (inline && wrapper) {
-    inline.textContent = getGuestName();
-    // pastikan kelihatan meski ada CSS lama
-    wrapper.style.visibility = 'visible';
-    wrapper.style.opacity = '1';
-  } else {
-    console.warn('Elemen nama tamu cover tidak ditemukan.');
-  }
-});
-</script>
-<script src="/protect.js"></script>
     <script type="module">
         import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
 
